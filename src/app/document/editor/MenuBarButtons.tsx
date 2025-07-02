@@ -3,6 +3,7 @@ import {
   IconArrowBackUp,
   IconArrowForwardUp,
   IconBold,
+  IconClearFormatting,
   IconItalic,
   IconList,
   IconListCheck,
@@ -73,6 +74,12 @@ export function useMenuBarButtons() {
         icon: <IconListCheck />,
         action: () => editor?.chain().focus().toggleTaskList().run(),
         isActive: editor?.isActive("taskList"),
+      },
+      {
+        label: "Remove Formatting",
+        icon: <IconClearFormatting />,
+        action: () => editor?.chain().focus().unsetAllMarks().run(),
+        isActive: false,
       },
     ],
   ];
