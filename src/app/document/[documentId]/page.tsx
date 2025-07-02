@@ -1,12 +1,9 @@
-import Editor from "@/app/document/editor/EditorWrapper";
-import { Suspense } from "react";
+import { Editor } from "@/app/document/editor/Editor";
 
 export default function DocumentPage() {
   return (
-    <Suspense fallback={<span>Loading.....</span>}>
-      <div className="min-h-screen bg-gray-100">
-        <Editor />
-      </div>
-    </Suspense>
+    <div className="min-h-screen bg-gray-100">
+      <Editor/>
+    </div>
   );
 }
