@@ -37,6 +37,14 @@ export function useEditorConfig() {
     onDestroy() {
       setEditor(null);
     },
+
+    editorProps: {
+      attributes: {
+        style: "padding-block: 2.5rem; padding-inline: 3rem;",
+        class:
+          "focus:outline-none bg-white border-2 border-gray-300 rounded-md print:rounded-none print:border-0 h-full max-w-5xl cursor-text",
+      },
+    },
     extensions: [
       StarterKit.configure({
         heading: {
