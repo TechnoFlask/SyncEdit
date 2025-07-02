@@ -1,4 +1,4 @@
-import { Editor } from "@/app/document/editor/Editor";
+import Editor from "@/app/document/editor/EditorWrapper";
 import { Suspense } from "react";
 
 export default function DocumentPage() {
