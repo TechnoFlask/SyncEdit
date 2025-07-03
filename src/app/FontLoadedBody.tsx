@@ -9,7 +9,7 @@ const ibmPlexSans = IBM_Plex_Sans({
 });
 
 const googleSans = localFont({
-  src: "./fonts/Product-Sans-Font/Product Sans Regular.ttf",
+  src: "./local-fonts/Product-Sans-Font/Product Sans Regular.ttf",
   variable: "--font-google-sans",
 })
 
