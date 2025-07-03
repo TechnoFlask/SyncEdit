@@ -1,7 +1,7 @@
 "use client";
 
-import { FontFamilyDropdown } from "@/app/document/editor/FontFamilyDropdown";
 import { FontFamilyDropdown } from "@/app/document/editor/FontFamily/FontFamilyDropdown";
+import { HeadingDropdown } from "@/app/document/editor/HeadingDropdown";
 import { useMenuBarButtons } from "@/app/document/editor/MenuBarButtons";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
@@ -25,7 +25,7 @@ export function MenuBar() {
         orientation="vertical"
         className="bg-muted-foreground/30 !h-3/4 !w-[2px]"
       />
-      {/*TODO: Heading*/}
+      <HeadingDropdown />
       <Separator
         orientation="vertical"
         className="bg-muted-foreground/30 !h-3/4 !w-[2px]"
