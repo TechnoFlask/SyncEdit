@@ -1,5 +1,6 @@
 import { FONTS } from "@/app/FontList";
 import { IBM_Plex_Sans } from "next/font/google";
+import localFont from "next/font/local"
 import { ComponentProps } from "react";
 
 const ibmPlexSans = IBM_Plex_Sans({
@@ -7,20 +8,25 @@ const ibmPlexSans = IBM_Plex_Sans({
   variable: "--font-ibm-plex-sans",
 });
 
+const googleSans = localFont({
+  src: "./fonts/Product-Sans-Font/Product Sans Regular.ttf",
+  variable: "--font-google-sans",
+})
+
 export function FontLoadedBody({
-  children,
-  className,
-  ...props
-}: ComponentProps<"body">) {
+                                 children,
+                                 className,
+                                 ...props
+                               }: ComponentProps<"body">) {
   const fontFamilyVariables = FONTS[1]
     .map(({ fontFace }) => fontFace.variable)
     .join(" ");
   return (
     <body
-      className={`${className} ${fontFamilyVariables} ${ibmPlexSans.variable} ${ibmPlexSans.className} antialiased`}
+      className={`${className} ${fontFamilyVariables} ${ibmPlexSans.variable} ${googleSans.className} antialiased`}
       {...props}
     >
-      {children}
+    {children}
     </body>
   );
 }
