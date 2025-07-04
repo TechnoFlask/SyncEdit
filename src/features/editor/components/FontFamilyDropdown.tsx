@@ -13,7 +13,7 @@ import {
 import { useEditorContext } from "@/features/editor/context/EditorContext";
 import { useRecentFonts } from "@/features/editor/hooks/useRecentFonts";
 import { cn } from "@/lib/utils";
-import { IconCheck, IconChevronDown, IconChevronUp } from "@tabler/icons-react";
+import { IconCheck, IconChevronDown } from "@tabler/icons-react";
 import { useState } from "react";
 
 function FontDropdownItem({
@@ -75,7 +75,11 @@ export function FontFamilyDropdown() {
           }}
         >
           <p className="truncate">{currentFont?.name ?? "Arial"}</p>
-          {open ? <IconChevronUp /> : <IconChevronDown />}
+          <IconChevronDown
+            className={cn("transition-transform duration-200", {
+              "rotate-180": open,
+            })}
+          />
         </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent

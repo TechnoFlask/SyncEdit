@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useEditorContext } from "@/features/editor/context/EditorContext";
 import { cn } from "@/lib/utils";
-import { IconCheck, IconChevronDown, IconChevronUp } from "@tabler/icons-react";
+import { IconCheck, IconChevronDown } from "@tabler/icons-react";
 import { useState } from "react";
 
 const HEADINGS = Object.freeze([1, 2.25, 1.875, 1.5, 1.125]);
@@ -26,7 +26,11 @@ export function HeadingDropdown() {
               ? `Heading ${currentHeading.level}`
               : "Normal text"}
           </p>
-          {open ? <IconChevronUp /> : <IconChevronDown />}
+          <IconChevronDown
+            className={cn("transition-transform duration-200", {
+              "rotate-180": open,
+            })}
+          />
         </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="start">
