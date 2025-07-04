@@ -4,6 +4,7 @@ import { Separator } from "@/components/ui/separator";
 import { FontFamilyDropdown } from "@/features/editor/components/FontFamilyDropdown";
 import { HeadingDropdown } from "@/features/editor/components/HeadingDropdown";
 import { TextColor } from "@/features/editor/components/TextColor";
+import { TextHighlight } from "@/features/editor/components/TextHighlight";
 import { useMenuBarButtons } from "@/features/editor/hooks/useMenuBarButtons";
 import { cn } from "@/lib/utils";
 
@@ -53,7 +54,7 @@ export function MenuBar() {
         </button>
       ))}
       <TextColor />
-      {/*TODO: Hightlight*/}
+      <TextHighlight />
       <Separator
         orientation="vertical"
         className="bg-muted-foreground/30 !h-3/4 !w-[2px]"

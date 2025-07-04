@@ -58,7 +58,9 @@ export function useEditorConfig() {
       Subscript,
       Superscript,
       Color,
-      Highlight,
+      Highlight.configure({
+        multicolor: true,
+      }),
       // Link,
       TaskList,
       TaskItem.configure({
