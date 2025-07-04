@@ -1,0 +1,15 @@
+@reference "tailwindcss";
+
+.color-picker-parent {
+    :global(.react-colorful) {
+        @apply gap-6 size-full;
+    }
+
+    :global(.react-colorful__saturation) {
+        @apply rounded-md;
+    }
+
+    :global(.react-colorful__hue) {
+        @apply rounded-2xl w-4/5 self-end;
+    }
+}

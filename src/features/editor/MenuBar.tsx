@@ -3,6 +3,7 @@
 import { Separator } from "@/components/ui/separator";
 import { FontFamilyDropdown } from "@/features/editor/components/FontFamilyDropdown";
 import { HeadingDropdown } from "@/features/editor/components/HeadingDropdown";
+import { TextColor } from "@/features/editor/components/TextColor";
 import { useMenuBarButtons } from "@/features/editor/hooks/useMenuBarButtons";
 import { cn } from "@/lib/utils";
 
@@ -31,15 +32,15 @@ export function MenuBar() {
         className="bg-muted-foreground/30 !h-3/4 !w-[2px]"
       />
       <FontFamilyDropdown />
-      {/*<Separator*/}
-      {/*  orientation="vertical"*/}
-      {/*  className="bg-muted-foreground/30 !h-3/4 !w-[2px]"*/}
-      {/*/>*/}
+      <Separator
+        orientation="vertical"
+        className="bg-muted-foreground/30 !h-3/4 !w-[2px]"
+      />
       {/*TODO: Font size*/}
-      {/*<Separator*/}
-      {/*  orientation="vertical"*/}
-      {/*  className="bg-muted-foreground/30 !h-3/4 !w-[2px]"*/}
-      {/*/>*/}
+      <Separator
+        orientation="vertical"
+        className="bg-muted-foreground/30 !h-3/4 !w-[2px]"
+      />
       {menuBarButtons[1].map(({ label, action, icon, isActive }) => (
         <button
           key={label}
@@ -51,13 +52,13 @@ export function MenuBar() {
           {icon}
         </button>
       ))}
-      {/*TODO: Color*/}
+      <TextColor />
       {/*TODO: Hightlight*/}
+      <Separator
+        orientation="vertical"
+        className="bg-muted-foreground/30 !h-3/4 !w-[2px]"
+      />
       {/* TODO: Text alignment */}
-      {/*<Separator*/}
-      {/*  orientation="vertical"*/}
-      {/*  className="bg-muted-foreground/30 !h-3/4 !w-[2px]"*/}
-      {/*/>*/}
       {menuBarButtons[2].map(({ label, action, icon, isActive }) => (
         <button
           key={label}
