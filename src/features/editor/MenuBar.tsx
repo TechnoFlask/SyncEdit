@@ -16,9 +16,12 @@ export function MenuBar() {
         <button
           key={label}
           onClick={action}
-          className={cn("cursor-pointer rounded-sm p-1 hover:bg-gray-300", {
-            "bg-gray-300": isActive,
-          })}
+          className={cn(
+            "cursor-pointer rounded-sm p-1 transition-colors duration-200 hover:bg-gray-300",
+            {
+              "bg-gray-300": isActive,
+            },
+          )}
         >
           {icon}
         </button>
@@ -46,9 +49,12 @@ export function MenuBar() {
         <button
           key={label}
           onClick={action}
-          className={cn("cursor-pointer rounded-sm p-1 hover:bg-gray-300", {
-            "bg-gray-300": isActive,
-          })}
+          className={cn(
+            "cursor-pointer rounded-sm p-1 transition-colors duration-200 hover:bg-gray-300",
+            {
+              "bg-gray-300": isActive,
+            },
+          )}
         >
           {icon}
         </button>
@@ -64,9 +70,12 @@ export function MenuBar() {
         <button
           key={label}
           onClick={action}
-          className={cn("cursor-pointer rounded-sm p-1 hover:bg-gray-300", {
-            "bg-gray-300": isActive,
-          })}
+          className={cn(
+            "cursor-pointer rounded-sm p-1 transition-colors duration-200 hover:bg-gray-300",
+            {
+              "bg-gray-300": isActive,
+            },
+          )}
         >
           {icon}
         </button>

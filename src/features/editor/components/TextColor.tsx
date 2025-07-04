@@ -26,7 +26,7 @@ export function TextColor() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <button className="cursor-pointer rounded-sm p-1 hover:bg-gray-300 focus:outline-none">
+        <button className="cursor-pointer rounded-sm p-1 transition-colors duration-200 hover:bg-gray-300 focus:outline-none">
           <IconPaletteFilled
             className={cn({
               "drop-shadow-xs drop-shadow-black": isLightColor(color),

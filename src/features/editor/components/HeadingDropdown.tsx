@@ -20,7 +20,7 @@ export function HeadingDropdown() {
   return (
     <DropdownMenu onOpenChange={(open) => setOpen(open)}>
       <DropdownMenuTrigger asChild>
-        <button className="flex w-40 cursor-pointer items-center justify-between gap-1 truncate rounded-sm p-1 px-3 text-xl hover:bg-gray-300 focus:outline-none">
+        <button className="flex w-40 cursor-pointer items-center justify-between gap-1 truncate rounded-sm p-1 px-3 text-xl transition-colors duration-200 hover:bg-gray-300 focus:outline-none">
           <p className="truncate">
             {currentHeading?.level
               ? `Heading ${currentHeading.level}`
