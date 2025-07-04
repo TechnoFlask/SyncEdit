@@ -1,4 +1,4 @@
-import EditorContextProvider from "@/app/document/editor/EditorContext";
+import EditorContextProvider from "@/features/editor/context/EditorContext";
 import { ReactNode } from "react";
 
 export default function DocumentLayout({ children }: { children: ReactNode }) {

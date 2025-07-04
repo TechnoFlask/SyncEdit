@@ -1,7 +1,5 @@
 "use client";
 
-import { useEditorContext } from "@/app/document/editor/EditorContext";
-import { useRecentFonts } from "@/app/document/editor/FontFamily/RecentFonts";
 import { FONTS, type FontType } from "@/app/FontList";
 import {
   DropdownMenu,
@@ -12,6 +10,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useEditorContext } from "@/features/editor/context/EditorContext";
+import { useRecentFonts } from "@/features/editor/hooks/useRecentFonts";
 import { cn } from "@/lib/utils";
 import { IconCheck, IconChevronDown, IconChevronUp } from "@tabler/icons-react";
 import { useState } from "react";

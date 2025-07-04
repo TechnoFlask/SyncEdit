@@ -1,4 +1,4 @@
-import { useEditorContext } from "@/app/document/editor/EditorContext";
+import { useEditorContext } from "@/features/editor/context/EditorContext";
 import {
   IconArrowBackUp,
   IconArrowForwardUp,

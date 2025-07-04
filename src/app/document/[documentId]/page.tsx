@@ -1,9 +1,9 @@
-import { Editor } from "@/app/document/editor/Editor";
+import { Editor } from "@/features/editor/Editor";
 
 export default function DocumentPage() {
   return (
     <div className="min-h-screen bg-gray-100">
-      <Editor/>
+      <Editor />
     </div>
   );
 }

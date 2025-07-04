@@ -1,9 +1,9 @@
 "use client";
 
-import { FontFamilyDropdown } from "@/app/document/editor/FontFamily/FontFamilyDropdown";
-import { HeadingDropdown } from "@/app/document/editor/HeadingDropdown";
-import { useMenuBarButtons } from "@/app/document/editor/MenuBarButtons";
 import { Separator } from "@/components/ui/separator";
+import { FontFamilyDropdown } from "@/features/editor/components/FontFamilyDropdown";
+import { HeadingDropdown } from "@/features/editor/components/HeadingDropdown";
+import { useMenuBarButtons } from "@/features/editor/hooks/useMenuBarButtons";
 import { cn } from "@/lib/utils";
 
 export function MenuBar() {

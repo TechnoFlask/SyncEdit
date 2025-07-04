@@ -1,4 +1,3 @@
-import { useEditorContext } from "@/app/document/editor/EditorContext";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -6,6 +5,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useEditorContext } from "@/features/editor/context/EditorContext";
 import { cn } from "@/lib/utils";
 import { IconCheck, IconChevronDown, IconChevronUp } from "@tabler/icons-react";
 import { useState } from "react";
@@ -24,7 +24,7 @@ export function HeadingDropdown() {
           <p className="truncate">
             {currentHeading?.level
               ? `Heading ${currentHeading.level}`
-              : "Normal Text"}
+              : "Normal text"}
           </p>
           {open ? <IconChevronUp /> : <IconChevronDown />}
         </button>
