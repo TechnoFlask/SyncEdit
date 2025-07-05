@@ -128,24 +128,27 @@ export function ColorPicker({
           </DropdownMenu>
         </div>
         <div className="flex flex-wrap gap-2">
-          {savedColors.keys().map((hex) => (
-            <HoverCard key={hex}>
-              <HoverCardTrigger>
-                <ColorItem hex={hex} changeColor={changeColor} />
-              </HoverCardTrigger>
-              <HoverCardContent className="flex w-fit items-center gap-3">
-                <p>
-                  {savedColors.get(hex)} : {hex}
-                </p>
-                <Button
-                  variant="secondary"
-                  onClick={() => removeSavedColor(hex)}
-                >
-                  X
-                </Button>
-              </HoverCardContent>
-            </HoverCard>
-          ))}
+          {savedColors
+            .keys()
+            .toArray()
+            .map((hex) => (
+              <HoverCard key={hex}>
+                <HoverCardTrigger>
+                  <ColorItem hex={hex} changeColor={changeColor} />
+                </HoverCardTrigger>
+                <HoverCardContent className="flex w-fit items-center gap-3">
+                  <p>
+                    {savedColors.get(hex)} : {hex}
+                  </p>
+                  <Button
+                    variant="secondary"
+                    onClick={() => removeSavedColor(hex)}
+                  >
+                    X
+                  </Button>
+                </HoverCardContent>
+              </HoverCard>
+            ))}
         </div>
       </div>
     </div>

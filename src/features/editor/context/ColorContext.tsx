@@ -91,7 +91,10 @@ export default function ColorContextProvider({
     setSavedColors((prev) => {
       prev.delete(color);
       return new Map(
-        prev.keys().map((hex, index) => [hex, `Custom ${index + 1}`]),
+        prev
+          .keys()
+          .toArray()
+          .map((hex, index) => [hex, `Custom ${index + 1}`]),
       );
     });
   }
