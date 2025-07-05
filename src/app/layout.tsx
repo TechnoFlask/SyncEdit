@@ -1,3 +1,4 @@
+import { Toaster } from "@/components/ui/sonner";
 import type { Metadata } from "next";
 import { ReactNode } from "react";
 import { FontLoadedBody } from "./FontLoadedBody";
@@ -13,7 +14,10 @@ export default function RootLayout({
 }: Readonly<{ children: ReactNode }>) {
   return (
     <html lang="en">
-      <FontLoadedBody>{children}</FontLoadedBody>
+      <FontLoadedBody>
+        {children}
+        <Toaster />
+      </FontLoadedBody>
     </html>
   );
 }

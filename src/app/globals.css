@@ -48,7 +48,7 @@
 }
 
 @theme inline {
-    --font-sans: var(--font-ibm-plex-sans);
+    --font-sans: var(--font-google-sans);
     --font-mono: var(--font-roboto-mono);
     --color-sidebar-ring: var(--sidebar-ring);
     --color-sidebar-border: var(--sidebar-border);
@@ -362,6 +362,17 @@
             &.ProseMirror-selectednode {
                 outline: 3px solid var(--purple);
             }
+        }
+    }
+
+    /* Link styles */
+
+    a {
+        color: var(--purple);
+        cursor: pointer;
+
+        &:hover {
+            color: var(--purple-contrast);
         }
     }
 }

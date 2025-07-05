@@ -23,7 +23,7 @@ export function FontLoadedBody({
     .join(" ");
   return (
     <body
-      className={`${className} ${fontFamilyVariables} ${ibmPlexSans.variable} ${googleSans.className} antialiased`}
+      className={`${className} ${fontFamilyVariables} ${ibmPlexSans.variable} ${googleSans.className} ${googleSans.variable} antialiased`}
       {...props}
     >
       {children}
