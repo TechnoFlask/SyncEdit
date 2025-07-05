@@ -18,3 +18,12 @@ export function isLightColor(hex: string) {
   const luma = 0.2126 * r + 0.7152 * g + 0.0722 * b;
   return luma > 150;
 }
+
+export function isValidLink(link: string) {
+  try {
+    const url = new URL(link);
+    return url.protocol === "http:" || url.protocol === "https:";
+  } catch {
+    return false;
+  }
+}

@@ -3,6 +3,7 @@
 import { Separator } from "@/components/ui/separator";
 import { FontFamilyDropdown } from "@/features/editor/components/FontFamilyDropdown";
 import { HeadingDropdown } from "@/features/editor/components/HeadingDropdown";
+import { LinkInput } from "@/features/editor/components/LinkInput";
 import { TextColor } from "@/features/editor/components/TextColor";
 import { TextHighlight } from "@/features/editor/components/TextHighlight";
 import ColorContextProvider from "@/features/editor/context/ColorContext";
@@ -64,6 +65,12 @@ export function MenuBar() {
         <TextColor />
         <TextHighlight />
       </ColorContextProvider>
+      <Separator
+        orientation="vertical"
+        className="bg-muted-foreground/30 !h-3/4 !w-[2px]"
+      />
+      <LinkInput />
+      {/* TODO: Image */}
       <Separator
         orientation="vertical"
         className="bg-muted-foreground/30 !h-3/4 !w-[2px]"
