@@ -5,12 +5,33 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card";
 import { useColorContext } from "@/features/editor/context/ColorContext";
 import styles from "@/features/editor/styles/color-picker.module.css";
 import { cn } from "@/lib/utils";
 import { IconChevronsRight } from "@tabler/icons-react";
 import { useState } from "react";
 import { HexColorInput, HexColorPicker } from "react-colorful";
+
+function ColorItem({
+  hex,
+  changeColor,
+}: {
+  hex: string;
+  changeColor: (color: string) => void;
+}) {
+  return (
+    <div
+      className="border-muted-foreground/20 h-6 w-6 cursor-pointer rounded-full border transition-transform hover:scale-110"
+      onClick={() => changeColor(hex)}
+      style={{ backgroundColor: hex }}
+    />
+  );
+}
 
 export function ColorPicker({
   color,
@@ -91,13 +112,14 @@ export function ColorPicker({
               <div className="flex w-xs flex-col gap-2 p-4">
                 <div className="flex flex-wrap gap-2">
                   {defaultColors.map(({ hex, name }) => (
-                    <div
-                      title={name}
-                      key={hex}
-                      className="border-muted-foreground/20 h-6 w-6 cursor-pointer rounded-full border transition-transform hover:scale-110"
-                      onClick={() => changeColor(hex)}
-                      style={{ backgroundColor: hex }}
-                    />
+                    <HoverCard key={hex}>
+                      <HoverCardTrigger>
+                        <ColorItem hex={hex} changeColor={changeColor} />
+                      </HoverCardTrigger>
+                      <HoverCardContent className="w-fit">
+                        {name}: {hex}
+                      </HoverCardContent>
+                    </HoverCard>
                   ))}
                 </div>
               </div>
@@ -105,18 +127,18 @@ export function ColorPicker({
           </DropdownMenu>
         </div>
         <div className="flex flex-wrap gap-2">
-          {savedColors
-            .keys()
-            .toArray()
-            .map((hex) => (
-              <div
-                title={hex}
-                key={hex}
-                className="border-muted-foreground/20 h-6 w-6 cursor-pointer rounded-full border transition-transform hover:scale-110"
-                onClick={() => changeColor(hex)}
-                style={{ backgroundColor: hex }}
-              />
-            ))}
+          {savedColors.keys().map((hex) => (
+            <HoverCard key={hex}>
+              <HoverCardTrigger>
+                <ColorItem hex={hex} changeColor={changeColor} />
+              </HoverCardTrigger>
+              <HoverCardContent className="flex w-fit items-center gap-3">
+                <p>
+                  {savedColors.get(hex)} : {hex}
+                </p>
+              </HoverCardContent>
+            </HoverCard>
+          ))}
         </div>
       </div>
     </div>
