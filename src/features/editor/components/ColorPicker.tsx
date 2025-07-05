@@ -42,7 +42,8 @@ export function ColorPicker({
   setColor: (color: string) => void;
   changeColor: (color: string) => void;
 }) {
-  const { defaultColors, savedColors, saveNewColor } = useColorContext();
+  const { defaultColors, savedColors, saveNewColor, removeSavedColor } =
+    useColorContext();
   const [openDefaultColorsDropdown, setOpenDefaultColorsDropdown] =
     useState(false);
   return (
@@ -136,6 +137,12 @@ export function ColorPicker({
                 <p>
                   {savedColors.get(hex)} : {hex}
                 </p>
+                <Button
+                  variant="secondary"
+                  onClick={() => removeSavedColor(hex)}
+                >
+                  X
+                </Button>
               </HoverCardContent>
             </HoverCard>
           ))}

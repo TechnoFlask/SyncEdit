@@ -63,6 +63,7 @@ type ColorContextType = {
   defaultColors: { name: string; hex: string }[];
   savedColors: Map<string, string>;
   saveNewColor: (color: string) => void;
+  removeSavedColor: (color: string) => void;
 };
 
 const ColorContext = createContext<ColorContextType | undefined>(undefined);
@@ -78,20 +79,31 @@ export default function ColorContextProvider({
 
   function saveNewColor(color: string) {
     setSavedColors((prev) => {
-      if (
-        prev.has(color) ||
-        INITIAL_COLORS.find(({ hex }) => hex === color) != undefined
-      )
+      if (prev.has(color) || INITIAL_COLORS.some(({ hex }) => hex === color))
         return prev;
       const map = new Map(prev);
-      map.set(color, color);
+      map.set(color, `Custom ${map.size + 1}`);
       return map;
+    });
+  }
+
+  function removeSavedColor(color: string) {
+    setSavedColors((prev) => {
+      prev.delete(color);
+      return new Map(
+        prev.keys().map((hex, index) => [hex, `Custom ${index + 1}`]),
+      );
     });
   }
 
   return (
     <ColorContext.Provider
-      value={{ defaultColors: INITIAL_COLORS, savedColors, saveNewColor }}
+      value={{
+        defaultColors: INITIAL_COLORS,
+        savedColors,
+        saveNewColor,
+        removeSavedColor,
+      }}
     >
       {children}
     </ColorContext.Provider>
