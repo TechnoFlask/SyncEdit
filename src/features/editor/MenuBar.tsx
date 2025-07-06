@@ -1,5 +1,6 @@
 "use client";
 
+import { Hover } from "@/components/custom/Hover";
 import { Separator } from "@/components/ui/separator";
 import { FontFamilyDropdown } from "@/features/editor/components/FontFamilyDropdown";
 import { HeadingDropdown } from "@/features/editor/components/HeadingDropdown";
@@ -15,29 +16,35 @@ export function MenuBar() {
   return (
     <div className="flex w-full items-center gap-2 rounded-3xl bg-gray-200 px-4 py-2 print:hidden">
       {menuBarButtons[0].map(({ label, action, icon, isActive }) => (
-        <button
+        <Hover
           key={label}
-          onClick={action}
-          className={cn(
-            "cursor-pointer rounded-sm p-1 transition-colors duration-200 hover:bg-gray-300",
-            {
-              "bg-gray-300": isActive,
-            },
-          )}
-        >
-          {icon}
-        </button>
+          trigger={
+            <button
+              key={label}
+              onClick={action}
+              className={cn(
+                "cursor-pointer rounded-sm p-1 transition-colors duration-200 hover:bg-gray-300",
+                {
+                  "bg-gray-300": isActive,
+                },
+              )}
+            >
+              {icon}
+            </button>
+          }
+          content={label}
+        />
       ))}
       <Separator
         orientation="vertical"
         className="bg-muted-foreground/30 !h-3/4 !w-[2px]"
       />
-      <HeadingDropdown />
+      <Hover trigger={<HeadingDropdown />} content={"Heading"} />
       <Separator
         orientation="vertical"
         className="bg-muted-foreground/30 !h-3/4 !w-[2px]"
       />
-      <FontFamilyDropdown />
+      <Hover trigger={<FontFamilyDropdown />} content={"Font family"} />
       <Separator
         orientation="vertical"
         className="bg-muted-foreground/30 !h-3/4 !w-[2px]"
@@ -48,28 +55,34 @@ export function MenuBar() {
         className="bg-muted-foreground/30 !h-3/4 !w-[2px]"
       />
       {menuBarButtons[1].map(({ label, action, icon, isActive }) => (
-        <button
+        <Hover
           key={label}
-          onClick={action}
-          className={cn(
-            "cursor-pointer rounded-sm p-1 transition-colors duration-200 hover:bg-gray-300",
-            {
-              "bg-gray-300": isActive,
-            },
-          )}
-        >
-          {icon}
-        </button>
+          trigger={
+            <button
+              key={label}
+              onClick={action}
+              className={cn(
+                "cursor-pointer rounded-sm p-1 transition-colors duration-200 hover:bg-gray-300",
+                {
+                  "bg-gray-300": isActive,
+                },
+              )}
+            >
+              {icon}
+            </button>
+          }
+          content={label}
+        />
       ))}
       <ColorContextProvider>
-        <TextColor />
-        <TextHighlight />
+        <Hover trigger={<TextColor />} content={"Text color"} />
+        <Hover trigger={<TextHighlight />} content={"Text highlighting"} />
       </ColorContextProvider>
       <Separator
         orientation="vertical"
         className="bg-muted-foreground/30 !h-3/4 !w-[2px]"
       />
-      <LinkInput />
+      <Hover trigger={<LinkInput />} content={"Link"} />
       {/* TODO: Image */}
       <Separator
         orientation="vertical"
@@ -77,18 +90,23 @@ export function MenuBar() {
       />
       {/* TODO: Text alignment */}
       {menuBarButtons[2].map(({ label, action, icon, isActive }) => (
-        <button
+        <Hover
           key={label}
-          onClick={action}
-          className={cn(
-            "cursor-pointer rounded-sm p-1 transition-colors duration-200 hover:bg-gray-300",
-            {
-              "bg-gray-300": isActive,
-            },
-          )}
-        >
-          {icon}
-        </button>
+          trigger={
+            <button
+              onClick={action}
+              className={cn(
+                "cursor-pointer rounded-sm p-1 transition-colors duration-200 hover:bg-gray-300",
+                {
+                  "bg-gray-300": isActive,
+                },
+              )}
+            >
+              {icon}
+            </button>
+          }
+          content={label}
+        />
       ))}
     </div>
   );

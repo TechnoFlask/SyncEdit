@@ -1,0 +1,28 @@
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card";
+import { cn } from "@/lib/utils";
+import { ReactNode } from "react";
+
+export function Hover({
+  trigger,
+  content,
+  className,
+}: {
+  trigger: ReactNode;
+  content: ReactNode;
+  className?: string;
+}) {
+  return (
+    <HoverCard>
+      <HoverCardTrigger>{trigger}</HoverCardTrigger>
+      <HoverCardContent
+        className={cn("z-[999999] flex w-fit items-center gap-3", className)}
+      >
+        {content}
+      </HoverCardContent>
+    </HoverCard>
+  );
+}
