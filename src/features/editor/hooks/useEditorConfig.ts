@@ -16,6 +16,7 @@ import { TextStyle } from "@tiptap/extension-text-style";
 import { Underline } from "@tiptap/extension-underline";
 import { useEditor } from "@tiptap/react";
 import { StarterKit } from "@tiptap/starter-kit";
+import { ImageResize } from "tiptap-extension-resize-image";
 
 export function useEditorConfig() {
   const { editor, setEditor } = useEditorContext();
@@ -86,6 +87,7 @@ export function useEditorConfig() {
       TableHeader,
       TableCell,
       Image,
+      ImageResize,
       // Emoji.configure({
       //   emojis: gitHubEmojis,
       //   enableEmoticons: true,

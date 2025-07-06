@@ -4,6 +4,7 @@ import { Hover } from "@/components/custom/Hover";
 import { Separator } from "@/components/ui/separator";
 import { FontFamilyDropdown } from "@/features/editor/components/FontFamilyDropdown";
 import { HeadingDropdown } from "@/features/editor/components/HeadingDropdown";
+import { ImageInput } from "@/features/editor/components/ImageInput";
 import { LinkInput } from "@/features/editor/components/LinkInput";
 import { TextColor } from "@/features/editor/components/TextColor";
 import { TextHighlight } from "@/features/editor/components/TextHighlight";
@@ -83,7 +84,7 @@ export function MenuBar() {
         className="bg-muted-foreground/30 !h-3/4 !w-[2px]"
       />
       <Hover trigger={<LinkInput />} content={"Link"} />
-      {/* TODO: Image */}
+      <ImageInput />
       <Separator
         orientation="vertical"
         className="bg-muted-foreground/30 !h-3/4 !w-[2px]"
