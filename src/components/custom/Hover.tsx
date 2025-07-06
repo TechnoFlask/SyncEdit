@@ -4,7 +4,7 @@ import {
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
 import { cn } from "@/lib/utils";
-import { ReactNode } from "react";
+import { isValidElement, ReactNode } from "react";
 
 export function Hover({
   trigger,
@@ -17,9 +17,12 @@ export function Hover({
 }) {
   return (
     <HoverCard>
-      <HoverCardTrigger>{trigger}</HoverCardTrigger>
+      <HoverCardTrigger
+        asChild={isValidElement(trigger) && trigger.type === "a"}
+      >
+        {trigger}
+      </HoverCardTrigger>
       <HoverCardContent
-        asChild
         className={cn("z-[999999] flex w-fit items-center gap-3", className)}
       >
         {content}

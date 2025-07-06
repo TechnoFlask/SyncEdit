@@ -1,3 +1,4 @@
+import { Hover } from "@/components/custom/Hover";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -96,19 +97,23 @@ export function ColorPicker({
         <div className="sticky top-0 z-10 flex items-center justify-between bg-white pb-2">
           <p className="text-xl">Saved colors</p>
           <DropdownMenu onOpenChange={setOpenDefaultColorsDropdown}>
-            <DropdownMenuTrigger asChild>
-              <Button
-                title="Default colors"
-                className="h-full w-10"
-                variant="secondary"
-              >
-                <IconChevronsRight
-                  className={cn("scale-150 transition-transform duration-200", {
-                    "rotate-180": openDefaultColorsDropdown,
-                  })}
-                />
-              </Button>
-            </DropdownMenuTrigger>
+            <Hover
+              trigger={
+                <DropdownMenuTrigger asChild>
+                  <Button className="h-full w-10" variant="secondary">
+                    <IconChevronsRight
+                      className={cn(
+                        "scale-150 transition-transform duration-200",
+                        {
+                          "rotate-180": openDefaultColorsDropdown,
+                        },
+                      )}
+                    />
+                  </Button>
+                </DropdownMenuTrigger>
+              }
+              content={"Default palette"}
+            />
             <DropdownMenuContent side="right">
               <div className="flex w-xs flex-col gap-2 p-4">
                 <div className="flex flex-wrap gap-2">

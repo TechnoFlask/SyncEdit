@@ -1,5 +1,6 @@
 "use client";
 
+import { Hover } from "@/components/custom/Hover";
 import { toast } from "@/components/custom/toast";
 import { Button } from "@/components/ui/button";
 import {
@@ -67,21 +68,16 @@ export function ImageInput() {
   return (
     <>
       <DropdownMenu>
-        {/*<Hover*/}
-        {/*  trigger={*/}
-        {/*    <DropdownMenuTrigger asChild>*/}
-        {/*      <button className="cursor-pointer rounded-sm p-1 transition-colors duration-200 hover:bg-gray-300 focus:outline-none">*/}
-        {/*        <IconPhotoPlus />*/}
-        {/*      </button>*/}
-        {/*    </DropdownMenuTrigger>*/}
-        {/*  }*/}
-        {/*  content={"Add Image"}*/}
-        {/*/>*/}
-        <DropdownMenuTrigger asChild>
-          <button className="cursor-pointer rounded-sm p-1 transition-colors duration-200 hover:bg-gray-300 focus:outline-none">
-            <IconPhotoPlus />
-          </button>
-        </DropdownMenuTrigger>
+        <Hover
+          trigger={
+            <DropdownMenuTrigger asChild>
+              <button className="cursor-pointer rounded-sm p-1 transition-colors duration-200 hover:bg-gray-300 focus:outline-none">
+                <IconPhotoPlus />
+              </button>
+            </DropdownMenuTrigger>
+          }
+          content={"Add image"}
+        />
         <DropdownMenuContent align="start">
           <DropdownMenuItem
             className="transition-colors duration-200"

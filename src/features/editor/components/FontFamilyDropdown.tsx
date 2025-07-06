@@ -1,6 +1,7 @@
 "use client";
 
 import { FONTS, type FontType } from "@/app/FontList";
+import { Hover } from "@/components/custom/Hover";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -30,6 +31,7 @@ function FontDropdownItem({
   const { editor } = useEditorContext();
   return (
     <DropdownMenuItem
+      className="transition-colors duration-200"
       style={{ fontFamily: `var(${variable})` }}
       onClick={() => {
         editor?.commands.setFontFamily(`var(${variable})`);
@@ -67,21 +69,26 @@ export function FontFamilyDropdown() {
 
   return (
     <DropdownMenu onOpenChange={(open) => setOpen(open)}>
-      <DropdownMenuTrigger asChild>
-        <button
-          className="flex w-36 cursor-pointer items-center justify-between gap-1 truncate rounded-sm p-1 px-3 text-xl transition-colors duration-200 hover:bg-gray-300 focus:outline-none"
-          style={{
-            fontFamily: `var(${currentFont?.variable ?? "--font-arial"})`,
-          }}
-        >
-          <p className="truncate">{currentFont?.name ?? "Arial"}</p>
-          <IconChevronDown
-            className={cn("transition-transform duration-200", {
-              "rotate-180": open,
-            })}
-          />
-        </button>
-      </DropdownMenuTrigger>
+      <Hover
+        trigger={
+          <DropdownMenuTrigger asChild>
+            <button
+              className="flex w-36 cursor-pointer items-center justify-between gap-1 truncate rounded-sm p-1 px-3 text-xl transition-colors duration-200 hover:bg-gray-300 focus:outline-none"
+              style={{
+                fontFamily: `var(${currentFont?.variable ?? "--font-arial"})`,
+              }}
+            >
+              <p className="truncate">{currentFont?.name ?? "Arial"}</p>
+              <IconChevronDown
+                className={cn("transition-transform duration-200", {
+                  "rotate-180": open,
+                })}
+              />
+            </button>
+          </DropdownMenuTrigger>
+        }
+        content={"Set font family"}
+      />
       <DropdownMenuContent
         align="start"
         className="flex max-h-[83dvh] flex-col overflow-y-hidden"

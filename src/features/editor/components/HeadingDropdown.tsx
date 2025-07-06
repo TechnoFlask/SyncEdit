@@ -1,3 +1,4 @@
+import { Hover } from "@/components/custom/Hover";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -19,24 +20,30 @@ export function HeadingDropdown() {
 
   return (
     <DropdownMenu onOpenChange={(open) => setOpen(open)}>
-      <DropdownMenuTrigger asChild>
-        <button className="flex w-40 cursor-pointer items-center justify-between gap-1 truncate rounded-sm p-1 px-3 text-xl transition-colors duration-200 hover:bg-gray-300 focus:outline-none">
-          <p className="truncate">
-            {currentHeading?.level
-              ? `Heading ${currentHeading.level}`
-              : "Normal text"}
-          </p>
-          <IconChevronDown
-            className={cn("transition-transform duration-200", {
-              "rotate-180": open,
-            })}
-          />
-        </button>
-      </DropdownMenuTrigger>
+      <Hover
+        trigger={
+          <DropdownMenuTrigger asChild>
+            <button className="flex w-40 cursor-pointer items-center justify-between gap-1 truncate rounded-sm p-1 px-3 text-xl transition-colors duration-200 hover:bg-gray-300 focus:outline-none">
+              <p className="truncate">
+                {currentHeading?.level
+                  ? `Heading ${currentHeading.level}`
+                  : "Normal text"}
+              </p>
+              <IconChevronDown
+                className={cn("transition-transform duration-200", {
+                  "rotate-180": open,
+                })}
+              />
+            </button>
+          </DropdownMenuTrigger>
+        }
+        content={"Set heading"}
+      />
       <DropdownMenuContent align="start">
         <DropdownMenuGroup>
           {HEADINGS.map((headingSize, index) => (
             <DropdownMenuItem
+              className="transition-colors duration-200"
               key={index}
               onClick={() => {
                 if (index === 0) editor?.commands.setParagraph();

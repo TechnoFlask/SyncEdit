@@ -1,3 +1,4 @@
+import { Hover } from "@/components/custom/Hover";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -25,18 +26,23 @@ export function TextColor() {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <button className="cursor-pointer rounded-sm p-1 transition-colors duration-200 hover:bg-gray-300 focus:outline-none">
-          <IconPaletteFilled
-            className={cn({
-              "drop-shadow-xs drop-shadow-black": isLightColor(color),
-            })}
-            style={{
-              color: currentColor,
-            }}
-          />
-        </button>
-      </DropdownMenuTrigger>
+      <Hover
+        trigger={
+          <DropdownMenuTrigger asChild>
+            <button className="cursor-pointer rounded-sm p-1 transition-colors duration-200 hover:bg-gray-300 focus:outline-none">
+              <IconPaletteFilled
+                className={cn({
+                  "drop-shadow-xs drop-shadow-black": isLightColor(color),
+                })}
+                style={{
+                  color: currentColor,
+                }}
+              />
+            </button>
+          </DropdownMenuTrigger>
+        }
+        content={"Set text color"}
+      />
       <DropdownMenuContent align="start">
         <ColorPicker
           color={color}

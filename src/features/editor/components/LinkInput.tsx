@@ -1,5 +1,6 @@
 "use client";
 
+import { Hover } from "@/components/custom/Hover";
 import { toast } from "@/components/custom/toast";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -83,18 +84,23 @@ export function LinkInput() {
         extractSelection();
       }}
     >
-      <PopoverTrigger asChild>
-        <button
-          className={cn(
-            "cursor-pointer rounded-sm p-1 transition-colors duration-200 hover:bg-gray-300 focus:outline-none",
-            {
-              "bg-gray-300": isLink,
-            },
-          )}
-        >
-          <IconLink />
-        </button>
-      </PopoverTrigger>
+      <Hover
+        trigger={
+          <PopoverTrigger asChild>
+            <button
+              className={cn(
+                "cursor-pointer rounded-sm p-1 transition-colors duration-200 hover:bg-gray-300 focus:outline-none",
+                {
+                  "bg-gray-300": isLink,
+                },
+              )}
+            >
+              <IconLink />
+            </button>
+          </PopoverTrigger>
+        }
+        content={"Add link"}
+      />
       <PopoverContent align="start" className="w-xs space-y-4 p-8">
         <Input
           value={content}

@@ -40,12 +40,12 @@ export function MenuBar() {
         orientation="vertical"
         className="bg-muted-foreground/30 !h-3/4 !w-[2px]"
       />
-      <Hover trigger={<HeadingDropdown />} content={"Heading"} />
+      <HeadingDropdown />
       <Separator
         orientation="vertical"
         className="bg-muted-foreground/30 !h-3/4 !w-[2px]"
       />
-      <Hover trigger={<FontFamilyDropdown />} content={"Font family"} />
+      <FontFamilyDropdown />
       <Separator
         orientation="vertical"
         className="bg-muted-foreground/30 !h-3/4 !w-[2px]"
@@ -76,14 +76,14 @@ export function MenuBar() {
         />
       ))}
       <ColorContextProvider>
-        <Hover trigger={<TextColor />} content={"Text color"} />
-        <Hover trigger={<TextHighlight />} content={"Text highlighting"} />
+        <TextColor />
+        <TextHighlight />
       </ColorContextProvider>
       <Separator
         orientation="vertical"
         className="bg-muted-foreground/30 !h-3/4 !w-[2px]"
       />
-      <Hover trigger={<LinkInput />} content={"Link"} />
+      <LinkInput />
       <ImageInput />
       <Separator
         orientation="vertical"
