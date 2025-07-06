@@ -19,10 +19,12 @@ export function isLightColor(hex: string) {
   return luma > 150;
 }
 
+const DEFINED_PROTOCOLS = Object.freeze(["http:", "https:", "blob:"]);
+
 export function isValidLink(link: string) {
   try {
     const url = new URL(link);
-    return url.protocol === "http:" || url.protocol === "https:";
+    return DEFINED_PROTOCOLS.some((protocol) => url.protocol === protocol);
   } catch {
     return false;
   }
