@@ -105,6 +105,9 @@ export function LinkInput() {
         <Input
           value={url}
           onChange={(e) => setUrl(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") createLinkNode(content, url);
+          }}
           placeholder="Type or paste a link"
           className="!text-lg"
         />
