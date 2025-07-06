@@ -1,5 +1,6 @@
 "use client";
 
+import { toast } from "@/components/custom/toast";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -11,14 +12,13 @@ import { useEditorContext } from "@/features/editor/context/EditorContext";
 import { cn, isValidLink } from "@/lib/utils";
 import { IconLink } from "@tabler/icons-react";
 import { useCallback, useState } from "react";
-import { toast } from "sonner";
 
 export function LinkInput() {
   const { editor } = useEditorContext();
   const [content, setContent] = useState("");
   const [url, setUrl] = useState("");
 
-  const isLink = editor?.getAttributes("link")?.href != undefined;
+  const isLink = editor?.isActive("link");
 
   const cleanInputs = useCallback(() => {
     setContent("");
@@ -43,9 +43,7 @@ export function LinkInput() {
   const createLinkNode = useCallback(
     (content: string, url: string) => {
       if (!isValidLink(url)) {
-        toast.error("Invalid Link. Allowed: http/https", {
-          className: "!bg-red-500 !text-white !text-xl !font-sans",
-        });
+        toast.error("Invalid Link. Allowed: http/https");
         return;
       }
 
@@ -73,6 +71,7 @@ export function LinkInput() {
           },
         ])
         .run();
+      toast.success("Link generated successfully");
     },
     [editor],
   );
@@ -100,13 +99,13 @@ export function LinkInput() {
         <Input
           value={content}
           onChange={(e) => setContent(e.target.value)}
-          placeholder="Example"
+          placeholder="Link name"
           className="!text-lg"
         />
         <Input
           value={url}
           onChange={(e) => setUrl(e.target.value)}
-          placeholder="https://example.com"
+          placeholder="Type or paste a link"
           className="!text-lg"
         />
         <div className="flex items-center justify-between">
