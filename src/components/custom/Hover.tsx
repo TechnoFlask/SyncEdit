@@ -19,6 +19,7 @@ export function Hover({
     <HoverCard>
       <HoverCardTrigger>{trigger}</HoverCardTrigger>
       <HoverCardContent
+        asChild
         className={cn("z-[999999] flex w-fit items-center gap-3", className)}
       >
         {content}

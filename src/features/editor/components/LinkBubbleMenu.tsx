@@ -32,7 +32,7 @@ export function LinkBubbleMenu() {
         },
       }}
     >
-      <div className="link-bubble-menu border-muted-foreground/30 flex items-center gap-3 rounded-md border bg-white p-4">
+      <div className="link-bubble-menu border-muted-foreground/30 flex items-center gap-3 rounded-md border bg-white p-4 shadow-md">
         <p className="text-xl">{linkHref}</p>
         <Hover
           trigger={
