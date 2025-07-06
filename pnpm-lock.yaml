@@ -26,6 +26,9 @@ importers:
       '@tabler/icons-react':
         specifier: ^3.34.0
         version: 3.34.0(react@19.1.0)
+      '@tiptap/extension-bubble-menu':
+        specifier: ^2.24.2
+        version: 2.24.2(@tiptap/core@2.23.1(@tiptap/pm@2.23.1))(@tiptap/pm@2.23.1)
       '@tiptap/extension-bullet-list':
         specifier: ^2.23.1
         version: 2.23.1(@tiptap/core@2.23.1(@tiptap/pm@2.23.1))
@@ -125,6 +128,9 @@ importers:
       tailwind-merge:
         specifier: ^3.3.1
         version: 3.3.1
+      tippy.js:
+        specifier: ^6.3.7
+        version: 6.3.7
     devDependencies:
       '@tailwindcss/postcss':
         specifier: ^4
@@ -791,8 +797,8 @@ packages:
     peerDependencies:
       '@tiptap/core': ^2.7.0
 
-  '@tiptap/extension-bubble-menu@2.23.1':
-    resolution: {integrity: sha512-tupuvrlZMTziVZXJuCVjLwllUnux/an9BtTYHpoRyLX9Hg0v7Kh39k9x58zJaoW8Q/Oc/qxPhbJpyOqhE1rLeg==}
+  '@tiptap/extension-bubble-menu@2.24.2':
+    resolution: {integrity: sha512-iU/FvuPjhB06UMzziYVhU+dasCOuCY3P5uVMPuE9i4PxHACx9z20IPISeGCNoeo9LxoIfMS/9sUVLArB5WzGMA==}
     peerDependencies:
       '@tiptap/core': ^2.7.0
       '@tiptap/pm': ^2.7.0
@@ -2085,7 +2091,7 @@ snapshots:
     dependencies:
       '@tiptap/core': 2.23.1(@tiptap/pm@2.23.1)
 
-  '@tiptap/extension-bubble-menu@2.23.1(@tiptap/core@2.23.1(@tiptap/pm@2.23.1))(@tiptap/pm@2.23.1)':
+  '@tiptap/extension-bubble-menu@2.24.2(@tiptap/core@2.23.1(@tiptap/pm@2.23.1))(@tiptap/pm@2.23.1)':
     dependencies:
       '@tiptap/core': 2.23.1(@tiptap/pm@2.23.1)
       '@tiptap/pm': 2.23.1
@@ -2267,7 +2273,7 @@ snapshots:
   '@tiptap/react@2.23.1(@tiptap/core@2.23.1(@tiptap/pm@2.23.1))(@tiptap/pm@2.23.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
     dependencies:
       '@tiptap/core': 2.23.1(@tiptap/pm@2.23.1)
-      '@tiptap/extension-bubble-menu': 2.23.1(@tiptap/core@2.23.1(@tiptap/pm@2.23.1))(@tiptap/pm@2.23.1)
+      '@tiptap/extension-bubble-menu': 2.24.2(@tiptap/core@2.23.1(@tiptap/pm@2.23.1))(@tiptap/pm@2.23.1)
       '@tiptap/extension-floating-menu': 2.23.1(@tiptap/core@2.23.1(@tiptap/pm@2.23.1))(@tiptap/pm@2.23.1)
       '@tiptap/pm': 2.23.1
       '@types/use-sync-external-store': 0.0.6

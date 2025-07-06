@@ -31,6 +31,9 @@ export function useEditorConfig() {
       setEditor(editor);
     },
     onSelectionUpdate({ editor }) {
+      if (editor.isActive("link")) {
+        editor.commands.extendMarkRange("link");
+      }
       setEditor(editor);
     },
     onTransaction({ editor }) {
