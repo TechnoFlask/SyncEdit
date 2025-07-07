@@ -83,6 +83,9 @@ importers:
       '@tiptap/extension-task-list':
         specifier: ^2.23.1
         version: 2.23.1(@tiptap/core@2.23.1(@tiptap/pm@2.23.1))
+      '@tiptap/extension-text-align':
+        specifier: ^2.25.0
+        version: 2.25.0(@tiptap/core@2.23.1(@tiptap/pm@2.23.1))
       '@tiptap/extension-text-style':
         specifier: ^2.23.1
         version: 2.23.1(@tiptap/core@2.23.1(@tiptap/pm@2.23.1))
@@ -982,6 +985,11 @@ packages:
 
   '@tiptap/extension-task-list@2.23.1':
     resolution: {integrity: sha512-JN5Fai/H4PoYaUoqbxoPzUwW9PmN+qmBvbzt3ciCJEG2lXlmF0Z5vGYU/bJ5013C7jTyPJlp0qE7sZAPdF3WdQ==}
+    peerDependencies:
+      '@tiptap/core': ^2.7.0
+
+  '@tiptap/extension-text-align@2.25.0':
+    resolution: {integrity: sha512-hVQ5fKRLXUg0sGZiM9TZY01vP5JOfghw34dnIKyZX3iiwEXOHl0VQTrRwHDMgw/iq6G5iUY+Rt1xuhwZHSR7qg==}
     peerDependencies:
       '@tiptap/core': ^2.7.0
 
@@ -2282,6 +2290,10 @@ snapshots:
       '@tiptap/pm': 2.23.1
 
   '@tiptap/extension-task-list@2.23.1(@tiptap/core@2.23.1(@tiptap/pm@2.23.1))':
+    dependencies:
+      '@tiptap/core': 2.23.1(@tiptap/pm@2.23.1)
+
+  '@tiptap/extension-text-align@2.25.0(@tiptap/core@2.23.1(@tiptap/pm@2.23.1))':
     dependencies:
       '@tiptap/core': 2.23.1(@tiptap/pm@2.23.1)
 

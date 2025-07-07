@@ -6,6 +6,7 @@ import { FontFamilyDropdown } from "@/features/editor/components/FontFamilyDropd
 import { HeadingDropdown } from "@/features/editor/components/HeadingDropdown";
 import { ImageInput } from "@/features/editor/components/ImageInput";
 import { LinkInput } from "@/features/editor/components/LinkInput";
+import { TextAlign } from "@/features/editor/components/TextAlign";
 import { TextColor } from "@/features/editor/components/TextColor";
 import { TextHighlight } from "@/features/editor/components/TextHighlight";
 import ColorContextProvider from "@/features/editor/context/ColorContext";
@@ -89,7 +90,7 @@ export function MenuBar() {
         orientation="vertical"
         className="bg-muted-foreground/30 !h-3/4 !w-[2px]"
       />
-      {/* TODO: Text alignment */}
+      <TextAlign />
       {menuBarButtons[2].map(({ label, action, icon, isActive }) => (
         <Hover
           key={label}
