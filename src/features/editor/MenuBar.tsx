@@ -3,6 +3,7 @@
 import { Hover } from "@/components/custom/Hover";
 import { Separator } from "@/components/ui/separator";
 import { FontFamilyDropdown } from "@/features/editor/components/FontFamilyDropdown";
+import { FontSizeInput } from "@/features/editor/components/FontSizeInput";
 import { HeadingDropdown } from "@/features/editor/components/HeadingDropdown";
 import { ImageInput } from "@/features/editor/components/ImageInput";
 import { LinkInput } from "@/features/editor/components/LinkInput";
@@ -51,7 +52,7 @@ export function MenuBar() {
         orientation="vertical"
         className="bg-muted-foreground/30 !h-3/4 !w-[2px]"
       />
-      {/*TODO: Font size*/}
+      <FontSizeInput />
       <Separator
         orientation="vertical"
         className="bg-muted-foreground/30 !h-3/4 !w-[2px]"
