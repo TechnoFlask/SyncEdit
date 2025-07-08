@@ -3,7 +3,7 @@ import { ExternalToast, toast as sonnerToast } from "sonner";
 
 type titleT = (() => ReactNode) | ReactNode;
 
-const { success, error, ...rest } = sonnerToast;
+const { success, error, ...otherVariants } = sonnerToast;
 
 export const toast = {
   success(message: titleT, data?: ExternalToast) {
@@ -18,5 +18,5 @@ export const toast = {
       className: "!bg-red-500 !text-white !text-xl !font-sans",
     });
   },
-  ...rest,
+  ...otherVariants,
 };
