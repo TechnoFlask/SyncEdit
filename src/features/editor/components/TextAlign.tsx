@@ -41,7 +41,6 @@ const ALIGNMENTS = Object.freeze([
 
 export function TextAlign() {
   const { editor } = useEditorContext();
-
   const [open, setOpen] = useState(false);
 
   const currentAlignment =
@@ -68,7 +67,7 @@ export function TextAlign() {
         }
         content={"Align text"}
       />
-      <DropdownMenuContent>
+      <DropdownMenuContent align="start">
         {ALIGNMENTS.map(({ name, value, icon }) => (
           <DropdownMenuItem
             onClick={() => editor?.commands.toggleTextAlign(value)}
