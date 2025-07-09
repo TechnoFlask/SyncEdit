@@ -1,5 +1,6 @@
 import { useEditorContext } from "@/features/editor/context/EditorContext";
 import { FontSize } from "@/features/editor/extensions/FontSize";
+import { LineHeight } from "@/features/editor/extensions/LineHeight";
 import { Color } from "@tiptap/extension-color";
 import { FontFamily } from "@tiptap/extension-font-family";
 import { Highlight } from "@tiptap/extension-highlight";
@@ -62,6 +63,7 @@ export function useEditorConfig() {
       TextStyle,
       FontFamily,
       FontSize,
+      LineHeight,
       Underline,
       Subscript,
       Superscript,

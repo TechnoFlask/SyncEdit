@@ -78,7 +78,12 @@ export function useMenuBarButtons() {
       {
         label: "Remove Formatting",
         icon: <IconClearFormatting />,
-        action: () => editor?.chain().focus().unsetAllMarks().run(),
+        action: () => {
+          editor?.chain().focus().unsetAllMarks().run();
+          ["paragraph", "heading"].forEach((type) => {
+            editor?.commands.updateAttributes(type, { lineHeight: "1.15" });
+          });
+        },
         isActive: false,
       },
     ],
