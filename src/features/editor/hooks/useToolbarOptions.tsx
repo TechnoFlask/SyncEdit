@@ -12,8 +12,8 @@ import {
   IconUnderline,
 } from "@tabler/icons-react";
 
-export function useMenuBarButtons() {
-  const { editor } = useEditorContext();
+export function useToolbarOptions() {
+  const { editorOptionsActions, editorOptionsActive } = useEditorContext();
 
   return [
     [
@@ -26,13 +26,13 @@ export function useMenuBarButtons() {
       {
         label: "Undo",
         icon: <IconArrowBackUp />,
-        action: () => editor?.chain().undo().run(),
+        action: editorOptionsActions.bold,
         isActive: false,
       },
       {
         label: "Redo",
         icon: <IconArrowForwardUp />,
-        action: () => editor?.chain().redo().run(),
+        action: editorOptionsActions.redo,
         isActive: false,
       },
     ],
@@ -40,50 +40,45 @@ export function useMenuBarButtons() {
       {
         label: "Bold",
         icon: <IconBold />,
-        action: () => editor?.chain().focus().toggleBold().run(),
-        isActive: editor?.isActive("bold"),
+        action: editorOptionsActions.bold,
+        isActive: editorOptionsActive.bold(),
       },
       {
         label: "Italic",
         icon: <IconItalic />,
-        action: () => editor?.chain().focus().toggleItalic().run(),
-        isActive: editor?.isActive("italic"),
+        action: editorOptionsActions.italic,
+        isActive: editorOptionsActive.italic(),
       },
       {
         label: "Underline",
         icon: <IconUnderline />,
-        action: () => editor?.chain().focus().toggleUnderline().run(),
-        isActive: editor?.isActive("underline"),
+        action: editorOptionsActions.underline,
+        isActive: editorOptionsActive.underline(),
       },
     ],
     [
       {
         label: "Bulleted List",
         icon: <IconList />,
-        action: () => editor?.chain().focus().toggleBulletList().run(),
-        isActive: editor?.isActive("bulletList"),
+        action: editorOptionsActions.bulletedList,
+        isActive: editorOptionsActive.bulletedList(),
       },
       {
         label: "Numbered List",
         icon: <IconListNumbers />,
-        action: () => editor?.chain().focus().toggleOrderedList().run(),
-        isActive: editor?.isActive("orderedList"),
+        action: editorOptionsActions.numberedList,
+        isActive: editorOptionsActive.numberedList(),
       },
       {
         label: "Check List",
         icon: <IconListCheck />,
-        action: () => editor?.chain().focus().toggleTaskList().run(),
-        isActive: editor?.isActive("taskList"),
+        action: editorOptionsActions.checkList,
+        isActive: editorOptionsActive.checkList(),
       },
       {
         label: "Remove Formatting",
         icon: <IconClearFormatting />,
-        action: () => {
-          editor?.chain().focus().unsetAllMarks().run();
-          ["paragraph", "heading"].forEach((type) => {
-            editor?.commands.updateAttributes(type, { lineHeight: "1.15" });
-          });
-        },
+        action: editorOptionsActions.removeFormatting,
         isActive: false,
       },
     ],

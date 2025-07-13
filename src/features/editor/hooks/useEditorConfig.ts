@@ -57,7 +57,7 @@ export function useEditorConfig() {
     extensions: [
       StarterKit.configure({
         heading: {
-          levels: [1, 2, 3, 4, 5, 6],
+          levels: [1, 2, 3, 4],
         },
       }),
       TextStyle,

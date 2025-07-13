@@ -1,11 +1,38 @@
 "use client";
 
 import { type Editor } from "@tiptap/react";
-import { createContext, ReactNode, useContext, useState } from "react";
+import { createContext, ReactNode, useContext, useMemo, useState } from "react";
+
+type EditorOptionsType =
+  | "search"
+  | "undo"
+  | "redo"
+  | "bold"
+  | "italic"
+  | "underline"
+  | "strikethrough"
+  | "superscript"
+  | "subscript"
+  | "bulletedList"
+  | "numberedList"
+  | "checkList"
+  | "removeFormatting"
+  | "alignment";
+
+type EditorOptionsActionsType = Record<
+  EditorOptionsType,
+  ((...args: any[]) => void) | undefined
+>;
+type EditorOptionsActiveType = Record<
+  Exclude<EditorOptionsType, "search" | "undo" | "redo" | "removeFormatting">,
+  (...args: any[]) => boolean
+>;
 
 type EditorContextType = {
   editor: Editor | null;
   setEditor: (editor: Editor | null) => void;
+  editorOptionsActions: EditorOptionsActionsType;
+  editorOptionsActive: EditorOptionsActiveType;
 };
 
 const EditorContext = createContext<EditorContextType | undefined>(undefined);
@@ -16,9 +43,53 @@ export default function EditorContextProvider({
   children: ReactNode;
 }) {
   const [editor, setEditor] = useState<Editor | null>(null);
+  const editorOptionsActions: EditorOptionsActionsType = useMemo(
+    () => ({
+      search: () => {},
+      undo: () => editor?.chain().undo().run(),
+      redo: () => editor?.chain().redo().run(),
+      bold: () => editor?.chain().toggleBold().run(),
+      italic: () => editor?.chain().toggleItalic().run(),
+      underline: () => editor?.chain().toggleUnderline().run(),
+      strikethrough: () => editor?.chain().toggleStrike().run(),
+      superscript: () => editor?.chain().toggleSuperscript().run(),
+      subscript: () => editor?.chain().toggleSubscript().run(),
+      bulletedList: () => editor?.chain().toggleBulletList().run(),
+      numberedList: () => editor?.chain().toggleOrderedList().run(),
+      checkList: () => editor?.chain().toggleTaskList().run(),
+      removeFormatting: () => {
+        editor?.chain().focus().clearNodes().run();
+        ["paragraph", "heading"].forEach((type) => {
+          editor?.commands.updateAttributes(type, { lineHeight: "1.15" });
+        });
+      },
+      alignment: (alignment: "left" | "center" | "right" | "justify") =>
+        editor?.chain().toggleTextAlign(alignment).run(),
+    }),
+    [editor],
+  );
+
+  const editorOptionsActive: EditorOptionsActiveType = useMemo(
+    () => ({
+      bold: () => editor?.isActive("bold") ?? false,
+      italic: () => editor?.isActive("italic") ?? false,
+      underline: () => editor?.isActive("underline") ?? false,
+      strikethrough: () => editor?.isActive("strike") ?? false,
+      superscript: () => editor?.isActive("superscript") ?? false,
+      subscript: () => editor?.isActive("subscript") ?? false,
+      bulletedList: () => editor?.isActive("bulletList") ?? false,
+      numberedList: () => editor?.isActive("orderedList") ?? false,
+      checkList: () => editor?.isActive("taskList") ?? false,
+      alignment: (alignment: "left" | "center" | "right" | "justify") =>
+        editor?.isActive({ textAlign: alignment }) ?? false,
+    }),
+    [editor],
+  );
 
   return (
-    <EditorContext.Provider value={{ editor, setEditor }}>
+    <EditorContext.Provider
+      value={{ editor, setEditor, editorOptionsActions, editorOptionsActive }}
+    >
       {children}
     </EditorContext.Provider>
   );

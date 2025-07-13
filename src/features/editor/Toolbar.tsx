@@ -12,20 +12,20 @@ import { TextAlign } from "@/features/editor/components/TextAlign";
 import { TextColor } from "@/features/editor/components/TextColor";
 import { TextHighlight } from "@/features/editor/components/TextHighlight";
 import ColorContextProvider from "@/features/editor/context/ColorContext";
-import { useMenuBarButtons } from "@/features/editor/hooks/useMenuBarButtons";
+import { useToolbarOptions } from "@/features/editor/hooks/useToolbarOptions";
 import { cn } from "@/lib/utils";
 
-export function MenuBar() {
-  const menuBarButtons = useMenuBarButtons();
+export function Toolbar() {
+  const menuBarButtons = useToolbarOptions();
   return (
-    <div className="flex w-full items-center gap-2 rounded-3xl bg-gray-200 px-4 py-2 print:hidden">
+    <div className="flex h-12 w-full items-center gap-2 rounded-3xl bg-gray-200 px-4 py-2 print:hidden">
       {menuBarButtons[0].map(({ label, action, icon, isActive }) => (
         <Hover
           key={label}
           trigger={
             <button
               key={label}
-              onClick={action}
+              onClick={() => action?.()}
               className={cn(
                 "cursor-pointer rounded-sm p-1 transition-colors duration-200 hover:bg-gray-300",
                 {
@@ -64,7 +64,7 @@ export function MenuBar() {
           trigger={
             <button
               key={label}
-              onClick={action}
+              onClick={() => action?.()}
               className={cn(
                 "cursor-pointer rounded-sm p-1 transition-colors duration-200 hover:bg-gray-300",
                 {
@@ -99,7 +99,7 @@ export function MenuBar() {
           key={label}
           trigger={
             <button
-              onClick={action}
+              onClick={() => action?.()}
               className={cn(
                 "cursor-pointer rounded-sm p-1 transition-colors duration-200 hover:bg-gray-300",
                 {
