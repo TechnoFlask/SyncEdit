@@ -2,16 +2,29 @@
 
 import { LinkBubbleMenu } from "@/features/editor/components/LinkBubbleMenu";
 import { useEditorConfig } from "@/features/editor/hooks/useEditorConfig";
-import { MenuBar } from "@/features/editor/MenuBar";
+import { Toolbar } from "@/features/editor/Toolbar";
 import { EditorContent } from "@tiptap/react";
+import Image from "next/image";
+import Link from "next/link";
+import { NameInput } from "../file-name/NameInput";
+import { MenuOptions } from "../navigation/MenuOptions";
 
 export function Editor() {
   const editor = useEditorConfig();
 
   return (
     <div className="flex size-full flex-col gap-8 pb-20 print:p-0">
-      <div className="sticky top-0 z-10 flex bg-gray-100 px-5 py-10 shadow-sm">
-        <MenuBar />
+      <div className="sticky top-0 z-10 flex flex-col gap-3 bg-gray-100 p-5 shadow-sm print:hidden">
+        <div className="flex items-center gap-3">
+          <Link href="/">
+            <Image src="/logo.svg" width={50} height={50} alt="Logo" />
+          </Link>
+          <div className="space-y-1">
+            <NameInput />
+            <MenuOptions />
+          </div>
+        </div>
+        <Toolbar />
       </div>
       {editor && <LinkBubbleMenu />}
       <EditorContent
