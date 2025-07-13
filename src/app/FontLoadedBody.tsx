@@ -1,6 +1,6 @@
 import { FONTS } from "@/app/FontList";
-import { IBM_Plex_Sans } from "next/font/google";
-import localFont from "next/font/local";
+import { cn } from "@/lib/utils";
+import { IBM_Plex_Sans, Nunito } from "next/font/google";
 import { ComponentProps } from "react";
 
 const ibmPlexSans = IBM_Plex_Sans({
@@ -8,9 +8,8 @@ const ibmPlexSans = IBM_Plex_Sans({
   variable: "--font-ibm-plex-sans",
 });
 
-const googleSans = localFont({
-  src: "./local-fonts/Product-Sans-Font/Product Sans Regular.ttf",
-  variable: "--font-google-sans",
+const nunito = Nunito({
+  subsets: ["latin"],
 });
 
 export function FontLoadedBody({
@@ -23,7 +22,14 @@ export function FontLoadedBody({
     .join(" ");
   return (
     <body
-      className={`${className} ${fontFamilyVariables} ${ibmPlexSans.variable} ${googleSans.className} ${googleSans.variable} antialiased`}
+      className={cn(
+        "antialiased",
+        className,
+        fontFamilyVariables,
+        nunito.className,
+        ibmPlexSans.variable,
+      )}
+      // className={`${className} ${fontFamilyVariables} ${ibmPlexSans.variable} ${nunito.className} antialiased`}
       {...props}
     >
       {children}
