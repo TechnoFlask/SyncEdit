@@ -25,6 +25,7 @@ type EditorOptionArgMap = {
   alignment: ["left" | "center" | "right" | "justify"];
   heading: [0 | 1 | 2 | 3 | 4];
   lineHeight: [(typeof LINE_HEIGHTS)[number]];
+  tableCellBackground: [string];
 };
 
 type EditorOptionsType = keyof EditorOptionArgMap;
@@ -38,8 +39,10 @@ type EditorOptionsActionsType = {
 type EditorOptionsActiveType = {
   [K in Exclude<
     EditorOptionsType,
-    "search" | "undo" | "redo" | "removeFormatting"
+    "search" | "undo" | "redo" | "removeFormatting" | "tableCellBackground"
   >]: (...args: EditorOptionArgMap[K]) => boolean;
+} & {
+  table: () => boolean;
 };
 
 type EditorContextType = {
@@ -73,7 +76,7 @@ export default function EditorContextProvider({
       numberedList: () => editor?.chain().toggleOrderedList().run(),
       checkList: () => editor?.chain().toggleTaskList().run(),
       removeFormatting: () => {
-        editor?.chain().focus().clearNodes().run();
+        editor?.chain().focus().unsetAllMarks().clearNodes().run();
         ["paragraph", "heading"].forEach((type) => {
           editor?.commands.updateAttributes(type, { lineHeight: "1.15" });
         });
@@ -85,6 +88,12 @@ export default function EditorContextProvider({
           ? editor?.chain().setParagraph().run()
           : editor?.chain().toggleHeading({ level }).run(),
       lineHeight: (l) => editor?.chain().setLineHeight(l).run(),
+      tableCellBackground: (backgroundColor: string) =>
+        editor
+          ?.chain()
+          .updateAttributes("tableCell", { backgroundColor })
+          .updateAttributes("tableHeader", { backgroundColor })
+          .run(),
     }),
     [editor],
   );
@@ -111,6 +120,7 @@ export default function EditorContextProvider({
         (editor?.getAttributes("heading").lineHeight ??
           editor?.getAttributes("paragraph").lineHeight ??
           "1.15"),
+      table: () => editor?.isActive("table") ?? false,
     }),
     [editor],
   );

@@ -3,6 +3,7 @@ import { EditMenu } from "./components/EditMenu";
 import { FileMenu } from "./components/FileMenu";
 import { FormatMenu } from "./components/FormatMenu";
 import { InsertMenu } from "./components/InsertMenu";
+import { TableOptions } from "./components/TableOptions";
 
 export function MenuOptions() {
   return (
@@ -11,6 +12,7 @@ export function MenuOptions() {
       <EditMenu />
       <InsertMenu />
       <FormatMenu />
+      <TableOptions />
       {/*       <EditMenu />
       <InsertMenu />
       <FormatMenu /> */}

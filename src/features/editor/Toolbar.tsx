@@ -11,7 +11,6 @@ import { LinkInput } from "@/features/editor/components/LinkInput";
 import { TextAlign } from "@/features/editor/components/TextAlign";
 import { TextColor } from "@/features/editor/components/TextColor";
 import { TextHighlight } from "@/features/editor/components/TextHighlight";
-import ColorContextProvider from "@/features/editor/context/ColorContext";
 import { useToolbarOptions } from "@/features/editor/hooks/useToolbarOptions";
 import { cn } from "@/lib/utils";
 
@@ -78,10 +77,8 @@ export function Toolbar() {
           content={label}
         />
       ))}
-      <ColorContextProvider>
-        <TextColor />
-        <TextHighlight />
-      </ColorContextProvider>
+      <TextColor />
+      <TextHighlight />
       <Separator
         orientation="vertical"
         className="bg-muted-foreground/30 !h-3/4 !w-[2px]"

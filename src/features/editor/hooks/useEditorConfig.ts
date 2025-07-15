@@ -9,8 +9,6 @@ import { Link } from "@tiptap/extension-link";
 import { Subscript } from "@tiptap/extension-subscript";
 import { Superscript } from "@tiptap/extension-superscript";
 import { Table } from "@tiptap/extension-table";
-import { TableCell } from "@tiptap/extension-table-cell";
-import { TableHeader } from "@tiptap/extension-table-header";
 import { TableRow } from "@tiptap/extension-table-row";
 import { TaskItem } from "@tiptap/extension-task-item";
 import { TaskList } from "@tiptap/extension-task-list";
@@ -20,6 +18,10 @@ import { Underline } from "@tiptap/extension-underline";
 import { useEditor } from "@tiptap/react";
 import { StarterKit } from "@tiptap/starter-kit";
 import { ImageResize } from "tiptap-extension-resize-image";
+import {
+  TableCellExtended,
+  TableHeaderExtended,
+} from "../extensions/TableExtended";
 
 export function useEditorConfig() {
   const { editor, setEditor } = useEditorContext();
@@ -89,8 +91,8 @@ export function useEditorConfig() {
         resizable: true,
       }),
       TableRow,
-      TableHeader,
-      TableCell,
+      TableHeaderExtended,
+      TableCellExtended,
       Image,
       ImageResize,
       TextAlign.configure({
