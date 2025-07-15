@@ -1,6 +1,10 @@
 "use client";
 
 import {
+  LINE_HEIGHTS,
+  LineHeightItem,
+} from "@/components/custom/LineHeightList";
+import {
   MenubarContent,
   MenubarItem,
   MenubarMenu,
@@ -21,7 +25,13 @@ import {
   IconBallpen,
   IconBaselineDensitySmall,
   IconBold,
+  IconCheck,
   IconClearFormatting,
+  IconH1,
+  IconH2,
+  IconH3,
+  IconH4,
+  IconHeadingOff,
   IconItalic,
   IconLineHeight,
   IconList,
@@ -116,7 +126,53 @@ export function FormatMenu() {
             <IconBaselineDensitySmall className="size-6" />
             Paragraph
           </MenubarSubTrigger>
-          <MenubarSubContent>{/* TODO */}</MenubarSubContent>
+          <MenubarSubContent className="w-2xs">
+            <MenubarItem
+              className={cn({
+                "bg-gray-100": editorOptionsActive.heading(0),
+              })}
+              onClick={() => editorOptionsActions.heading?.(0)}
+            >
+              <IconHeadingOff className="size-6 text-black" />
+              Normal text <MenubarShortcut>Ctrl+Alt+0</MenubarShortcut>
+            </MenubarItem>
+            <MenubarItem
+              className={cn({
+                "bg-gray-100": editorOptionsActive.heading(1),
+              })}
+              onClick={() => editorOptionsActions.heading?.(1)}
+            >
+              <IconH1 className="size-6 text-black" />
+              Heading 1<MenubarShortcut>Ctrl+Alt+1</MenubarShortcut>
+            </MenubarItem>
+            <MenubarItem
+              className={cn({
+                "bg-gray-100": editorOptionsActive.heading(2),
+              })}
+              onClick={() => editorOptionsActions.heading?.(2)}
+            >
+              <IconH2 className="size-6 text-black" />
+              Heading 2<MenubarShortcut>Ctrl+Alt+2</MenubarShortcut>
+            </MenubarItem>
+            <MenubarItem
+              className={cn({
+                "bg-gray-100": editorOptionsActive.heading(3),
+              })}
+              onClick={() => editorOptionsActions.heading?.(3)}
+            >
+              <IconH3 className="size-6 text-black" />
+              Heading 3<MenubarShortcut>Ctrl+Alt+3</MenubarShortcut>
+            </MenubarItem>
+            <MenubarItem
+              className={cn({
+                "bg-gray-100": editorOptionsActive.heading(4),
+              })}
+              onClick={() => editorOptionsActions.heading?.(4)}
+            >
+              <IconH4 className="size-6 text-black" />
+              Heading 4<MenubarShortcut>Ctrl+Alt+4</MenubarShortcut>
+            </MenubarItem>
+          </MenubarSubContent>
         </MenubarSub>
 
         <MenubarSub>
@@ -169,7 +225,21 @@ export function FormatMenu() {
             <IconLineHeight className="size-6" />
             Spacing
           </MenubarSubTrigger>
-          <MenubarSubContent>{/* TODO */}</MenubarSubContent>
+          <MenubarSubContent>
+            {LINE_HEIGHTS.map((l) => (
+              <MenubarItem
+                key={l}
+                onClick={() => editorOptionsActions.lineHeight?.(l)}
+              >
+                <IconCheck
+                  className={cn("size-6 text-center", {
+                    "opacity-0": !editorOptionsActive.lineHeight(l),
+                  })}
+                />
+                <LineHeightItem lineHeight={l} />
+              </MenubarItem>
+            ))}
+          </MenubarSubContent>
         </MenubarSub>
 
         <MenubarSub>
@@ -207,6 +277,7 @@ export function FormatMenu() {
             </MenubarItem>
           </MenubarSubContent>
         </MenubarSub>
+
         <MenubarItem onClick={() => editorOptionsActions.removeFormatting?.()}>
           <IconClearFormatting className="size-6 text-black" />
           Remove formatting
