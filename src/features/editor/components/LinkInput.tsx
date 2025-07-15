@@ -12,10 +12,11 @@ import {
 import { useEditorContext } from "@/features/editor/context/EditorContext";
 import { cn, isValidLink } from "@/lib/utils";
 import { IconLink } from "@tabler/icons-react";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
-export function LinkInput() {
+export function LinkAdditionBody() {
   const { editor } = useEditorContext();
+
   const [content, setContent] = useState("");
   const [url, setUrl] = useState("");
 
@@ -27,7 +28,9 @@ export function LinkInput() {
   }, []);
 
   const getTextUnderSelection = useCallback(() => {
-    const { from, to } = editor?.state.selection!;
+    if (!editor) return "";
+
+    const { from, to } = editor?.state.selection;
     return editor?.state.doc.textBetween(from, to) ?? "";
   }, [editor]);
 
@@ -39,7 +42,12 @@ export function LinkInput() {
 
     setContent(contentUnderSelection);
     setUrl(urlUnderCursor);
-  }, [editor]);
+  }, [editor, getTextUnderSelection]);
+
+  useEffect(() => {
+    cleanInputs();
+    extractSelection();
+  }, [cleanInputs, extractSelection]);
 
   const createLinkNode = useCallback(
     (content: string, url: string) => {
@@ -78,12 +86,52 @@ export function LinkInput() {
   );
 
   return (
-    <Popover
-      onOpenChange={() => {
-        cleanInputs();
-        extractSelection();
-      }}
-    >
+    <>
+      <Input
+        value={content}
+        onChange={(e) => setContent(e.target.value)}
+        placeholder="Link name"
+        className="!text-lg"
+      />
+      <Input
+        value={url}
+        onChange={(e) => setUrl(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") createLinkNode(content, url);
+        }}
+        placeholder="Type or paste a link"
+        className="!text-lg"
+      />
+      <div className="flex items-center justify-between">
+        <Button
+          variant="secondary"
+          className="text-lg"
+          onClick={() => {
+            createLinkNode(content, url);
+          }}
+        >
+          Add link
+        </Button>
+        <Button
+          disabled={!isLink}
+          variant="secondary"
+          className="not-disabled:hover:bg-destructive/60 text-lg not-disabled:hover:text-white"
+          onClick={() => editor?.commands.unsetLink()}
+        >
+          Remove link
+        </Button>
+      </div>
+    </>
+  );
+}
+
+export function LinkInput() {
+  const { editor } = useEditorContext();
+
+  const isLink = editor?.isActive("link");
+
+  return (
+    <Popover>
       <Hover
         trigger={
           <PopoverTrigger asChild>
@@ -102,40 +150,7 @@ export function LinkInput() {
         content={"Add link"}
       />
       <PopoverContent align="start" className="w-xs space-y-4 p-8">
-        <Input
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
-          placeholder="Link name"
-          className="!text-lg"
-        />
-        <Input
-          value={url}
-          onChange={(e) => setUrl(e.target.value)}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") createLinkNode(content, url);
-          }}
-          placeholder="Type or paste a link"
-          className="!text-lg"
-        />
-        <div className="flex items-center justify-between">
-          <Button
-            variant="secondary"
-            className="text-lg"
-            onClick={() => {
-              createLinkNode(content, url);
-            }}
-          >
-            Add link
-          </Button>
-          <Button
-            disabled={!isLink}
-            variant="secondary"
-            className="not-disabled:hover:bg-destructive/60 text-lg not-disabled:hover:text-white"
-            onClick={() => editor?.commands.unsetLink()}
-          >
-            Remove link
-          </Button>
-        </div>
+        <LinkAdditionBody />
       </PopoverContent>
     </Popover>
   );
