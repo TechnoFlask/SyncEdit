@@ -1,9 +1,10 @@
 "use client";
 
+import { LINE_HEIGHTS } from "@/components/custom/LineHeightList";
 import { type Editor } from "@tiptap/react";
 import { createContext, ReactNode, useContext, useMemo, useState } from "react";
 
-type EditorOptionsType =
+type NoArgOptions =
   | "search"
   | "undo"
   | "redo"
@@ -16,17 +17,30 @@ type EditorOptionsType =
   | "bulletedList"
   | "numberedList"
   | "checkList"
-  | "removeFormatting"
-  | "alignment";
+  | "removeFormatting";
 
-type EditorOptionsActionsType = Record<
-  EditorOptionsType,
-  ((...args: any[]) => void) | undefined
->;
-type EditorOptionsActiveType = Record<
-  Exclude<EditorOptionsType, "search" | "undo" | "redo" | "removeFormatting">,
-  (...args: any[]) => boolean
->;
+type EditorOptionArgMap = {
+  [K in NoArgOptions]: [];
+} & {
+  alignment: ["left" | "center" | "right" | "justify"];
+  heading: [0 | 1 | 2 | 3 | 4];
+  lineHeight: [(typeof LINE_HEIGHTS)[number]];
+};
+
+type EditorOptionsType = keyof EditorOptionArgMap;
+
+type EditorOptionsActionsType = {
+  [K in EditorOptionsType]:
+    | ((...args: EditorOptionArgMap[K]) => void)
+    | undefined;
+};
+
+type EditorOptionsActiveType = {
+  [K in Exclude<
+    EditorOptionsType,
+    "search" | "undo" | "redo" | "removeFormatting"
+  >]: (...args: EditorOptionArgMap[K]) => boolean;
+};
 
 type EditorContextType = {
   editor: Editor | null;
@@ -43,6 +57,7 @@ export default function EditorContextProvider({
   children: ReactNode;
 }) {
   const [editor, setEditor] = useState<Editor | null>(null);
+
   const editorOptionsActions: EditorOptionsActionsType = useMemo(
     () => ({
       search: () => {},
@@ -63,8 +78,13 @@ export default function EditorContextProvider({
           editor?.commands.updateAttributes(type, { lineHeight: "1.15" });
         });
       },
-      alignment: (alignment: "left" | "center" | "right" | "justify") =>
+      alignment: (alignment) =>
         editor?.chain().toggleTextAlign(alignment).run(),
+      heading: (level: 0 | 1 | 2 | 3 | 4) =>
+        level === 0
+          ? editor?.chain().setParagraph().run()
+          : editor?.chain().toggleHeading({ level }).run(),
+      lineHeight: (l) => editor?.chain().setLineHeight(l).run(),
     }),
     [editor],
   );
@@ -80,8 +100,17 @@ export default function EditorContextProvider({
       bulletedList: () => editor?.isActive("bulletList") ?? false,
       numberedList: () => editor?.isActive("orderedList") ?? false,
       checkList: () => editor?.isActive("taskList") ?? false,
-      alignment: (alignment: "left" | "center" | "right" | "justify") =>
+      alignment: (alignment) =>
         editor?.isActive({ textAlign: alignment }) ?? false,
+      heading: (level: 0 | 1 | 2 | 3 | 4) =>
+        (level === 0
+          ? ![1, 2, 3, 4].some((l) => editor?.isActive("heading", { level: l }))
+          : editor?.isActive("heading", { level })) ?? false,
+      lineHeight: (l) =>
+        l ===
+        (editor?.getAttributes("heading").lineHeight ??
+          editor?.getAttributes("paragraph").lineHeight ??
+          "1.15"),
     }),
     [editor],
   );
