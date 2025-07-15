@@ -1,5 +1,9 @@
 import { Hover } from "@/components/custom/Hover";
 import {
+  LINE_HEIGHTS,
+  LineHeightItem,
+} from "@/components/custom/LineHeightList";
+import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
@@ -14,27 +18,9 @@ import {
 } from "@tabler/icons-react";
 import { useState } from "react";
 
-const LINE_HEIGHTS = Object.freeze([
-  "1",
-  "1.15",
-  "1.125",
-  "1.25",
-  "1.5",
-  "1.75",
-  "2",
-  "2.25",
-  "2.5",
-  "3",
-]);
-
 export function LineHeightDropdown() {
-  const { editor } = useEditorContext();
+  const { editorOptionsActions, editorOptionsActive } = useEditorContext();
   const [open, setOpen] = useState(false);
-
-  const currentLineHeight =
-    editor?.getAttributes("heading").lineHeight ??
-    editor?.getAttributes("paragraph").lineHeight ??
-    "1.15";
 
   return (
     <DropdownMenu onOpenChange={setOpen}>
@@ -54,33 +40,20 @@ export function LineHeightDropdown() {
         content={"Set line height"}
       />
       <DropdownMenuContent align="start">
-        <DropdownMenuItem
-          className="transition-colors duration-200"
-          onClick={() => {
-            editor?.commands.setLineHeight("normal");
-          }}
-        >
-          <IconCheck
-            className={cn("!h-6 !w-6", {
-              "opacity-0": currentLineHeight != "normal",
-            })}
-          />
-          <p className="font-roboto self-start text-lg">Normal</p>
-        </DropdownMenuItem>
         {LINE_HEIGHTS.map((l) => (
           <DropdownMenuItem
             className="transition-colors duration-200"
             key={l}
-            onClick={() => {
-              editor?.commands.setLineHeight(l);
-            }}
+            onClick={() => editorOptionsActions.lineHeight?.(l)}
           >
             <IconCheck
               className={cn("!h-6 !w-6", {
-                "opacity-0": l != currentLineHeight,
+                "opacity-0": !editorOptionsActive.lineHeight(l),
               })}
             />
-            <p className="font-roboto self-start text-lg">{l}</p>
+            <p className="font-roboto self-start text-lg">
+              <LineHeightItem lineHeight={l} />
+            </p>
           </DropdownMenuItem>
         ))}
       </DropdownMenuContent>
