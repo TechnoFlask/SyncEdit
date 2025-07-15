@@ -10,12 +10,7 @@ export function TableGrid() {
   const { editor } = useEditorContext();
   const [hoveredCell, setHoveredCell] = useState<[number, number]>([0, 0]);
 
-  useEffect(
-    () => () => {
-      setHoveredCell([0, 0]);
-    },
-    [],
-  );
+  useEffect(() => () => setHoveredCell([0, 0]), []);
 
   return (
     <div className="space-y-3 p-3">

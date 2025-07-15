@@ -9,6 +9,7 @@ import {
   MenubarSubTrigger,
   MenubarTrigger,
 } from "@/components/ui/menubar";
+import { LinkAdditionBody } from "@/features/editor/components/LinkInput";
 import {
   IconLinkPlus,
   IconPhotoPlus,
@@ -23,11 +24,15 @@ export function InsertMenu() {
         Insert
       </MenubarTrigger>
       <MenubarContent className="w-3xs print:hidden [&_*]:text-lg">
-        <MenubarItem className="flex gap-2">
-          {/*            TODO*/}
-          <IconLinkPlus className="size-6 text-black" />
-          Link
-        </MenubarItem>
+        <MenubarSub>
+          <MenubarSubTrigger className="flex gap-2">
+            <IconLinkPlus className="size-6 text-black" />
+            Link
+          </MenubarSubTrigger>
+          <MenubarSubContent className="flex w-xs flex-col gap-4 p-8">
+            <LinkAdditionBody />
+          </MenubarSubContent>
+        </MenubarSub>
         <MenubarItem className="flex gap-2">
           {/*            TODO*/}
           <IconPhotoPlus className="size-6 text-black" />
