@@ -16,7 +16,7 @@ import {
 } from "@tabler/icons-react";
 import { useState } from "react";
 
-const ALIGNMENTS = Object.freeze([
+const ALIGNMENTS = [
   {
     name: "Left",
     value: "left",
@@ -37,16 +37,11 @@ const ALIGNMENTS = Object.freeze([
     value: "justify",
     icon: <IconAlignJustified className="size-6 text-black" />,
   },
-]);
+] as const;
 
 export function TextAlign() {
-  const { editor } = useEditorContext();
+  const { editorOptionsActions, editorOptionsActive } = useEditorContext();
   const [open, setOpen] = useState(false);
-
-  const currentAlignment =
-    editor?.getAttributes("paragraph")?.textAlign ??
-    editor?.getAttributes("heading")?.textAlign ??
-    "left";
 
   return (
     <DropdownMenu onOpenChange={setOpen}>
@@ -54,8 +49,8 @@ export function TextAlign() {
         trigger={
           <DropdownMenuTrigger asChild>
             <button className="flex cursor-pointer items-center gap-1.5 rounded-sm p-1 transition-colors duration-200 hover:bg-gray-300 focus:outline-none">
-              {ALIGNMENTS.find(
-                (alignment) => alignment.value === currentAlignment,
+              {ALIGNMENTS.find((alignment) =>
+                editorOptionsActive.alignment(alignment.value),
               )?.icon ?? ALIGNMENTS[0].icon}
               <IconChevronDown
                 className={cn("size-5 transition-transform duration-200", {
@@ -70,9 +65,9 @@ export function TextAlign() {
       <DropdownMenuContent align="start">
         {ALIGNMENTS.map(({ name, value, icon }) => (
           <DropdownMenuItem
-            onClick={() => editor?.commands.toggleTextAlign(value)}
+            onClick={() => editorOptionsActions.alignment?.(value)}
             className={cn("transition-colors duration-200", {
-              "bg-gray-100": editor?.isActive({ textAlign: value }),
+              "bg-gray-100": editorOptionsActive.alignment(value),
             })}
             key={name}
           >
