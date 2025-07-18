@@ -156,9 +156,9 @@
 
   font-family: var(--font-arial);
 
-  :first-child {
+  /* :first-child {
     margin-top: 0;
-  }
+  } */
 
   /* Heading-specific styles */
 
@@ -386,5 +386,22 @@
         background-color: var(--purple-contrast);
       }
     }
+  }
+}
+
+@media print {
+  .tiptap table th,
+  .tiptap table td {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .tiptap table th {
+    font-weight: bold;
+  }
+
+  .tiptap table {
+    border-collapse: collapse;
+    width: 100%;
   }
 }
