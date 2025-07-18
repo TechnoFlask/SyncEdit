@@ -6,7 +6,7 @@ import {
 import { ColorPicker } from "@/features/editor/components/ColorPicker";
 import { useEditorContext } from "@/features/editor/context/EditorContext";
 import { IconPaint } from "@tabler/icons-react";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback } from "react";
 
 export function TableBgColor() {
   const { editor, editorOptionsActions } = useEditorContext();
@@ -15,15 +15,18 @@ export function TableBgColor() {
     editor?.getAttributes("tableHeader").backgroundColor ??
     "#FFFFFF";
 
-  const [color, setColor] = useState("#FFFFFF");
+  // const [color, setColor] = useState("#FFFFFF");
 
-  useEffect(() => {
-    setColor(currentCellColor);
-  }, [currentCellColor]);
+  // useEffect(() => {
+  //   setColor(currentCellColor);
+  // }, [currentCellColor]);
 
-  const changeColor = useCallback(() => {
-    editorOptionsActions.tableCellBackground?.(color);
-  }, [color, editorOptionsActions]);
+  const changeColor = useCallback(
+    (color: string) => {
+      editorOptionsActions.tableCellBackground?.(color);
+    },
+    [editorOptionsActions],
+  );
 
   return (
     <MenubarSub>
@@ -32,11 +35,7 @@ export function TableBgColor() {
         Background color
       </MenubarSubTrigger>
       <MenubarSubContent>
-        <ColorPicker
-          color={color}
-          setColor={setColor}
-          changeColor={changeColor}
-        />
+        <ColorPicker color={currentCellColor} changeColor={changeColor} />
       </MenubarSubContent>
     </MenubarSub>
   );

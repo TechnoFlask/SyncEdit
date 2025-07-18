@@ -36,11 +36,9 @@ function ColorItem({
 
 export function ColorPicker({
   color,
-  setColor,
   changeColor,
 }: {
   color: string;
-  setColor: (color: string) => void;
   changeColor: (color: string) => void;
 }) {
   const { defaultColors, savedColors, saveNewColor, removeSavedColor } =
@@ -61,7 +59,7 @@ export function ColorPicker({
             onMouseUp={() => changeColor(color)}
             onTouchEnd={() => changeColor(color)}
             color={color}
-            onChange={setColor}
+            onChange={changeColor}
           />
           <div
             title={color}
