@@ -45,13 +45,13 @@ export function TableOptions() {
           </MenubarSubTrigger>
           <MenubarSubContent>
             <MenubarItem
-              onClick={() => editor?.chain().focus().addRowBefore().run()}
+              onMouseDown={() => editor?.chain().focus().addRowBefore().run()}
             >
               <IconRowInsertTop className="size-6 text-black" />
               Before
             </MenubarItem>
             <MenubarItem
-              onClick={() => editor?.chain().focus().addRowAfter().run()}
+              onMouseDown={() => editor?.chain().focus().addRowAfter().run()}
             >
               <IconRowInsertBottom className="size-6 text-black" />
               After
@@ -65,13 +65,15 @@ export function TableOptions() {
           </MenubarSubTrigger>
           <MenubarSubContent>
             <MenubarItem
-              onClick={() => editor?.chain().focus().addColumnBefore().run()}
+              onMouseDown={() =>
+                editor?.chain().focus().addColumnBefore().run()
+              }
             >
               <IconColumnInsertLeft className="size-6 text-black" />
               Before
             </MenubarItem>
             <MenubarItem
-              onClick={() => editor?.chain().focus().addColumnAfter().run()}
+              onMouseDown={() => editor?.chain().focus().addColumnAfter().run()}
             >
               <IconColumnInsertRight className="size-6 text-black" />
               After
@@ -79,32 +81,36 @@ export function TableOptions() {
           </MenubarSubContent>
         </MenubarSub>
         <MenubarSeparator />
-        <MenubarItem onClick={() => editor?.chain().focus().mergeCells().run()}>
+        <MenubarItem
+          onMouseDown={() => editor?.chain().focus().mergeCells().run()}
+        >
           <IconArrowMerge className="size-6 text-black" />
           Merge cells
         </MenubarItem>
-        <MenubarItem onClick={() => editor?.chain().focus().splitCell().run()}>
+        <MenubarItem
+          onMouseDown={() => editor?.chain().focus().splitCell().run()}
+        >
           <IconArrowsSplit className="size-6 text-black" />
           Split cell
         </MenubarItem>
         <MenubarSeparator />
         <MenubarItem
           className="hover:!bg-destructive transition-colors duration-200 hover:[&_*]:text-white"
-          onClick={() => editor?.chain().focus().deleteRow().run()}
+          onMouseDown={() => editor?.chain().focus().deleteRow().run()}
         >
           <IconRowRemove className="size-6 text-black transition-colors duration-200" />
           <p className="transition-colors duration-200">Delete row</p>
         </MenubarItem>
         <MenubarItem
           className="hover:!bg-destructive transition-colors duration-200 hover:[&_*]:text-white"
-          onClick={() => editor?.chain().focus().deleteColumn().run()}
+          onMouseDown={() => editor?.chain().focus().deleteColumn().run()}
         >
           <IconColumnRemove className="size-6 text-black transition-colors duration-200" />
           <p className="transition-colors duration-200">Delete column</p>
         </MenubarItem>
         <MenubarItem
           className="hover:!bg-destructive transition-colors duration-200 hover:[&_*]:text-white"
-          onClick={() => editor?.chain().focus().deleteTable().run()}
+          onMouseDown={() => editor?.chain().focus().deleteTable().run()}
         >
           <IconTableMinus className="size-6 text-black transition-colors duration-200" />
           <p className="transition-colors duration-200">Delete table</p>
