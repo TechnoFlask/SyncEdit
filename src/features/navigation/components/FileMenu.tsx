@@ -11,6 +11,7 @@ import {
   MenubarSubTrigger,
   MenubarTrigger,
 } from "@/components/ui/menubar";
+import { useEditorContext } from "@/features/editor/context/EditorContext";
 import {
   IconFileArrowRight,
   IconFilePlus,
@@ -23,8 +24,11 @@ import {
   IconPrinter,
   IconTrash,
 } from "@tabler/icons-react";
+import { saveHTML, saveJSON, savePlainText } from "../utils/documentExport";
 
 export function FileMenu() {
+  const { editor } = useEditorContext();
+
   return (
     <MenubarMenu>
       <MenubarTrigger className="cursor-pointer text-lg transition-colors duration-200 hover:bg-gray-200 data-[state=open]:bg-gray-200">
@@ -41,19 +45,19 @@ export function FileMenu() {
             Export as
           </MenubarSubTrigger>
           <MenubarSubContent>
-            <MenubarItem>
+            <MenubarItem onMouseDown={() => saveJSON(editor)}>
               <IconJson className="mr-1 size-6" />
               JSON
             </MenubarItem>
-            <MenubarItem>
+            <MenubarItem onMouseDown={() => saveHTML(editor)}>
               <IconFileTypeHtml className="mr-1 size-6" />
               HTML
             </MenubarItem>
-            <MenubarItem>
+            <MenubarItem onMouseDown={() => window.print()}>
               <IconFileTypePdf className="mr-1 size-6" />
               PDF
             </MenubarItem>
-            <MenubarItem>
+            <MenubarItem onMouseDown={() => savePlainText(editor)}>
               <IconFileTypeTxt className="mr-1 size-6" />
               Plain Text
             </MenubarItem>
@@ -73,7 +77,7 @@ export function FileMenu() {
           <IconInfoTriangle className="size-6 text-black" />
           Details
         </MenubarItem>
-        <MenubarItem onClick={() => print()}>
+        <MenubarItem onMouseDown={() => print()}>
           <IconPrinter className="size-6 text-black" />
           Print
           <MenubarShortcut>Ctrl+P</MenubarShortcut>
