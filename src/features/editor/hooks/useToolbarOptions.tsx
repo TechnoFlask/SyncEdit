@@ -25,7 +25,7 @@ export function useToolbarOptions() {
       {
         label: "Undo",
         icon: <IconArrowBackUp />,
-        action: editorOptionsActions.bold,
+        action: editorOptionsActions.undo,
         isActive: false,
       },
       {
