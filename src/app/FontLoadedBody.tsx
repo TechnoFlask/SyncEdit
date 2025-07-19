@@ -29,7 +29,6 @@ export function FontLoadedBody({
         nunito.className,
         ibmPlexSans.variable,
       )}
-      // className={`${className} ${fontFamilyVariables} ${ibmPlexSans.variable} ${nunito.className} antialiased`}
       {...props}
     >
       {children}
