@@ -11,7 +11,7 @@ import { cn } from "@/lib/utils";
 import { IconCheck, IconChevronDown } from "@tabler/icons-react";
 import { useState } from "react";
 
-const HEADINGS = Object.freeze([1, 2.25, 1.875, 1.5, 1.125]);
+const HEADINGS = Object.freeze([1, 2.25, 1.875, 1.5, 1.125] as const);
 
 export function HeadingDropdown() {
   const [open, setOpen] = useState(false);

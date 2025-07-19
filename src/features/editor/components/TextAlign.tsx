@@ -16,7 +16,7 @@ import {
 } from "@tabler/icons-react";
 import { useState } from "react";
 
-const ALIGNMENTS = [
+const ALIGNMENTS = Object.freeze([
   {
     name: "Left",
     value: "left",
@@ -37,7 +37,7 @@ const ALIGNMENTS = [
     value: "justify",
     icon: <IconAlignJustified className="size-6 text-black" />,
   },
-] as const;
+] as const);
 
 export function TextAlign() {
   const { editorOptionsActions, editorOptionsActive } = useEditorContext();

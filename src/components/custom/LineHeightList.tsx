@@ -1,4 +1,4 @@
-export const LINE_HEIGHTS = [
+export const LINE_HEIGHTS = Object.freeze([
   "1",
   "1.125",
   "1.15",
@@ -9,13 +9,13 @@ export const LINE_HEIGHTS = [
   "2.25",
   "2.5",
   "3",
-] as const;
+] as const);
 
-export const LH_NAME = {
+export const LH_NAME = Object.freeze({
   "1": "Single",
   "2": "Double",
   "3": "Triple",
-} as const;
+} as const);
 
 export function LineHeightItem({ lineHeight }: { lineHeight: string }) {
   return lineHeight in LH_NAME

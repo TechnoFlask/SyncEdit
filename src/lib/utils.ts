@@ -19,7 +19,7 @@ export function isLightColor(hex: string) {
   return luma > 150;
 }
 
-const DEFINED_PROTOCOLS = Object.freeze(["http:", "https:", "blob:"]);
+const DEFINED_PROTOCOLS = Object.freeze(["http:", "https:", "blob:"] as const);
 
 export function isValidLink(link: string) {
   try {

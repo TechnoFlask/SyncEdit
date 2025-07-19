@@ -15,9 +15,14 @@ import { useState } from "react";
 
 const DROPDOWN_SIZES = Object.freeze([
   8, 9, 10, 11, 12, 14, 18, 24, 30, 36, 48, 60, 72, 96,
-]);
+] as const);
 
-const HEADING_SIZES = Object.freeze({ 1: "36", 2: "30", 3: "24", 4: "20" });
+const HEADING_SIZES = Object.freeze({
+  1: "36",
+  2: "30",
+  3: "24",
+  4: "20",
+} as const);
 
 export function FontSizeInput() {
   const { editor } = useEditorContext();

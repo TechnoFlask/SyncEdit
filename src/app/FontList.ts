@@ -32,7 +32,7 @@ const installedFonts: readonly Omit<FontType, "fontFace">[] = Object.freeze([
   { name: "Georgia", variable: "--font-georgia" },
   { name: "Helvetica", variable: "--font-helvetica" },
   { name: "Verdana", variable: "--font-verdana" },
-]);
+] as const);
 // Installed fonts end
 
 // Sans-serif fonts start
@@ -101,7 +101,7 @@ const sansSerifFonts: readonly FontType[] = Object.freeze([
     variable: "--font-archivo",
     fontFace: archivo,
   },
-]);
+] as const);
 // Sans-serif fonts end
 
 // Serif fonts start
@@ -144,7 +144,7 @@ const serifFonts: readonly FontType[] = Object.freeze([
     variable: "--font-pt-serif",
     fontFace: ptSerif,
   },
-]);
+] as const);
 // Serif fonts end
 
 // Monospace fonts start
@@ -168,7 +168,7 @@ const monospaceFonts: readonly FontType[] = Object.freeze([
     variable: "--font-fira-code",
     fontFace: firaCode,
   },
-]);
+] as const);
 // Monospace fonts end
 
 export const FONTS: readonly [
@@ -177,4 +177,4 @@ export const FONTS: readonly [
 ] = Object.freeze([
   installedFonts,
   [...sansSerifFonts, ...serifFonts, ...monospaceFonts],
-]);
+] as const);
