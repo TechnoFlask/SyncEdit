@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { Suspense } from "react";
 import { Search } from "./components/Search";
 
 export function Navbar() {
@@ -8,7 +9,15 @@ export function Navbar() {
         <Image src="/logo.svg" height={50} width={50} alt="Logo" />
         <p className="text-muted-foreground text-2xl font-semibold">SyncEdit</p>
       </div>
-      <Search />
+      <Suspense
+        fallback={
+          <div className="w-3xs animate-pulse rounded-full bg-gray-300 p-4 lg:w-xl">
+            <p className="invisible">k</p>
+          </div>
+        }
+      >
+        <Search />
+      </Suspense>
       <div />
     </nav>
   );
