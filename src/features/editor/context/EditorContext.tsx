@@ -1,6 +1,6 @@
 "use client";
 
-import { LINE_HEIGHTS } from "@/components/custom/LineHeightList";
+import { LINE_HEIGHTS_REM } from "@/constants";
 import { type Editor } from "@tiptap/react";
 import { createContext, ReactNode, useContext, useMemo, useState } from "react";
 
@@ -24,7 +24,7 @@ type EditorOptionArgMap = {
 } & {
   alignment: ["left" | "center" | "right" | "justify"];
   heading: [0 | 1 | 2 | 3 | 4];
-  lineHeight: [(typeof LINE_HEIGHTS)[number]];
+  lineHeight: [(typeof LINE_HEIGHTS_REM)[number]];
   tableCellBackground: [string];
 };
 
