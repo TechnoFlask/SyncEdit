@@ -14,7 +14,7 @@ export function Editor() {
 
   return (
     <div className="flex size-full flex-col gap-8 pb-20 print:p-0">
-      <div className="sticky top-0 z-10 flex flex-col gap-3 bg-gray-100 p-5 shadow-sm print:hidden">
+      <div className="sticky top-0 z-10 flex flex-col gap-3 bg-gray-100 p-5 pt-2 shadow-sm print:hidden">
         <div className="flex items-center gap-3">
           <Link href="/">
             <Image src="/logo.svg" width={50} height={50} alt="Logo" />

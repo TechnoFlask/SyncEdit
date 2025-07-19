@@ -8,7 +8,6 @@ import {
   IconList,
   IconListCheck,
   IconListNumbers,
-  IconSearch,
   IconUnderline,
 } from "@tabler/icons-react";
 
@@ -17,12 +16,12 @@ export function useToolbarOptions() {
 
   return [
     [
-      {
-        label: "Search",
-        icon: <IconSearch />,
-        action: () => {},
-        isActive: false,
-      },
+      // {
+      //   label: "Search",
+      //   icon: <IconSearch />,
+      //   action: () => {},
+      //   isActive: false,
+      // },
       {
         label: "Undo",
         icon: <IconArrowBackUp />,
