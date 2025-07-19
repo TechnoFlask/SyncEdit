@@ -1,3 +1,4 @@
+import { DEFINED_PROTOCOLS } from "@/constants";
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
@@ -18,8 +19,6 @@ export function isLightColor(hex: string) {
   const luma = 0.2126 * r + 0.7152 * g + 0.0722 * b;
   return luma > 150;
 }
-
-const DEFINED_PROTOCOLS = Object.freeze(["http:", "https:", "blob:"] as const);
 
 export function isValidLink(link: string) {
   try {

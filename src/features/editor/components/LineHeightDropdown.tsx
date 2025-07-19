@@ -1,14 +1,12 @@
 import { Hover } from "@/components/custom/Hover";
-import {
-  LINE_HEIGHTS,
-  LineHeightItem,
-} from "@/components/custom/LineHeightList";
+import { LineHeightItem } from "@/components/custom/LineHeightList";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { LINE_HEIGHTS_REM } from "@/constants";
 import { useEditorContext } from "@/features/editor/context/EditorContext";
 import { cn } from "@/lib/utils";
 import {
@@ -40,7 +38,7 @@ export function LineHeightDropdown() {
         content={"Set line height"}
       />
       <DropdownMenuContent align="start">
-        {LINE_HEIGHTS.map((l) => (
+        {LINE_HEIGHTS_REM.map((l) => (
           <DropdownMenuItem
             className="transition-colors duration-200"
             key={l}

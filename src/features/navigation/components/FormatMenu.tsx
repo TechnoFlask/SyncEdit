@@ -1,9 +1,6 @@
 "use client";
 
-import {
-  LINE_HEIGHTS,
-  LineHeightItem,
-} from "@/components/custom/LineHeightList";
+import { LineHeightItem } from "@/components/custom/LineHeightList";
 import {
   MenubarContent,
   MenubarItem,
@@ -14,6 +11,7 @@ import {
   MenubarSubTrigger,
   MenubarTrigger,
 } from "@/components/ui/menubar";
+import { LINE_HEIGHTS_REM } from "@/constants";
 import { useEditorContext } from "@/features/editor/context/EditorContext";
 import { cn } from "@/lib/utils";
 import {
@@ -226,7 +224,7 @@ export function FormatMenu() {
             Spacing
           </MenubarSubTrigger>
           <MenubarSubContent>
-            {LINE_HEIGHTS.map((l) => (
+            {LINE_HEIGHTS_REM.map((l) => (
               <MenubarItem
                 key={l}
                 onClick={() => editorOptionsActions.lineHeight?.(l)}

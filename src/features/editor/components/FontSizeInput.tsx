@@ -9,28 +9,18 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { FONT_SIZES_PX, HEADINGS_REM } from "@/constants";
 import { useEditorContext } from "@/features/editor/context/EditorContext";
 import { IconMinus, IconPlus } from "@tabler/icons-react";
 import { useState } from "react";
-
-const DROPDOWN_SIZES = Object.freeze([
-  8, 9, 10, 11, 12, 14, 18, 24, 30, 36, 48, 60, 72, 96,
-] as const);
-
-const HEADING_SIZES = Object.freeze({
-  1: "36",
-  2: "30",
-  3: "24",
-  4: "20",
-} as const);
 
 export function FontSizeInput() {
   const { editor } = useEditorContext();
 
   const headingLevel = editor?.getAttributes("heading").level;
   const currentFontSize =
+    (headingLevel && HEADINGS_REM[headingLevel as 1 | 2 | 3 | 4] * 16) ??
     editor?.getAttributes("textStyle")?.fontSize ??
-    (headingLevel && HEADING_SIZES[headingLevel as 1 | 2 | 3 | 4]) ??
     "16";
   const [open, setOpen] = useState(false);
 
@@ -70,7 +60,7 @@ export function FontSizeInput() {
               className="text-lg"
             />
             <CommandList>
-              {DROPDOWN_SIZES.map((s) => (
+              {FONT_SIZES_PX.map((s) => (
                 <CommandItem
                   onMouseDown={() => {
                     editor?.commands.setFontSize(String(s));

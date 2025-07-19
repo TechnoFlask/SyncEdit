@@ -6,12 +6,11 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { HEADINGS_REM } from "@/constants";
 import { useEditorContext } from "@/features/editor/context/EditorContext";
 import { cn } from "@/lib/utils";
 import { IconCheck, IconChevronDown } from "@tabler/icons-react";
 import { useState } from "react";
-
-const HEADINGS = Object.freeze([1, 2.25, 1.875, 1.5, 1.125] as const);
 
 export function HeadingDropdown() {
   const [open, setOpen] = useState(false);
@@ -41,7 +40,7 @@ export function HeadingDropdown() {
       />
       <DropdownMenuContent align="start">
         <DropdownMenuGroup>
-          {HEADINGS.map((headingSize, index) => (
+          {HEADINGS_REM.map((headingSize, index) => (
             <DropdownMenuItem
               className="transition-colors duration-200"
               key={index}

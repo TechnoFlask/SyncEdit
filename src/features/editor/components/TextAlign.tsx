@@ -5,39 +5,11 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { ALIGNMENTS } from "@/constants";
 import { useEditorContext } from "@/features/editor/context/EditorContext";
 import { cn } from "@/lib/utils";
-import {
-  IconAlignCenter,
-  IconAlignJustified,
-  IconAlignLeft,
-  IconAlignRight,
-  IconChevronDown,
-} from "@tabler/icons-react";
+import { IconChevronDown } from "@tabler/icons-react";
 import { useState } from "react";
-
-const ALIGNMENTS = Object.freeze([
-  {
-    name: "Left",
-    value: "left",
-    icon: <IconAlignLeft className="size-6 text-black" />,
-  },
-  {
-    name: "Center",
-    value: "center",
-    icon: <IconAlignCenter className="size-6 text-black" />,
-  },
-  {
-    name: "Right",
-    value: "right",
-    icon: <IconAlignRight className="size-6 text-black" />,
-  },
-  {
-    name: "Justify",
-    value: "justify",
-    icon: <IconAlignJustified className="size-6 text-black" />,
-  },
-] as const);
 
 export function TextAlign() {
   const { editorOptionsActions, editorOptionsActive } = useEditorContext();
