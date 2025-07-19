@@ -50,7 +50,7 @@ export function FormatMenu() {
       <MenubarTrigger className="cursor-pointer text-lg transition-colors duration-200 hover:bg-gray-200 data-[state=open]:bg-gray-200">
         Format
       </MenubarTrigger>
-      <MenubarContent className="w-3xs print:hidden [&_*]:text-lg">
+      <MenubarContent className="w-3xs print:hidden [&_*]:text-lg [&_*]:transition-colors [&_*]:duration-200">
         <MenubarSub>
           <MenubarSubTrigger className="flex gap-2">
             <IconBallpen className="size-6" />

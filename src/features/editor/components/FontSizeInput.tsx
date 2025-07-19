@@ -59,7 +59,7 @@ export function FontSizeInput() {
               }}
               className="text-lg"
             />
-            <CommandList>
+            <CommandList className="[&_*]:transition-colors [&_*]:duration-200">
               {FONT_SIZES_PX.map((s) => (
                 <CommandItem
                   onMouseDown={() => {

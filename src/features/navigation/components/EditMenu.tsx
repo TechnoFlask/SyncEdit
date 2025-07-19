@@ -24,7 +24,7 @@ export function EditMenu() {
       <MenubarTrigger className="cursor-pointer text-lg transition-colors duration-200 hover:bg-gray-200 data-[state=open]:bg-gray-200">
         Edit
       </MenubarTrigger>
-      <MenubarContent className="w-3xs print:hidden [&_*]:text-lg">
+      <MenubarContent className="w-3xs print:hidden [&_*]:text-lg [&_*]:transition-colors [&_*]:duration-200">
         <MenubarItem onClick={() => editorOptionsActions.undo?.()}>
           <IconArrowBackUp className="size-6 text-black" />
           Undo <MenubarShortcut>Ctrl+Z</MenubarShortcut>
@@ -39,6 +39,7 @@ export function EditMenu() {
           Select all <MenubarShortcut>Ctrl+A</MenubarShortcut>
         </MenubarItem>
         <MenubarItem
+          className="hover:!bg-destructive hover:[&_*]:text-white"
           onClick={() => editor?.chain().deleteSelection().run()}
           disabled={(() => {
             if (editor == undefined) return false;
@@ -47,7 +48,7 @@ export function EditMenu() {
           })()}
         >
           <IconTrash className="size-6 text-black" />
-          Delete
+          <p>Delete</p>
         </MenubarItem>
       </MenubarContent>
     </MenubarMenu>

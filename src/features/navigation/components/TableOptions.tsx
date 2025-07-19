@@ -36,7 +36,7 @@ export function TableOptions() {
       <MenubarTrigger className="cursor-pointer text-lg transition-colors duration-200 hover:bg-gray-200 data-[state=open]:bg-gray-200">
         Table
       </MenubarTrigger>
-      <MenubarContent className="w-3xs print:hidden [&_*]:text-lg">
+      <MenubarContent className="w-3xs print:hidden [&_*]:text-lg [&_*]:transition-colors [&_*]:duration-200">
         <TableBgColor />
         <MenubarSub>
           <MenubarSubTrigger className="space-x-2">
@@ -95,25 +95,25 @@ export function TableOptions() {
         </MenubarItem>
         <MenubarSeparator />
         <MenubarItem
-          className="hover:!bg-destructive transition-colors duration-200 hover:[&_*]:text-white"
+          className="hover:!bg-destructive hover:[&_*]:text-white"
           onMouseDown={() => editor?.chain().focus().deleteRow().run()}
         >
-          <IconRowRemove className="size-6 text-black transition-colors duration-200" />
-          <p className="transition-colors duration-200">Delete row</p>
+          <IconRowRemove className="size-6 text-black" />
+          <p>Delete row</p>
         </MenubarItem>
         <MenubarItem
-          className="hover:!bg-destructive transition-colors duration-200 hover:[&_*]:text-white"
+          className="hover:!bg-destructive hover:[&_*]:text-white"
           onMouseDown={() => editor?.chain().focus().deleteColumn().run()}
         >
-          <IconColumnRemove className="size-6 text-black transition-colors duration-200" />
-          <p className="transition-colors duration-200">Delete column</p>
+          <IconColumnRemove className="size-6 text-black" />
+          <p>Delete column</p>
         </MenubarItem>
         <MenubarItem
-          className="hover:!bg-destructive transition-colors duration-200 hover:[&_*]:text-white"
+          className="hover:!bg-destructive hover:[&_*]:text-white"
           onMouseDown={() => editor?.chain().focus().deleteTable().run()}
         >
-          <IconTableMinus className="size-6 text-black transition-colors duration-200" />
-          <p className="transition-colors duration-200">Delete table</p>
+          <IconTableMinus className="size-6 text-black" />
+          <p>Delete table</p>
         </MenubarItem>
       </MenubarContent>
     </MenubarMenu>

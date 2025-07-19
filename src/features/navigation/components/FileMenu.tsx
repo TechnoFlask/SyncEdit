@@ -34,7 +34,7 @@ export function FileMenu() {
       <MenubarTrigger className="cursor-pointer text-lg transition-colors duration-200 hover:bg-gray-200 data-[state=open]:bg-gray-200">
         File
       </MenubarTrigger>
-      <MenubarContent className="w-3xs print:hidden [&_*]:text-lg">
+      <MenubarContent className="w-3xs print:hidden [&_*]:text-lg [&_*]:transition-colors [&_*]:duration-200">
         <MenubarItem className="flex gap-2">
           <IconFilePlus className="size-6 text-black" />
           New
@@ -68,16 +68,19 @@ export function FileMenu() {
           <IconPencil className="size-6 text-black" />
           Rename
         </MenubarItem>
-        <MenubarItem className="hover:!bg-destructive transition-colors duration-200 hover:[&_*]:text-white">
-          <IconTrash className="size-6 text-black transition-colors duration-200" />
-          <p className="transition-colors duration-200">Delete</p>
+        <MenubarItem className="hover:!bg-destructive hover:[&_*]:text-white">
+          <IconTrash className="size-6 text-black" />
+          <p>Delete</p>
         </MenubarItem>
         <MenubarSeparator />
         <MenubarItem>
           <IconInfoTriangle className="size-6 text-black" />
           Details
         </MenubarItem>
-        <MenubarItem onMouseDown={() => print()}>
+        <MenubarItem
+          className="transition-colors duration-1000"
+          onMouseDown={() => print()}
+        >
           <IconPrinter className="size-6 text-black" />
           Print
           <MenubarShortcut>Ctrl+P</MenubarShortcut>
