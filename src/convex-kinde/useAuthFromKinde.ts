@@ -1,8 +1,8 @@
-import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
+import { useKindeAuth } from "@kinde-oss/kinde-auth-nextjs";
 import { useCallback, useMemo } from "react";
 
 export function useAuthFromKinde() {
-  const { isLoading, isAuthenticated, getToken } = useKindeBrowserClient();
+  const { isLoading, isAuthenticated, getToken } = useKindeAuth();
   const fetchAccessToken = useCallback(
     async ({ forceRefreshToken }: { forceRefreshToken: boolean }) => {
       if (forceRefreshToken) {
