@@ -1,4 +1,5 @@
 import { Toaster } from "@/components/ui/sonner";
+import { ConvexKindeProvider } from "@/convex-kinde/ConvexKindeProvider";
 import type { Metadata } from "next";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
 import { ReactNode } from "react";
@@ -23,7 +24,9 @@ export default function RootLayout({
         /> */}
       </head>
       <FontLoadedBody>
-        <NuqsAdapter>{children}</NuqsAdapter>
+        <ConvexKindeProvider>
+          <NuqsAdapter>{children}</NuqsAdapter>
+        </ConvexKindeProvider>
         <Toaster />
       </FontLoadedBody>
     </html>
