@@ -1,13 +1,21 @@
 import { query } from "@convex/_generated/server";
+import { paginationOptsValidator } from "convex/server";
 
 export const getAllDocuments = query({
-  async handler({ db, auth }) {
+  args: { paginationOpts: paginationOptsValidator },
+  async handler({ db, auth }, { paginationOpts }) {
     const userIdentity = await auth.getUserIdentity();
     if (userIdentity == null) {
-      console.error("Not authenticated");
-      return null;
+      return {
+        page: [],
+        isDone: true,
+        continueCursor: "",
+      };
     }
 
-    return await db.query("documents").collect();
+    return await db
+      .query("documents")
+      .withIndex("by_owner_id", (q) => q.eq("ownerId", userIdentity.subject))
+      .paginate(paginationOpts);
   },
 });
