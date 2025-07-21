@@ -5,7 +5,7 @@ import { Search } from "./components/Search";
 
 export function Navbar() {
   return (
-    <nav className="flex items-center justify-around bg-white p-4">
+    <nav className="sticky top-0 z-50 flex items-center justify-around bg-white p-4">
       <div className="flex items-center gap-3">
         <Image src="/logo.svg" height={50} width={50} alt="Logo" />
         <p className="text-muted-foreground text-2xl font-semibold">SyncEdit</p>
@@ -19,7 +19,13 @@ export function Navbar() {
       >
         <Search />
       </Suspense>
-      <KindeUserButton />
+      <Suspense
+        fallback={
+          <div className="h-[50px] w-[50px] animate-pulse rounded-full" />
+        }
+      >
+        <KindeUserButton />
+      </Suspense>
     </nav>
   );
 }
