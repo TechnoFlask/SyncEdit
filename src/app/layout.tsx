@@ -1,5 +1,5 @@
+import { ConvexKindeProvider } from "@/auth/convex-kinde/ConvexKindeProvider";
 import { Toaster } from "@/components/ui/sonner";
-import { ConvexKindeProvider } from "@/convex-kinde/ConvexKindeProvider";
 import type { Metadata } from "next";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
 import { ReactNode } from "react";

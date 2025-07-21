@@ -9,7 +9,7 @@ export function useAuthFromKinde() {
         try {
           const response = getToken();
           return response as string;
-        } catch (_) {
+        } catch {
           return null;
         }
       }
