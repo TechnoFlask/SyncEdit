@@ -1,10 +1,13 @@
-import type {NextConfig} from "next";
+import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-    experimental: {
-        ppr: true,
-        useCache: true
-    },
+  images: {
+    remotePatterns: [new URL("https://lh3.googleusercontent.com/**")],
+  },
+  experimental: {
+    ppr: true,
+    useCache: true,
+  },
 };
 
 export default nextConfig;

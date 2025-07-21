@@ -1,3 +1,4 @@
+import { KindeUserButton } from "@/auth/components/KindeUserButton";
 import Image from "next/image";
 import { Suspense } from "react";
 import { Search } from "./components/Search";
@@ -18,7 +19,7 @@ export function Navbar() {
       >
         <Search />
       </Suspense>
-      <div />
+      <KindeUserButton />
     </nav>
   );
 }
