@@ -47,23 +47,25 @@ export function TemplatePreview({
       key={label}
       className="flex basis-1/2 flex-col gap-2 sm:basis-1/3 md:basis-1/4 lg:basis-1/5 xl:basis-1/6 2xl:basis-[14.2857%]"
     >
-      <button
-        className="group relative overflow-hidden"
-        disabled={isCreating}
-        onClick={() => {
-          handleDocumentCreation(label, "");
-        }}
-      >
-        <Image
-          src={src}
-          alt={label}
-          height={150}
-          width={150}
-          className="cursor-pointer group-disabled:cursor-not-allowed"
-        />
-        <div className="absolute inset-0 -translate-y-full bg-black/30 opacity-0 transition-all duration-200 group-hover:translate-y-0 group-hover:opacity-100 group-disabled:cursor-not-allowed group-disabled:bg-gray-500/30" />
-      </button>
-      <p className="font-semibold">{label}</p>
+      <div>
+        <button
+          className="group relative overflow-hidden"
+          disabled={isCreating}
+          onClick={() => {
+            handleDocumentCreation(label, "");
+          }}
+        >
+          <Image
+            src={src}
+            alt={label}
+            height={150}
+            width={150}
+            className="cursor-pointer group-disabled:cursor-not-allowed"
+          />
+          <div className="absolute inset-0 -translate-y-full bg-black/30 opacity-0 transition-all duration-200 group-hover:translate-y-0 group-hover:opacity-100 group-disabled:cursor-not-allowed group-disabled:bg-gray-500/30" />
+        </button>
+        <p className="font-semibold">{label}</p>
+      </div>
     </CarouselItem>
   );
 }

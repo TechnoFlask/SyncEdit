@@ -22,7 +22,7 @@ const TEMPLATES = Object.freeze([
 export function TemplateGallery() {
   return (
     <div className="mx-auto max-w-screen-2xl space-y-4 px-16 py-6">
-      <p className="ml-8 text-lg">Start a new document</p>
+      <p className="ml-8 text-xl font-medium">Start a new document</p>
       <Carousel>
         <CarouselContent className="ml-4">
           {TEMPLATES.map((template) => (
