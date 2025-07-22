@@ -2,14 +2,15 @@
 
 import { cn } from "@/lib/utils";
 import { IconSearch, IconX } from "@tabler/icons-react";
-import { parseAsString, useQueryState } from "nuqs";
+import { useQueryState } from "nuqs";
 import { useCallback, useState } from "react";
+
 export function Search() {
   const [value, setValue] = useState("");
-  const setSearchQuery = useQueryState(
-    "search",
-    parseAsString.withDefault("").withOptions({ clearOnDefault: true }),
-  )[1];
+  const [_, setSearchQuery] = useQueryState("search", {
+    defaultValue: "",
+    clearOnDefault: true,
+  });
 
   const handleSubmit = useCallback(() => {
     setSearchQuery(value);
