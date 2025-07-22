@@ -9,9 +9,12 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { api } from "@convex/_generated/api";
+import { Doc } from "@convex/_generated/dataModel";
 import {
   IconBrandSamsungpass,
+  IconChevronDown,
   IconFileCheckFilled,
+  IconLoader,
   IconShare,
 } from "@tabler/icons-react";
 import { UsePaginatedQueryReturnType } from "convex/react";
@@ -19,35 +22,46 @@ import { useMemo } from "react";
 import { DocumentTableActions } from "./DocumentTableActions";
 
 export function DocumentTable({
+  searchedDocuments,
   paginatedDocuments,
 }: {
+  searchedDocuments: Doc<"documents">[] | null | undefined;
   paginatedDocuments: UsePaginatedQueryReturnType<
     typeof api.documents.queries.getAllDocuments
   >;
 }) {
-  const { results, isLoading, loadMore, status } = paginatedDocuments;
+  const {
+    results: paginatedResults,
+    isLoading,
+    loadMore,
+    status,
+  } = paginatedDocuments;
+
+  const results = searchedDocuments ? searchedDocuments : paginatedResults;
+  const docType = searchedDocuments ? "searched" : "paginated";
+
   const dateFormatter = useMemo(
     () => Intl.DateTimeFormat("en-IN", { dateStyle: "long" }),
     [],
   );
 
   return (
-    <Table className="ml-4 max-w-5xl">
+    <Table className="ml-2 h-10 max-w-[1144px]">
       <TableHeader>
         <TableRow>
-          <TableHead colSpan={2} className="text-lg">
+          <TableHead colSpan={2} className="py-4 text-lg">
             Title
           </TableHead>
-          <TableHead className="text-lg">Type</TableHead>
-          <TableHead className="text-lg">Created On</TableHead>
-          <TableHead className="text-lg"></TableHead>
+          <TableHead className="py-4 text-lg">Type</TableHead>
+          <TableHead className="py-4 text-lg">Created On</TableHead>
+          <TableHead className="py-4 text-lg"></TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
         {results.length === 0 && (
           <TableRow>
             <TableCell
-              colSpan={4}
+              colSpan={5}
               className="text-muted-foreground p-5 text-center text-lg"
             >
               No documents to show
@@ -94,6 +108,32 @@ export function DocumentTable({
             </TableCell>
           </TableRow>
         ))}
+        {docType === "paginated" && isLoading && (
+          <TableRow>
+            <TableCell
+              colSpan={5}
+              className="text-muted-foreground p-5 text-center text-lg"
+            >
+              <div className="flex items-center justify-center gap-3">
+                <IconLoader className="size-7 animate-spin" />
+                Loading more documents
+              </div>
+            </TableCell>
+          </TableRow>
+        )}
+        {docType === "paginated" && status === "CanLoadMore" && (
+          <TableRow className="cursor-pointer" onClick={() => loadMore(5)}>
+            <TableCell
+              colSpan={5}
+              className="text-muted-foreground p-5 text-center text-lg"
+            >
+              <div className="flex items-center justify-center gap-3">
+                <IconChevronDown className="size-7 animate-bounce" />
+                Load more
+              </div>
+            </TableCell>
+          </TableRow>
+        )}
       </TableBody>
     </Table>
   );

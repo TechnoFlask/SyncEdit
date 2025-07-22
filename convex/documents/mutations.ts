@@ -7,7 +7,6 @@ export const createNewDocument = mutation({
     initialContent: v.optional(v.string()),
   },
   async handler({ auth, db }, { title, initialContent }) {
-    console.log("creating");
     const userIdentity = await auth.getUserIdentity();
     if (userIdentity == null) {
       return { success: false, cause: "User not authenticated" };
