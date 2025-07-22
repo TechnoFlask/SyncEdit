@@ -1,5 +1,7 @@
+import { ConvexKindeProvider } from "@/auth/convex-kinde/ConvexKindeProvider";
 import { Toaster } from "@/components/ui/sonner";
 import type { Metadata } from "next";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
 import { ReactNode } from "react";
 import { FontLoadedBody } from "./FontLoadedBody";
 import "./globals.css";
@@ -14,8 +16,17 @@ export default function RootLayout({
 }: Readonly<{ children: ReactNode }>) {
   return (
     <html lang="en">
+      <head>
+        {/* <script
+          crossOrigin="anonymous"
+          src="//unpkg.com/react-scan/dist/auto.global.js"
+          async
+        /> */}
+      </head>
       <FontLoadedBody>
-        {children}
+        <ConvexKindeProvider>
+          <NuqsAdapter>{children}</NuqsAdapter>
+        </ConvexKindeProvider>
         <Toaster />
       </FontLoadedBody>
     </html>
