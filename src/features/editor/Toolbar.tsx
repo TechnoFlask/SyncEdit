@@ -17,7 +17,7 @@ import { cn } from "@/lib/utils";
 export function Toolbar() {
   const menuBarButtons = useToolbarOptions();
   return (
-    <div className="flex h-12 w-full items-center gap-2 rounded-3xl bg-gray-200 px-4 py-2 print:hidden">
+    <div className="flex h-12 w-full items-center gap-2 overflow-x-scroll overflow-y-hidden rounded-3xl bg-gray-200 px-4 py-2 print:hidden">
       {menuBarButtons[0].map(({ label, action, icon, isActive }) => (
         <Hover
           key={label}
