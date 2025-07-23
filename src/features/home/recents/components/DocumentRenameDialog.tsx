@@ -1,6 +1,5 @@
 "use client";
 
-import { toast } from "@/components/custom/toast";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -11,11 +10,10 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { api } from "@convex/_generated/api";
+import { useDocumentRename } from "@/hooks/useDocumentRename";
 import { Id } from "@convex/_generated/dataModel";
 import { DialogDescription, DialogTitle } from "@radix-ui/react-dialog";
-import { useConvexAuth, useMutation } from "convex/react";
-import { ReactNode, useCallback, useRef, useState } from "react";
+import { ReactNode, useRef, useState } from "react";
 
 export function DocumentRenameDialog({
   children,
@@ -26,31 +24,10 @@ export function DocumentRenameDialog({
   documentId: Id<"documents">;
   documentTitle: string;
 }) {
-  const { isAuthenticated } = useConvexAuth();
-  const renameDocument = useMutation(api.documents.mutations.renameDocument);
   const titleInputRef = useRef<HTMLInputElement>(null);
-  const [isRenaming, setIsRenaming] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
-  const handleDocumentRenaming = useCallback(async () => {
-    if (!isAuthenticated) return;
-
-    setIsRenaming(true);
-    try {
-      const documentRenamingResult = await renameDocument({
-        documentId,
-        title: titleInputRef.current?.value.trim(),
-      });
-      if (!documentRenamingResult.success) {
-        toast.error(documentRenamingResult.cause);
-        return;
-      }
-
-      toast.success("Renamed document successfully");
-    } finally {
-      setIsRenaming(false);
-    }
-  }, [renameDocument, documentId, isAuthenticated]);
+  const { isRenaming, handleDocumentRenaming } = useDocumentRename();
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
@@ -70,7 +47,11 @@ export function DocumentRenameDialog({
           placeholder="Document title"
           onKeyDown={(e) => {
             if (e.key === "Enter") {
-              handleDocumentRenaming();
+              handleDocumentRenaming(
+                documentId,
+                titleInputRef.current?.value.trim() ?? "",
+                documentTitle,
+              );
               setIsOpen(false);
             }
           }}
@@ -88,7 +69,13 @@ export function DocumentRenameDialog({
               className="text-base"
               type="submit"
               variant="secondary"
-              onClick={handleDocumentRenaming}
+              onClick={() =>
+                handleDocumentRenaming(
+                  documentId,
+                  titleInputRef.current?.value.trim() ?? "",
+                  documentTitle,
+                )
+              }
               disabled={isRenaming}
             >
               Rename

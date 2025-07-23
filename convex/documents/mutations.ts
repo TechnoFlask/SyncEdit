@@ -1,10 +1,14 @@
 import { mutation } from "@convex/_generated/server";
-import { v } from "convex/values";
+import { documentSchema } from "@convex/schema";
+import { NoOp } from "convex-helpers/server/customFunctions";
+import { zCustomMutation, zid } from "convex-helpers/server/zod";
 
-export const createNewDocument = mutation({
+const zMutation = zCustomMutation(mutation, NoOp);
+
+export const createNewDocument = zMutation({
   args: {
-    title: v.optional(v.string()),
-    initialContent: v.optional(v.string()),
+    title: documentSchema.shape.title.optional(),
+    initialContent: documentSchema.shape.initialContent,
   },
   async handler({ auth, db }, { title, initialContent }) {
     const userIdentity = await auth.getUserIdentity();
@@ -14,17 +18,20 @@ export const createNewDocument = mutation({
 
     return {
       success: true,
-      value: await db.insert("documents", {
-        title: title ?? "Untitled document",
-        ownerId: userIdentity.subject,
-        initialContent,
-      }),
+      value: await db.insert(
+        "documents",
+        documentSchema.parse({
+          title: title ?? "Untitled document",
+          ownerId: userIdentity.subject,
+          initialContent,
+        }),
+      ),
     };
   },
 });
 
-export const deleteDocument = mutation({
-  args: { documentId: v.id("documents") },
+export const deleteDocument = zMutation({
+  args: { documentId: zid("documents") },
   async handler({ auth, db }, { documentId }) {
     const userIdentity = await auth.getUserIdentity();
     if (userIdentity == null)
@@ -45,8 +52,11 @@ export const deleteDocument = mutation({
   },
 });
 
-export const renameDocument = mutation({
-  args: { documentId: v.id("documents"), title: v.optional(v.string()) },
+export const renameDocument = zMutation({
+  args: {
+    documentId: zid("documents"),
+    title: documentSchema.shape.title.optional(),
+  },
   async handler({ auth, db }, { documentId, title }) {
     const userIdentity = await auth.getUserIdentity();
     if (userIdentity == null)
