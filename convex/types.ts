@@ -1,4 +1,4 @@
 type Success<S> = { success: true; value: S };
-type Failure<F, V = unknown> = { success: false; cause: F; value?: V };
+type Failure<F> = { success: false; cause: F };
 
-export type Result<S, F, FV = unknown> = Success<S> | Failure<F, FV>;
+export type Result<S, F> = Success<S> | Failure<F>;
