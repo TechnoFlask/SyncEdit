@@ -16,6 +16,8 @@ import type {
 import type * as documents_internal_queries from "../documents/internal/queries.js";
 import type * as documents_mutations from "../documents/mutations.js";
 import type * as documents_queries from "../documents/queries.js";
+import type * as organizations_mutations from "../organizations/mutations.js";
+import type * as organizations_queries from "../organizations/queries.js";
 import type * as types from "../types.js";
 import type * as webhook_mutations from "../webhook/mutations.js";
 
@@ -31,6 +33,8 @@ declare const fullApi: ApiFromModules<{
   "documents/internal/queries": typeof documents_internal_queries;
   "documents/mutations": typeof documents_mutations;
   "documents/queries": typeof documents_queries;
+  "organizations/mutations": typeof organizations_mutations;
+  "organizations/queries": typeof organizations_queries;
   types: typeof types;
   "webhook/mutations": typeof webhook_mutations;
 }>;
