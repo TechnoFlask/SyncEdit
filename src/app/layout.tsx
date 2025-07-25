@@ -1,5 +1,6 @@
 import { ConvexKindeProvider } from "@/auth/convex-kinde/ConvexKindeProvider";
 import { Toaster } from "@/components/ui/sonner";
+import { OrganizationContextProvider } from "@/features/organization-switcher/context/OrganizationContextProvider";
 import type { Metadata } from "next";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
 import { ReactNode } from "react";
@@ -25,7 +26,11 @@ export default function RootLayout({
       </head>
       <FontLoadedBody>
         <ConvexKindeProvider>
-          <NuqsAdapter>{children}</NuqsAdapter>
+          <NuqsAdapter>
+            <OrganizationContextProvider>
+              {children}
+            </OrganizationContextProvider>
+          </NuqsAdapter>
         </ConvexKindeProvider>
         <Toaster />
       </FontLoadedBody>
