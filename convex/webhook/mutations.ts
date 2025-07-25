@@ -13,6 +13,10 @@ export const addUser = zMutation({
     if (secret !== process.env.WEBHOOK_SECRET)
       throw new ConvexError("Operation not authorized");
 
-    await db.insert("users", userData);
+    const userId = await db.insert("users", userData);
+    await db.insert("organizations", {
+      name: "Default",
+      ownerId: userId,
+    });
   },
 });

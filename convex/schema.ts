@@ -8,6 +8,13 @@ export const userSchema = z.object({
   lastName: z.string().nullable().optional(),
   userName: z.string().nullable().optional(),
   email: z.string().nullable().optional(),
+  image: z.string().nullable().optional(),
+});
+
+export const organizationSchema = z.object({
+  name: z.string().min(5),
+  ownerId: zid("users"),
+  imageUrl: z.string().optional(),
 });
 
 export const documentSchema = z.object({
@@ -19,10 +26,6 @@ export const documentSchema = z.object({
   visibility: z
     .union([z.literal("public"), z.literal("limited")])
     .default("limited"),
-});
-
-export const organizationSchema = z.object({
-  name: z.string().min(5),
 });
 
 export const permissionSchema = z.object({
@@ -40,11 +43,13 @@ export default defineSchema({
   users: defineTable(zodOutputToConvex(userSchema))
     .index("by_userId", ["userId"])
     .index("by_email", ["email"]),
-  documents: defineTable(zodOutputToConvex(documentSchema)).index(
+  documents: defineTable(zodOutputToConvex(documentSchema))
+    .index("by_ownerId", ["ownerId"])
+    .index("by_organizationId", ["organizationId"]),
+  organizations: defineTable(zodOutputToConvex(organizationSchema)).index(
     "by_ownerId",
     ["ownerId"],
   ),
-  organizations: defineTable(zodOutputToConvex(organizationSchema)),
   permissions: defineTable(zodOutputToConvex(permissionSchema)).index(
     "by_documentId_userId",
     ["documentId", "userId"],
