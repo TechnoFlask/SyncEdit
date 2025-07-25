@@ -1,4 +1,5 @@
 import { KindeUserButton } from "@/auth/components/KindeUserButton";
+import { OrgSwitcher } from "@/features/organization-switcher/OrgSwitcher";
 import Image from "next/image";
 import { Suspense } from "react";
 import { Search } from "./components/Search";
@@ -19,13 +20,18 @@ export function Navbar() {
       >
         <Search />
       </Suspense>
-      <Suspense
-        fallback={
-          <div className="h-[50px] w-[50px] animate-pulse rounded-full" />
-        }
-      >
-        <KindeUserButton />
-      </Suspense>
+      <div className="flex items-center gap-3">
+        <Suspense fallback={<p>Loading.....</p>}>
+          <OrgSwitcher />
+        </Suspense>
+        <Suspense
+          fallback={
+            <div className="h-[50px] w-[50px] animate-pulse rounded-full" />
+          }
+        >
+          <KindeUserButton />
+        </Suspense>
+      </div>
     </nav>
   );
 }

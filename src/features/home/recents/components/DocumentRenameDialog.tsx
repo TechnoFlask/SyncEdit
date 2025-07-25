@@ -5,14 +5,15 @@ import {
   Dialog,
   DialogClose,
   DialogContent,
+  DialogDescription,
   DialogFooter,
   DialogHeader,
+  DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { useDocumentRename } from "@/hooks/useDocumentRename";
 import { Id } from "@convex/_generated/dataModel";
-import { DialogDescription, DialogTitle } from "@radix-ui/react-dialog";
 import { ReactNode, useRef, useState } from "react";
 
 export function DocumentRenameDialog({
