@@ -14,7 +14,7 @@ import { DocumentRenameDialog } from "./DocumentRenameDialog";
 export function DocumentTableActions({
   document,
 }: {
-  document: Doc<"documents">;
+  document: Doc<"documents"> & { isOwner: boolean; user: Doc<"users"> };
 }) {
   return (
     <DropdownMenu>
@@ -36,7 +36,11 @@ export function DocumentTableActions({
             </p>
           </DropdownMenuItem>
         </DocumentRenameDialog>
-        <DocumentDeleteDialog documentId={document._id}>
+        <DocumentDeleteDialog
+          documentId={document._id}
+          documentOwner={document.user}
+          isOwner={document.isOwner}
+        >
           <DropdownMenuItem
             onSelect={(e) => e.preventDefault()}
             className="hover:!bg-destructive flex size-full gap-2 transition-all duration-200 hover:[&_*]:text-white"

@@ -47,6 +47,7 @@ export function OrganizationsDropdown() {
                 id: o._id,
                 name: o.name,
                 image: o.imageUrl,
+                canInviteOthers: o.isOwner && o.name !== "Default",
               })
             }
             key={o._id}
@@ -69,7 +70,7 @@ export function OrganizationsDropdown() {
             </div>
             <IconCheck
               className={cn("size-6 text-black", {
-                invisible: o.name !== currentOrganization.name,
+                invisible: o._id !== currentOrganization.id,
               })}
             />
           </DropdownMenuItem>

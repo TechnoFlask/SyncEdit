@@ -9,6 +9,7 @@ import {
 import { IconBuildings } from "@tabler/icons-react";
 import { useConvexAuth } from "convex/react";
 import Image from "next/image";
+import { InviteMember } from "./components/InviteMember";
 import { OrganizationMembers } from "./components/OrganizationMembers";
 import { OrganizationsDropdown } from "./components/OrganizationsDropdown";
 import { useOrganizationContext } from "./context/OrganizationContext";
@@ -38,6 +39,12 @@ export function OrgSwitcher() {
       <DropdownMenuContent align="start">
         <OrganizationsDropdown />
         <DropdownMenuSeparator />
+        {currentOrganization.canInviteOthers && (
+          <>
+            <InviteMember />
+            <DropdownMenuSeparator />
+          </>
+        )}
         <OrganizationMembers />
       </DropdownMenuContent>
     </DropdownMenu>

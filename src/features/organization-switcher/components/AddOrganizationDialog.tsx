@@ -13,7 +13,7 @@ import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import { api } from "@convex/_generated/api";
 import { organizationSchema } from "@convex/schema";
-import { IconPlus } from "@tabler/icons-react";
+import { IconBuildingPlus } from "@tabler/icons-react";
 import { useMutation } from "convex/react";
 import { useCallback, useRef, useState } from "react";
 
@@ -58,7 +58,7 @@ export function AddOrganizationDialog() {
           onSelect={(e) => e.preventDefault()}
           className="gap-2 transition-all duration-200"
         >
-          <IconPlus className="size-6 text-black" />
+          <IconBuildingPlus className="size-6 text-black" />
           <p className="text-lg">New organization</p>
         </DropdownMenuItem>
       </DialogTrigger>

@@ -29,7 +29,7 @@ export function NameInput() {
   // To synchronize between convex state and input state
   useEffect(() => {
     if (documentTitleQueryResult && !documentTitleQueryResult.success)
-      toast.warning(documentTitleQueryResult.cause);
+      toast.error(documentTitleQueryResult.cause);
     setValue(documentTitle);
   }, [documentTitle, documentTitleQueryResult]);
 

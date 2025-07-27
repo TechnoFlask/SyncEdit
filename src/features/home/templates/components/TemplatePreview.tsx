@@ -2,6 +2,7 @@
 
 import { toast } from "@/components/custom/toast";
 import { CarouselItem } from "@/components/ui/carousel";
+import { useOrganizationContext } from "@/features/organization-switcher/context/OrganizationContext";
 import { api } from "@convex/_generated/api";
 import { useConvexAuth, useMutation } from "convex/react";
 import Image from "next/image";
@@ -15,6 +16,7 @@ export function TemplatePreview({
   label: string;
 }) {
   const { isAuthenticated } = useConvexAuth();
+  const { currentOrganization } = useOrganizationContext();
   const createDocument = useMutation(api.documents.mutations.createNewDocument);
   const [isCreating, setIsCreating] = useState(false);
 
@@ -28,6 +30,11 @@ export function TemplatePreview({
         const documentCreationResult = await createDocument({
           title,
           initialContent,
+          organizationId:
+            !currentOrganization.canInviteOthers &&
+            currentOrganization.name === "Default"
+              ? undefined
+              : currentOrganization.id,
         });
         if (!documentCreationResult.success) {
           toast.error(documentCreationResult.cause);
@@ -39,7 +46,7 @@ export function TemplatePreview({
         setIsCreating(false);
       }
     },
-    [createDocument, isAuthenticated],
+    [createDocument, isAuthenticated, currentOrganization],
   );
 
   return (

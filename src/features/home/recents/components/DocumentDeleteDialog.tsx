@@ -12,17 +12,22 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { getUserName } from "@/lib/utils";
 import { api } from "@convex/_generated/api";
-import { Id } from "@convex/_generated/dataModel";
+import { Doc, Id } from "@convex/_generated/dataModel";
 import { useConvexAuth, useMutation } from "convex/react";
 import { ReactNode, useCallback, useState } from "react";
 
 export function DocumentDeleteDialog({
   children,
   documentId,
+  documentOwner,
+  isOwner,
 }: {
   children: ReactNode;
   documentId: Id<"documents">;
+  documentOwner: Doc<"users">;
+  isOwner: boolean;
 }) {
   const { isAuthenticated } = useConvexAuth();
   const deleteDocument = useMutation(api.documents.mutations.deleteDocument);
@@ -52,8 +57,9 @@ export function DocumentDeleteDialog({
         <AlertDialogHeader>
           <AlertDialogTitle className="text-xl">Are you sure?</AlertDialogTitle>
           <AlertDialogDescription className="text-lg">
-            This action will delete this document permanently. This action can
-            not be undone.
+            This action will delete this document (Owner:&nbsp;
+            {isOwner ? "You" : getUserName(documentOwner)}) permanently. This
+            action can not be undone.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>

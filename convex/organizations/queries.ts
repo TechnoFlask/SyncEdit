@@ -1,27 +1,12 @@
 import { Doc } from "@convex/_generated/dataModel";
-import { query } from "@convex/_generated/server";
+import { zAuthQuery } from "@convex/customQueries";
 import { Result } from "@convex/types";
-import { customCtx } from "convex-helpers/server/customFunctions";
 import {
   getAll,
   getManyFrom,
   getOneFrom,
 } from "convex-helpers/server/relationships";
-import { zCustomQuery, zid } from "convex-helpers/server/zod";
-
-const zAuthQuery = zCustomQuery(
-  query,
-  customCtx(async ({ auth }) => {
-    const user = await auth.getUserIdentity();
-    if (user == null)
-      return {
-        success: false,
-        cause: "User not authenticated",
-      };
-
-    return { success: true, value: user };
-  }),
-);
+import { zid } from "convex-helpers/server/zod";
 
 export const getUserOrganizations = zAuthQuery({
   args: {},
@@ -63,7 +48,7 @@ export const getUserOrganizations = zAuthQuery({
           ...o,
           isOwner: ownerId === userInDb._id,
         }))
-        .toSorted((_, b) => (b.isOwner ? 1 : -1)),
+        .toSorted((_, b) => (b.name === "Default" || b.isOwner ? 1 : -1)),
     };
   },
 });
@@ -83,8 +68,9 @@ export const getCurrentOrganizationMembers = zAuthQuery({
     const currentOrganizationMembers = await getManyFrom(
       db,
       "organizationMembers",
-      "by_organizationId",
+      "by_organizationId_userId",
       organizationId,
+      "organizationId",
     );
 
     // Exclude owner

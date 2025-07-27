@@ -1,6 +1,7 @@
 "use client";
 
 import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
+import { getUserName } from "@/lib/utils";
 import { api } from "@convex/_generated/api";
 import { IconUser } from "@tabler/icons-react";
 import { useQuery } from "convex/react";
@@ -29,9 +30,7 @@ export function OrganizationMembers() {
           ) : (
             <IconUser className="size-6 text-black" />
           )}
-          <p className="text-lg">
-            {om.userName ?? `${om.firstName} ${om.lastName}` ?? "Anonymous"}
-          </p>
+          <p className="text-lg">{getUserName(om)}</p>
         </DropdownMenuItem>
       ))}
     </>

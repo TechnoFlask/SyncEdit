@@ -13,7 +13,8 @@ import type {
   FilterApi,
   FunctionReference,
 } from "convex/server";
-import type * as documents_internal_queries from "../documents/internal/queries.js";
+import type * as customQueries from "../customQueries.js";
+import type * as documents_helpers from "../documents/helpers.js";
 import type * as documents_mutations from "../documents/mutations.js";
 import type * as documents_queries from "../documents/queries.js";
 import type * as organizations_mutations from "../organizations/mutations.js";
@@ -30,7 +31,8 @@ import type * as webhook_mutations from "../webhook/mutations.js";
  * ```
  */
 declare const fullApi: ApiFromModules<{
-  "documents/internal/queries": typeof documents_internal_queries;
+  customQueries: typeof customQueries;
+  "documents/helpers": typeof documents_helpers;
   "documents/mutations": typeof documents_mutations;
   "documents/queries": typeof documents_queries;
   "organizations/mutations": typeof organizations_mutations;

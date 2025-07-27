@@ -20,7 +20,7 @@ export const organizationSchema = z.object({
 export const documentSchema = z.object({
   title: z.string().min(1),
   initialContent: z.string().optional(),
-  ownerId: userSchema.shape.userId,
+  ownerId: zid("users"),
   organizationId: zid("organizations").optional(),
   roomId: z.string().optional(),
   visibility: z
@@ -44,7 +44,7 @@ export default defineSchema({
     .index("by_userId", ["userId"])
     .index("by_email", ["email"]),
   documents: defineTable(zodOutputToConvex(documentSchema))
-    .index("by_ownerId", ["ownerId"])
+    .index("by_ownerId_organizationId", ["ownerId", "organizationId"])
     .index("by_organizationId", ["organizationId"]),
   organizations: defineTable(zodOutputToConvex(organizationSchema)).index(
     "by_ownerId",
@@ -55,6 +55,6 @@ export default defineSchema({
     ["documentId", "userId"],
   ),
   organizationMembers: defineTable(zodOutputToConvex(organizationMemberSchema))
-    .index("by_organizationId", ["organizationId"])
+    .index("by_organizationId_userId", ["organizationId", "userId"])
     .index("by_userId", ["userId"]),
 });

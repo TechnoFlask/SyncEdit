@@ -1,23 +1,7 @@
-import { mutation } from "@convex/_generated/server";
+import { zAuthMutation } from "@convex/customQueries";
 import { organizationSchema } from "@convex/schema";
 import { Result } from "@convex/types";
-import { customCtx } from "convex-helpers/server/customFunctions";
 import { getManyFrom, getOneFrom } from "convex-helpers/server/relationships";
-import { zCustomMutation } from "convex-helpers/server/zod";
-
-const zAuthMutation = zCustomMutation(
-  mutation,
-  customCtx(async ({ auth }) => {
-    const user = await auth.getUserIdentity();
-    if (user == null)
-      return {
-        success: false,
-        cause: "User not authenticated",
-      };
-
-    return { success: true, value: user };
-  }),
-);
 
 export const createOrganization = zAuthMutation({
   args: { name: organizationSchema.shape.name },
