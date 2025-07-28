@@ -10,7 +10,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { z } from "zod";
 import { NameInput } from "../file-name/NameInput";
-import { MenuOptions } from "../navigation/MenuOptions";
+import { MenuOptions } from "./navigation/MenuOptions";
 
 export function Editor({
   document,
