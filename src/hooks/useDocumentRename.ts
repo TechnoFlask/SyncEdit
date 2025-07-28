@@ -1,6 +1,7 @@
 import { toast } from "@/components/custom/toast";
 import { api } from "@convex/_generated/api";
 import { Id } from "@convex/_generated/dataModel";
+import { documentSchema } from "@convex/schema";
 import { useConvexAuth, useMutation } from "convex/react";
 import { useCallback, useState } from "react";
 
@@ -24,11 +25,17 @@ export function useDocumentRename() {
         return;
       }
 
+      const parseResult = documentSchema.shape.title.safeParse(newTitle);
+      if (!parseResult.success) {
+        toast.error(parseResult.error.errors[0].message);
+        return;
+      }
+
       setIsRenaming(true);
       try {
         const documentRenamingResult = await renameDocumentMutation({
           documentId: documentId,
-          title: newTitle.trim(),
+          title: parseResult.data.trim(),
         });
         if (!documentRenamingResult.success) {
           toast.error(documentRenamingResult.cause);
