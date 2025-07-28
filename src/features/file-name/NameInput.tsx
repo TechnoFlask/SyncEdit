@@ -1,37 +1,18 @@
 "use client";
 
-import { toast } from "@/components/custom/toast";
 import { Input } from "@/components/ui/input";
 import { useDocumentRename } from "@/hooks/useDocumentRename";
-import { api } from "@convex/_generated/api";
 import { Id } from "@convex/_generated/dataModel";
-import { useConvexAuth, useQuery } from "convex/react";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
-export function NameInput() {
-  const { isAuthenticated } = useConvexAuth();
+export function NameInput({ documentTitle }: { documentTitle: string }) {
   const pathName = usePathname();
   const documentId = pathName.replace("/document/", "");
-  const documentTitleQueryResult = useQuery(
-    api.documents.queries.getDocumentTitle,
-    isAuthenticated ? { documentId: documentId as Id<"documents"> } : "skip",
-  );
-
-  const documentTitle = documentTitleQueryResult?.success
-    ? documentTitleQueryResult.value
-    : "";
 
   const spanRef = useRef<HTMLSpanElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-  const [value, setValue] = useState("");
-
-  // To synchronize between convex state and input state
-  useEffect(() => {
-    if (documentTitleQueryResult && !documentTitleQueryResult.success)
-      toast.error(documentTitleQueryResult.cause);
-    setValue(documentTitle);
-  }, [documentTitle, documentTitleQueryResult]);
+  const [value, setValue] = useState(documentTitle);
 
   // To synchronize input state and input length
   useEffect(() => {

@@ -3,15 +3,26 @@
 import { LinkBubbleMenu } from "@/features/editor/components/LinkBubbleMenu";
 import { useEditorConfig } from "@/features/editor/hooks/useEditorConfig";
 import { Toolbar } from "@/features/editor/Toolbar";
+import { Doc } from "@convex/_generated/dataModel";
+import { permissionSchema } from "@convex/schema";
 import { EditorContent } from "@tiptap/react";
 import Image from "next/image";
 import Link from "next/link";
+import { z } from "zod";
 import { NameInput } from "../file-name/NameInput";
 import { MenuOptions } from "../navigation/MenuOptions";
 
-export function Editor() {
-  const editor = useEditorConfig();
-
+export function Editor({
+  document,
+}: {
+  document?: Doc<"documents"> & {
+    access: z.infer<typeof permissionSchema.shape.accessLevel>;
+  };
+}) {
+  const editor = useEditorConfig(
+    document == null || document?.access === "edit",
+    document?.content,
+  );
   return (
     <div className="flex size-full flex-col gap-8 pb-20 print:p-0">
       <div className="sticky top-0 z-10 flex flex-col gap-3 bg-gray-100 p-5 pt-2 shadow-sm print:hidden">
@@ -20,7 +31,7 @@ export function Editor() {
             <Image src="/logo.svg" width={50} height={50} alt="Logo" />
           </Link>
           <div className="space-y-1">
-            <NameInput />
+            <NameInput documentTitle={document?.title ?? ""} />
             <MenuOptions />
           </div>
         </div>
