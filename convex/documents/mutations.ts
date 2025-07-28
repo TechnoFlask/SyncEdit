@@ -9,12 +9,12 @@ import { checkDocOrOrgOwner } from "./helpers";
 export const createNewDocument = zAuthMutation({
   args: {
     title: documentSchema.shape.title.optional(),
-    initialContent: documentSchema.shape.initialContent,
+    content: documentSchema.shape.content,
     organizationId: documentSchema.shape.organizationId,
   },
   async handler(
     { success, db, ...ctx },
-    { title, initialContent, organizationId },
+    { title, content, organizationId },
   ): Promise<Result<Id<"documents">, string>> {
     if (!success) return { success, cause: ctx.cause! };
     const user = ctx.value!;
@@ -30,7 +30,7 @@ export const createNewDocument = zAuthMutation({
           title: title ?? "Untitled document",
           ownerId: userInDb._id,
           organizationId,
-          initialContent,
+          content,
         }),
       ),
     };

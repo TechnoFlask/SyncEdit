@@ -44,3 +44,24 @@ export async function checkDocumentAccess(
 
   return true;
 }
+
+export async function getDocumentAccessLevel(
+  db: QueryCtx["db"],
+  targetDocument: Doc<"documents">,
+  userInDb: Doc<"users">,
+) {
+  const userDocumentPermission = await db
+    .query("permissions")
+    .withIndex("by_documentId_userId", (q) =>
+      q.eq("documentId", targetDocument._id).eq("userId", userInDb._id),
+    )
+    .first();
+
+  if (
+    userDocumentPermission == null ||
+    userDocumentPermission.accessLevel == null
+  )
+    return "read";
+
+  return userDocumentPermission.accessLevel;
+}

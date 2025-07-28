@@ -1,13 +1,17 @@
 import { Doc } from "@convex/_generated/dataModel";
 import { zAuthQuery } from "@convex/customQueries";
-import { documentSchema } from "@convex/schema";
+import { documentSchema, permissionSchema } from "@convex/schema";
 import { type Result } from "@convex/types";
 import { filter } from "convex-helpers/server/filter";
 import { getAll, getOneFrom } from "convex-helpers/server/relationships";
 import { convexToZod, zid } from "convex-helpers/server/zod";
 import { paginationOptsValidator } from "convex/server";
 import { z } from "zod";
-import { checkDocOrOrgOwner, checkDocumentAccess } from "./helpers";
+import {
+  checkDocOrOrgOwner,
+  checkDocumentAccess,
+  getDocumentAccessLevel,
+} from "./helpers";
 
 export const getSearchedDocuments = zAuthQuery({
   args: {
@@ -119,12 +123,19 @@ export const getAllDocuments = zAuthQuery({
   },
 });
 
-export const getDocumentTitle = zAuthQuery({
+export const getDocumentById = zAuthQuery({
   args: { documentId: zid("documents") },
   async handler(
     { success, db, ...ctx },
     { documentId },
-  ): Promise<Result<z.infer<typeof documentSchema.shape.title>, string>> {
+  ): Promise<
+    Result<
+      Doc<"documents"> & {
+        access: z.infer<typeof permissionSchema.shape.accessLevel>;
+      },
+      string
+    >
+  > {
     if (!success) return { success, cause: ctx.cause! };
     const user = ctx.value!;
 
@@ -140,22 +151,29 @@ export const getDocumentTitle = zAuthQuery({
       targetDocument,
       userInDb,
     );
-
-    if (isDocOrOrgOwner) return { success: true, value: targetDocument.title };
+    if (isDocOrOrgOwner)
+      return { success: true, value: { ...targetDocument, access: "edit" } };
 
     const hasDocumentAccess = await checkDocumentAccess(
       db,
       targetDocument,
       userInDb,
     );
-
     if (!hasDocumentAccess)
       return {
         success: false,
         cause: "You are not authorized to access this document",
       };
 
-    return { success: true, value: targetDocument.title };
+    const documentAccessLevel = await getDocumentAccessLevel(
+      db,
+      targetDocument,
+      userInDb,
+    );
+    return {
+      success: true,
+      value: { ...targetDocument, access: documentAccessLevel },
+    };
   },
 });
 

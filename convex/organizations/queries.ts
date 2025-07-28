@@ -15,7 +15,7 @@ export const getUserOrganizations = zAuthQuery({
     {},
   ): Promise<
     Result<
-      (Omit<Doc<"organizations">, "ownerId"> & {
+      (Doc<"organizations"> & {
         isOwner: boolean;
       })[],
       string
@@ -44,9 +44,9 @@ export const getUserOrganizations = zAuthQuery({
     return {
       success: true,
       value: organizationNames
-        .map(({ ownerId, ...o }) => ({
+        .map((o) => ({
           ...o,
-          isOwner: ownerId === userInDb._id,
+          isOwner: o.ownerId === userInDb._id,
         }))
         .toSorted((_, b) => (b.name === "Default" || b.isOwner ? 1 : -1)),
     };
@@ -73,17 +73,19 @@ export const getCurrentOrganizationMembers = zAuthQuery({
       "organizationId",
     );
 
-    // Exclude owner
-    const currentOrganizationOtherMemberNames = await getAll(
-      db,
-      currentOrganizationMembers
-        .filter((o) => o.userId !== userInDb._id)
-        .map((o) => o.userId),
-    );
+    // Exclude current user
+    const currentOrganizationOtherMemberNames = (
+      await getAll(
+        db,
+        currentOrganizationMembers
+          .filter((o) => o.userId !== userInDb._id)
+          .map((o) => o.userId),
+      )
+    ).filter((o) => o != null);
 
     return {
       success: true,
-      value: currentOrganizationOtherMemberNames.filter((o) => o != null),
+      value: currentOrganizationOtherMemberNames,
     };
   },
 });

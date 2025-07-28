@@ -19,19 +19,17 @@ export const organizationSchema = z.object({
 
 export const documentSchema = z.object({
   title: z.string().min(1),
-  initialContent: z.string().optional(),
+  content: z.string().optional(),
   ownerId: zid("users"),
   organizationId: zid("organizations").optional(),
   roomId: z.string().optional(),
-  visibility: z
-    .union([z.literal("public"), z.literal("limited")])
-    .default("limited"),
+  visibility: z.enum(["limited", "public"]).default("limited"),
 });
 
 export const permissionSchema = z.object({
   documentId: zid("documents"),
   userId: zid("users").optional(),
-  accessLevel: z.union([z.literal("read"), z.literal("edit")]).default("read"),
+  accessLevel: z.enum(["read", "edit"]).default("read"),
 });
 
 export const organizationMemberSchema = z.object({
