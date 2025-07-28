@@ -6,6 +6,7 @@ export type OrganizationType = {
   name: string;
   image?: string;
   canInviteOthers?: boolean;
+  ownerId?: Id<"users">;
 };
 
 type OrganizationContextType = {

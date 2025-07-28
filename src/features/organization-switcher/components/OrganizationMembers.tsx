@@ -30,7 +30,12 @@ export function OrganizationMembers() {
           ) : (
             <IconUser className="size-6 text-black" />
           )}
-          <p className="text-lg">{getUserName(om)}</p>
+          <div className="flex items-center gap-1">
+            <p className="text-lg">{getUserName(om)}</p>
+            {currentOrganization.ownerId === om._id && (
+              <span className="text-muted-foreground">(owner)</span>
+            )}
+          </div>
         </DropdownMenuItem>
       ))}
     </>

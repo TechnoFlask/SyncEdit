@@ -29,7 +29,7 @@ export function TemplatePreview({
       try {
         const documentCreationResult = await createDocument({
           title,
-          initialContent,
+          content: initialContent,
           organizationId:
             !currentOrganization.canInviteOthers &&
             currentOrganization.name === "Default"

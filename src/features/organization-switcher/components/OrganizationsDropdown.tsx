@@ -48,6 +48,7 @@ export function OrganizationsDropdown() {
                 name: o.name,
                 image: o.imageUrl,
                 canInviteOthers: o.isOwner && o.name !== "Default",
+                ownerId: o.ownerId,
               })
             }
             key={o._id}
