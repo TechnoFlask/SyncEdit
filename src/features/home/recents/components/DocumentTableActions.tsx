@@ -6,9 +6,11 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useOrganizationContext } from "@/features/organization-switcher/context/OrganizationContext";
 import { Doc } from "@convex/_generated/dataModel";
 import { IconDots, IconEdit, IconTrash } from "@tabler/icons-react";
 import { DocumentDeleteDialog } from "./DocumentDeleteDialog";
+import { DocumentManageAccessDialog } from "./DocumentManageAccessDialog";
 import { DocumentRenameDialog } from "./DocumentRenameDialog";
 
 export function DocumentTableActions({
@@ -16,6 +18,8 @@ export function DocumentTableActions({
 }: {
   document: Doc<"documents"> & { isOwner: boolean; user: Doc<"users"> };
 }) {
+  const { currentOrganization } = useOrganizationContext();
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="rounded-full p-2 hover:bg-gray-300 focus-visible:outline-none">
@@ -51,6 +55,10 @@ export function DocumentTableActions({
             </p>
           </DropdownMenuItem>
         </DocumentDeleteDialog>
+        {(currentOrganization.canInviteOthers ||
+          currentOrganization.name !== "Default") && (
+          <DocumentManageAccessDialog document={document} />
+        )}
       </DropdownMenuContent>
     </DropdownMenu>
   );

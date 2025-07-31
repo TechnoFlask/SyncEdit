@@ -14,9 +14,13 @@ export const addUser = zMutation({
       throw new ConvexError("Operation not authorized");
 
     const userId = await db.insert("users", userData);
-    await db.insert("organizations", {
+    const organizationId = await db.insert("organizations", {
       name: "Default",
       ownerId: userId,
+    });
+    await db.insert("organizationMembers", {
+      organizationId,
+      userId,
     });
   },
 });
