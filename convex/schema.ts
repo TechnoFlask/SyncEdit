@@ -37,6 +37,12 @@ export const organizationMemberSchema = z.object({
   userId: zid("users"),
 });
 
+export const organizationInviteSchema = z.object({
+  organizationId: zid("organizations"),
+  allowedEmails: z.array(z.string()),
+  inviter: zid("users"),
+});
+
 export default defineSchema({
   users: defineTable(zodOutputToConvex(userSchema))
     .index("by_userId", ["userId"])
@@ -55,4 +61,7 @@ export default defineSchema({
   organizationMembers: defineTable(zodOutputToConvex(organizationMemberSchema))
     .index("by_organizationId_userId", ["organizationId", "userId"])
     .index("by_userId", ["userId"]),
+  organizationInvites: defineTable(zodOutputToConvex(organizationInviteSchema))
+    .index("by_organizationId", ["organizationId"])
+    .index("by_inviter", ["inviter"]),
 });
