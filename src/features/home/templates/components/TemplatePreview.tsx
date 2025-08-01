@@ -1,12 +1,12 @@
 "use client";
 
-import { toast } from "@/components/custom/toast";
 import { CarouselItem } from "@/components/ui/carousel";
 import { useOrganizationContext } from "@/features/organization-switcher/context/OrganizationContext";
 import { api } from "@convex/_generated/api";
 import { useConvexAuth, useMutation } from "convex/react";
 import Image from "next/image";
 import { useCallback, useState } from "react";
+import { toast } from "sonner";
 
 export function TemplatePreview({
   src,
@@ -31,7 +31,6 @@ export function TemplatePreview({
           title,
           content: initialContent,
           organizationId:
-            !currentOrganization.canInviteOthers &&
             currentOrganization.name === "Default"
               ? undefined
               : currentOrganization.id,
@@ -69,7 +68,7 @@ export function TemplatePreview({
             width={150}
             className="cursor-pointer group-disabled:cursor-not-allowed"
           />
-          <div className="absolute inset-0 -translate-y-full bg-black/30 opacity-0 transition-all duration-200 group-hover:translate-y-0 group-hover:opacity-100 group-disabled:cursor-not-allowed group-disabled:bg-gray-500/30" />
+          <div className="absolute inset-0 -translate-y-full cursor-pointer bg-black/30 opacity-0 transition-all duration-200 group-hover:translate-y-0 group-hover:opacity-100 group-disabled:cursor-not-allowed group-disabled:bg-gray-500/30" />
         </button>
         <p className="font-semibold">{label}</p>
       </div>

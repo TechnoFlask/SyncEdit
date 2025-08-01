@@ -12,7 +12,12 @@ export function NameInput({ documentTitle }: { documentTitle: string }) {
 
   const spanRef = useRef<HTMLSpanElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-  const [value, setValue] = useState(documentTitle);
+  const [value, setValue] = useState("");
+
+  // To synchronize between convex state and input state
+  useEffect(() => {
+    setValue(documentTitle);
+  }, [documentTitle]);
 
   // To synchronize input state and input length
   useEffect(() => {

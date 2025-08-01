@@ -1,6 +1,5 @@
 "use client";
 
-import { toast } from "@/components/custom/toast";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -12,33 +11,36 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
+import { useOrganizationContext } from "@/features/organization-switcher/context/OrganizationContext";
 import { getUserName } from "@/lib/utils";
 import { api } from "@convex/_generated/api";
-import { Doc, Id } from "@convex/_generated/dataModel";
-import { useConvexAuth, useMutation } from "convex/react";
-import { ReactNode, useCallback, useState } from "react";
+import { Doc } from "@convex/_generated/dataModel";
+import { IconTrash } from "@tabler/icons-react";
+import { useConvexAuth, useMutation, useQuery } from "convex/react";
+import { useCallback, useState } from "react";
+import { toast } from "sonner";
 
 export function DocumentDeleteDialog({
-  children,
-  documentId,
-  documentOwner,
-  isOwner,
+  document,
 }: {
-  children: ReactNode;
-  documentId: Id<"documents">;
-  documentOwner: Doc<"users">;
-  isOwner: boolean;
+  document: Doc<"documents"> & { isOwner: boolean; user: Doc<"users"> };
 }) {
   const { isAuthenticated } = useConvexAuth();
   const deleteDocument = useMutation(api.documents.mutations.deleteDocument);
+  const userQueryResult = useQuery(api.users.queries.getCurrentUser);
   const [isDeleting, setIsDeleting] = useState(false);
+  const { currentOrganization } = useOrganizationContext();
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleDocumentDeletion = useCallback(async () => {
     if (!isAuthenticated) return;
 
     setIsDeleting(true);
     try {
-      const documentDeletionResult = await deleteDocument({ documentId });
+      const documentDeletionResult = await deleteDocument({
+        documentId: document._id,
+      });
       if (!documentDeletionResult.success) {
         toast.error(documentDeletionResult.cause);
         return;
@@ -48,18 +50,39 @@ export function DocumentDeleteDialog({
     } finally {
       setIsDeleting(false);
     }
-  }, [deleteDocument, documentId, isAuthenticated]);
+  }, [deleteDocument, document._id, isAuthenticated]);
 
   return (
-    <AlertDialog>
-      <AlertDialogTrigger asChild>{children}</AlertDialogTrigger>
+    <AlertDialog open={isOpen} onOpenChange={setIsOpen}>
+      <AlertDialogTrigger asChild>
+        <DropdownMenuItem
+          onSelect={(e) => {
+            e.preventDefault();
+            if (
+              userQueryResult &&
+              userQueryResult.success &&
+              !document.isOwner &&
+              currentOrganization.ownerId !== userQueryResult.value._id
+            ) {
+              toast.error("You are not authorized to delete this document");
+              setIsOpen(false);
+            }
+          }}
+          className="hover:!bg-destructive flex size-full gap-2 transition-all duration-200 hover:[&_*]:text-white"
+        >
+          <IconTrash className="size-6 text-black transition-all duration-200" />
+          <p className="text-lg text-black transition-all duration-200">
+            Delete
+          </p>
+        </DropdownMenuItem>
+      </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle className="text-xl">Are you sure?</AlertDialogTitle>
           <AlertDialogDescription className="text-lg">
             This action will delete this document (Owner:&nbsp;
-            {isOwner ? "You" : getUserName(documentOwner)}) permanently. This
-            action can not be undone.
+            {document.isOwner ? "You" : getUserName(document.user)})
+            permanently. This action can not be undone.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>

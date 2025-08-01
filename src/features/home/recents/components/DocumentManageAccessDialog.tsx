@@ -1,4 +1,3 @@
-import { toast } from "@/components/custom/toast";
 import {
   Dialog,
   DialogContent,
@@ -14,6 +13,7 @@ import { Doc } from "@convex/_generated/dataModel";
 import { IconLockCog } from "@tabler/icons-react";
 import { useQuery } from "convex/react";
 import { useState } from "react";
+import { toast } from "sonner";
 import { DocumentAccessTable } from "./DocumentAccessTable";
 
 export function DocumentManageAccessDialog({

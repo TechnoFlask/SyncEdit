@@ -1,7 +1,6 @@
 "use client";
 
 import { Hover } from "@/components/custom/Hover";
-import { toast } from "@/components/custom/toast";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -13,6 +12,7 @@ import { useEditorContext } from "@/features/editor/context/EditorContext";
 import { cn, isValidLink } from "@/lib/utils";
 import { IconLink } from "@tabler/icons-react";
 import { useCallback, useEffect, useState } from "react";
+import { toast } from "sonner";
 
 export function LinkAdditionBody() {
   const { editor } = useEditorContext();

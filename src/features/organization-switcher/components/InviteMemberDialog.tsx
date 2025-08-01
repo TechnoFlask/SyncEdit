@@ -1,4 +1,3 @@
-import { toast } from "@/components/custom/toast";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -13,6 +12,7 @@ import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import { IconUserPlus, IconX } from "@tabler/icons-react";
 import { useCallback, useEffect, useRef, useState, useTransition } from "react";
+import { toast } from "sonner";
 import { generateInviteLink } from "../actions/generateInviteLink";
 import { useOrganizationContext } from "../context/OrganizationContext";
 import { useAllowedEmails } from "../hooks/useAllowedEmails";
@@ -42,7 +42,10 @@ export function InviteMemberDialog() {
     }
 
     setInviteLink(
-      `https://${process.env.VERCEL_URL ?? "localhost:3000"}/api/organization/invite/${linkGenerationResult.value}`,
+      (process.env.VERCEL_URL
+        ? `https://${process.env.VERCEL_URL}`
+        : "http://localhost:3000") +
+        `/api/organization/invite/${linkGenerationResult.value}`,
     );
   }, [currentOrganization, mails]);
 
@@ -135,7 +138,11 @@ export function InviteMemberDialog() {
                 return;
               }
               startTransition(async () => {
+                const toastId = toast.loading("Generating link");
                 await handleGenerateLink();
+                toast.dismiss(toastId);
+
+                toast.success("Generated invited link successfully");
               });
             }}
           >

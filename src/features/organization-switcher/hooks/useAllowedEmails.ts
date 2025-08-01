@@ -1,5 +1,5 @@
-import { toast } from "@/components/custom/toast";
 import { useCallback, useState } from "react";
+import { toast } from "sonner";
 import { z } from "zod";
 
 export function useAllowedEmails() {

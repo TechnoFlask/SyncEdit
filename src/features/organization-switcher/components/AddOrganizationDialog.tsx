@@ -1,4 +1,3 @@
-import { toast } from "@/components/custom/toast";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -16,6 +15,7 @@ import { organizationSchema } from "@convex/schema";
 import { IconBuildingPlus } from "@tabler/icons-react";
 import { useMutation } from "convex/react";
 import { useCallback, useRef, useState } from "react";
+import { toast } from "sonner";
 
 export function AddOrganizationDialog() {
   const [isOpen, setIsOpen] = useState(false);
@@ -31,6 +31,11 @@ export function AddOrganizationDialog() {
       const parseResult = organizationSchema.shape.name.safeParse(name);
       if (!parseResult.success) {
         parseResult.error.errors.forEach((e) => toast.warning(e.message));
+        return;
+      }
+
+      if (parseResult.data.trim().toLowerCase() === "default") {
+        toast.error("Cannot be used as organization name");
         return;
       }
 
@@ -56,7 +61,7 @@ export function AddOrganizationDialog() {
       <DialogTrigger asChild>
         <DropdownMenuItem
           onSelect={(e) => e.preventDefault()}
-          className="gap-2 transition-all duration-200"
+          className="cursor-pointer gap-2 transition-all duration-200"
         >
           <IconBuildingPlus className="size-6 text-black" />
           <p className="text-lg">New organization</p>

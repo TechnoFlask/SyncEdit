@@ -100,7 +100,7 @@ export function DocumentAccessTable({
         onClick={() => {
           toggleSavingState(true);
           startTransition(async () => {
-            const toastId = toast.loading("whatever...");
+            const toastId = toast.loading("Changing access");
             const result = await saveDocumentAccess(
               editPermissionsMap,
               document._id,

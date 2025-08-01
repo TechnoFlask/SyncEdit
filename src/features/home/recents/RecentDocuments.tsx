@@ -18,7 +18,6 @@ export function RecentDocuments() {
     isAuthenticated && searchQuery == null
       ? {
           organizationId:
-            !currentOrganization.canInviteOthers &&
             currentOrganization.name === "Default"
               ? undefined
               : currentOrganization.id,
@@ -33,7 +32,6 @@ export function RecentDocuments() {
       ? {
           search: searchQuery,
           organizationId:
-            !currentOrganization.canInviteOthers &&
             currentOrganization.name === "Default"
               ? undefined
               : currentOrganization.id,

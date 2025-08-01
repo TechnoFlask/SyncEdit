@@ -52,7 +52,7 @@ export function OrganizationsDropdown() {
               })
             }
             key={o._id}
-            className="flex items-center justify-between"
+            className="flex cursor-pointer items-center justify-between"
           >
             <div className="flex items-center gap-2">
               {o.imageUrl ? (

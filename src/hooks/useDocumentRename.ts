@@ -1,9 +1,9 @@
-import { toast } from "@/components/custom/toast";
 import { api } from "@convex/_generated/api";
 import { Id } from "@convex/_generated/dataModel";
 import { documentSchema } from "@convex/schema";
 import { useConvexAuth, useMutation } from "convex/react";
 import { useCallback, useState } from "react";
+import { toast } from "sonner";
 
 export function useDocumentRename() {
   const { isAuthenticated } = useConvexAuth();
