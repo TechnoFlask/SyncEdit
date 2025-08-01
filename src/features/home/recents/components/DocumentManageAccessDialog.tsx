@@ -1,10 +1,8 @@
 import { toast } from "@/components/custom/toast";
 import {
   Dialog,
-  DialogClose,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -24,6 +22,7 @@ export function DocumentManageAccessDialog({
   document: Doc<"documents"> & { isOwner: boolean; user: Doc<"users"> };
 }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
   const { currentOrganization } = useOrganizationContext();
   const userQueryResult = useQuery(api.users.queries.getCurrentUser);
   const permissionQueryResult = useQuery(
@@ -33,6 +32,8 @@ export function DocumentManageAccessDialog({
       documentId: document._id,
     },
   );
+
+  console.log(isSaving);
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
@@ -58,7 +59,14 @@ export function DocumentManageAccessDialog({
           <p className="text-lg text-black">Manage access</p>
         </DropdownMenuItem>
       </DialogTrigger>
-      <DialogContent>
+      <DialogContent
+        onInteractOutside={(e) => {
+          if (isSaving) e.preventDefault();
+        }}
+        onEscapeKeyDown={(e) => {
+          if (isSaving) e.preventDefault();
+        }}
+      >
         <DialogHeader>
           <DialogTitle>Manage document access</DialogTitle>
           <DialogDescription></DialogDescription>
@@ -66,11 +74,11 @@ export function DocumentManageAccessDialog({
         {permissionQueryResult && permissionQueryResult.success && (
           <DocumentAccessTable
             membersWithPermissions={permissionQueryResult.value}
+            document={document}
+            toggleSavingState={setIsSaving}
+            closeParentDialog={setIsOpen.bind(null, false)}
           />
         )}
-        <DialogFooter>
-          <DialogClose></DialogClose>
-        </DialogFooter>
       </DialogContent>
     </Dialog>
   );

@@ -28,7 +28,7 @@ export const documentSchema = z.object({
 
 export const permissionSchema = z.object({
   documentId: zid("documents"),
-  userId: zid("users").optional(),
+  userId: zid("users"),
   accessLevel: z.enum(["read", "edit"]).default("read"),
 });
 

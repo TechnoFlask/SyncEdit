@@ -32,7 +32,16 @@ export default function RootLayout({
             </OrganizationContextProvider>
           </NuqsAdapter>
         </ConvexKindeProvider>
-        <Toaster />
+        <Toaster
+          toastOptions={{
+            classNames: {
+              loading: "!text-lg",
+              content: "!text-lg",
+            },
+          }}
+          richColors
+          closeButton
+        />
       </FontLoadedBody>
     </html>
   );
