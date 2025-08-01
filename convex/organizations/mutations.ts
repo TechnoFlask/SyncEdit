@@ -16,6 +16,9 @@ export const createOrganization = zAuthMutation({
     const userInDb = await getOneFrom(db, "users", "by_userId", user.subject);
     if (userInDb == null) return { success: false, cause: "Invalid user" };
 
+    if (name.trim().toLowerCase() === "default")
+      return { success: false, cause: "Invalid organization name" };
+
     const joinedOrganizations = await getManyFrom(
       db,
       "organizations",

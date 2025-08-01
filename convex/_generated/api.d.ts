@@ -19,6 +19,8 @@ import type * as documents_mutations from "../documents/mutations.js";
 import type * as documents_queries from "../documents/queries.js";
 import type * as organizationInvites_mutations from "../organizationInvites/mutations.js";
 import type * as organizationInvites_queries from "../organizationInvites/queries.js";
+import type * as organizationMembers_helpers from "../organizationMembers/helpers.js";
+import type * as organizationMembers_mutations from "../organizationMembers/mutations.js";
 import type * as organizations_helpers from "../organizations/helpers.js";
 import type * as organizations_mutations from "../organizations/mutations.js";
 import type * as organizations_queries from "../organizations/queries.js";
@@ -43,6 +45,8 @@ declare const fullApi: ApiFromModules<{
   "documents/queries": typeof documents_queries;
   "organizationInvites/mutations": typeof organizationInvites_mutations;
   "organizationInvites/queries": typeof organizationInvites_queries;
+  "organizationMembers/helpers": typeof organizationMembers_helpers;
+  "organizationMembers/mutations": typeof organizationMembers_mutations;
   "organizations/helpers": typeof organizations_helpers;
   "organizations/mutations": typeof organizations_mutations;
   "organizations/queries": typeof organizations_queries;

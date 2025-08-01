@@ -48,5 +48,7 @@ export async function generateInviteLink(
       cause: `Invitation Id creation failed\n${invitationIdMutationResult.cause}`,
     };
 
+  // TODO: Put in redis for expiry
+
   return invitationIdMutationResult;
 }

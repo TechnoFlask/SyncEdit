@@ -38,3 +38,8 @@ export function getUserName(user: Doc<"users">) {
       : "Anonymous")
   );
 }
+
+export function reloadWithToast(key: string, msg: string) {
+  sessionStorage.setItem(key, JSON.stringify({ type: "success", msg }));
+  location.reload();
+}
