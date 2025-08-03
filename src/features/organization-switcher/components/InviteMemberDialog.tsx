@@ -42,8 +42,8 @@ export function InviteMemberDialog() {
     }
 
     setInviteLink(
-      (process.env.VERCEL_URL
-        ? `https://${process.env.VERCEL_URL}`
+      (process.env.PROD_URL
+        ? `https://${process.env.PROD_URL}`
         : "http://localhost:3000") +
         `/api/organization/invite/${linkGenerationResult.value}`,
     );

@@ -19,8 +19,7 @@ export async function saveDocumentAccess(
   newAccesses: Map<Doc<"users">, boolean>,
   documentId: Id<"documents">,
 ): Promise<Result<string, string>> {
-  const { getAccessTokenRaw, getUser, isAuthenticated } =
-    getKindeServerSession();
+  const { getAccessTokenRaw, isAuthenticated } = getKindeServerSession();
 
   const isLoggedIn = await isAuthenticated();
   if (!isLoggedIn) return redirect("/api/auth/login", RedirectType.replace);
