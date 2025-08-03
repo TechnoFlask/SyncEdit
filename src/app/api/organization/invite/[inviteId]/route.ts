@@ -1,3 +1,4 @@
+import { redis } from "@/redis";
 import { api } from "@convex/_generated/api";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { zid } from "convex-helpers/server/zod";
@@ -25,8 +26,18 @@ export async function GET(
 
   if (!parseResult.success)
     return NextResponse.json(
-      { status: "failure", cause: "Invalid invite id" },
+      { status: "failure", cause: "Invalid invite ID" },
       { status: 400 },
+    );
+
+  const cacheResult = await redis.get(`org-invite:${parseResult.data}`);
+  if (!cacheResult)
+    return NextResponse.json(
+      {
+        status: "failure",
+        cause: "Invalid invite ID",
+      },
+      { status: 404 },
     );
 
   const queryResult = await fetchQuery(
@@ -48,10 +59,13 @@ export async function GET(
   const invitation = queryResult.value;
 
   if (!user?.email || !invitation.allowedEmails.includes(user?.email))
-    return NextResponse.json({
-      status: "failure",
-      cause: "You are not authorized for this invitation",
-    });
+    return NextResponse.json(
+      {
+        status: "failure",
+        cause: "You are not authorized for this invitation",
+      },
+      { status: 401 },
+    );
 
   const mutationResult = await fetchMutation(
     api.organizationInvites.mutations.acceptInvitation,

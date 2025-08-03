@@ -1,5 +1,6 @@
 "use server";
 
+import { redis } from "@/redis";
 import { api } from "@convex/_generated/api";
 import { Id } from "@convex/_generated/dataModel";
 import { Result } from "@convex/types";
@@ -48,7 +49,11 @@ export async function generateInviteLink(
       cause: `Invitation Id creation failed\n${invitationIdMutationResult.cause}`,
     };
 
-  // TODO: Put in redis for expiry
+  await redis.setex(
+    `org-invite:${invitationIdMutationResult.value}`,
+    15 * 60,
+    true,
+  );
 
   return invitationIdMutationResult;
 }

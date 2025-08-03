@@ -4,10 +4,10 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [new URL("https://lh3.googleusercontent.com/**")],
   },
-  experimental: {
-    ppr: true,
-    useCache: true,
-  },
+  // experimental: {
+  //   ppr: true,
+  //   useCache: true,
+  // },
   env: {
     KINDE_SITE_URL:
       process.env.KINDE_SITE_URL ?? `https://${process.env.VERCEL_URL}`,
