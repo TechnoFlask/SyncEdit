@@ -1,6 +1,6 @@
-import { toast } from "@/components/custom/toast";
 import { isValidLink } from "@/lib/utils";
 import { useCallback } from "react";
+import { toast } from "sonner";
 import { useEditorContext } from "../context/EditorContext";
 
 export function useImage() {

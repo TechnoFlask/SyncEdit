@@ -1,4 +1,5 @@
 import { DEFINED_PROTOCOLS } from "@/constants";
+import { Doc } from "@convex/_generated/dataModel";
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
@@ -27,4 +28,18 @@ export function isValidLink(link: string) {
   } catch {
     return false;
   }
+}
+
+export function getUserName(user: Doc<"users">) {
+  return (
+    user.userName ??
+    (user.firstName && user.lastName
+      ? `${user.firstName} ${user.lastName}`
+      : "Anonymous")
+  );
+}
+
+export function reloadWithToast(key: string, msg: string) {
+  sessionStorage.setItem(key, JSON.stringify({ type: "success", msg }));
+  location.reload();
 }

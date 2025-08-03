@@ -1,20 +1,26 @@
-import { mutation } from "@convex/_generated/server";
+import { Id } from "@convex/_generated/dataModel";
+import { zAuthMutation } from "@convex/customQueries";
 import { documentSchema } from "@convex/schema";
-import { NoOp } from "convex-helpers/server/customFunctions";
-import { zCustomMutation, zid } from "convex-helpers/server/zod";
+import { Result } from "@convex/types";
+import { getOneFrom } from "convex-helpers/server/relationships";
+import { zid } from "convex-helpers/server/zod";
+import { checkDocOrOrgOwner } from "./helpers";
 
-const zMutation = zCustomMutation(mutation, NoOp);
-
-export const createNewDocument = zMutation({
+export const createNewDocument = zAuthMutation({
   args: {
     title: documentSchema.shape.title.optional(),
-    initialContent: documentSchema.shape.initialContent,
+    content: documentSchema.shape.content,
+    organizationId: documentSchema.shape.organizationId,
   },
-  async handler({ auth, db }, { title, initialContent }) {
-    const userIdentity = await auth.getUserIdentity();
-    if (userIdentity == null) {
-      return { success: false, cause: "User not authenticated" };
-    }
+  async handler(
+    { success, db, ...ctx },
+    { title, content, organizationId },
+  ): Promise<Result<Id<"documents">, string>> {
+    if (!success) return { success, cause: ctx.cause! };
+    const user = ctx.value!;
+
+    const userInDb = await getOneFrom(db, "users", "by_userId", user.subject);
+    if (userInDb == null) return { success: false, cause: "Invalid user" };
 
     return {
       success: true,
@@ -22,29 +28,40 @@ export const createNewDocument = zMutation({
         "documents",
         documentSchema.parse({
           title: title ?? "Untitled document",
-          ownerId: userIdentity.subject,
-          initialContent,
+          ownerId: userInDb._id,
+          organizationId,
+          content,
         }),
       ),
     };
   },
 });
 
-export const deleteDocument = zMutation({
-  args: { documentId: zid("documents") },
-  async handler({ auth, db }, { documentId }) {
-    const userIdentity = await auth.getUserIdentity();
-    if (userIdentity == null)
-      return { success: false, cause: "User not authenticated" };
+export const deleteDocument = zAuthMutation({
+  args: {
+    documentId: zid("documents"),
+  },
+  async handler({ success, db, ...ctx }, { documentId }) {
+    if (!success) return { success, cause: ctx.cause! };
+    const user = ctx.value!;
+
+    const userInDb = await getOneFrom(db, "users", "by_userId", user.subject);
+    if (userInDb == null) return { success: false, cause: "Invalid user" };
 
     const targetDocument = await db.get(documentId);
     if (targetDocument == null)
       return { success: false, cause: "Target document not found" };
 
-    if (targetDocument.ownerId !== userIdentity.subject)
+    const isDocOrOrgOwner = await checkDocOrOrgOwner(
+      db,
+      targetDocument,
+      userInDb,
+    );
+
+    if (!isDocOrOrgOwner)
       return {
         success: false,
-        cause: "Current user is not the owner of the document",
+        cause: "You are not authorized to delete this document",
       };
 
     await db.delete(documentId);
@@ -52,24 +69,32 @@ export const deleteDocument = zMutation({
   },
 });
 
-export const renameDocument = zMutation({
+export const renameDocument = zAuthMutation({
   args: {
     documentId: zid("documents"),
     title: documentSchema.shape.title.optional(),
   },
-  async handler({ auth, db }, { documentId, title }) {
-    const userIdentity = await auth.getUserIdentity();
-    if (userIdentity == null)
-      return { success: false, cause: "User not authenticated" };
+  async handler({ success, db, ...ctx }, { documentId, title }) {
+    if (!success) return { success, cause: ctx.cause! };
+    const user = ctx.value!;
+
+    const userInDb = await getOneFrom(db, "users", "by_userId", user.subject);
+    if (userInDb == null) return { success: false, cause: "Invalid user" };
 
     const targetDocument = await db.get(documentId);
     if (targetDocument == null)
       return { success: false, cause: "Target document not found" };
 
-    if (targetDocument.ownerId !== userIdentity.subject)
+    const docOrOrgOwner = await checkDocOrOrgOwner(
+      db,
+      targetDocument,
+      userInDb,
+    );
+
+    if (!docOrOrgOwner)
       return {
         success: false,
-        cause: "Current user is not the owner of the document",
+        cause: "You are not authorized to rename this document",
       };
 
     if (!title || title.trim() === "" || title === targetDocument.title.trim())

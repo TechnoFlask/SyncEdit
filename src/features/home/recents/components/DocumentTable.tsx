@@ -8,14 +8,15 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { getUserName } from "@/lib/utils";
 import { api } from "@convex/_generated/api";
 import { Doc } from "@convex/_generated/dataModel";
 import {
   IconBrandSamsungpass,
+  IconBuildings,
   IconChevronDown,
   IconFileCheckFilled,
   IconLoader,
-  IconShare,
 } from "@tabler/icons-react";
 import { UsePaginatedQueryReturnType } from "convex/react";
 import { useMemo } from "react";
@@ -25,7 +26,10 @@ export function DocumentTable({
   searchedDocuments,
   paginatedDocuments,
 }: {
-  searchedDocuments: Doc<"documents">[] | null | undefined;
+  searchedDocuments:
+    | (Doc<"documents"> & { isOwner: boolean; user: Doc<"users"> })[]
+    | null
+    | undefined;
   paginatedDocuments: UsePaginatedQueryReturnType<
     typeof api.documents.queries.getAllDocuments
   >;
@@ -84,8 +88,11 @@ export function DocumentTable({
               <div className="flex items-center gap-2">
                 {result.organizationId ? (
                   <>
-                    <IconShare className="size-7" />
+                    <IconBuildings className="size-7" />
                     <p className="text-lg">Shared</p>
+                    <p className="text-lg">
+                      ({result.isOwner ? "You" : getUserName(result.user)})
+                    </p>
                   </>
                 ) : (
                   <>

@@ -1,10 +1,10 @@
 "use client";
 
 import { Hover } from "@/components/custom/Hover";
-import { toast } from "@/components/custom/toast";
 import { useEditorContext } from "@/features/editor/context/EditorContext";
 import { IconCopy, IconExternalLink, IconLinkMinus } from "@tabler/icons-react";
 import { BubbleMenu } from "@tiptap/react";
+import { toast } from "sonner";
 import "tippy.js/animations/scale-extreme.css";
 
 export function LinkBubbleMenu() {

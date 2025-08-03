@@ -23,7 +23,7 @@ import {
   TableHeaderExtended,
 } from "../extensions/TableExtended";
 
-export function useEditorConfig() {
+export function useEditorConfig(editable: boolean, content?: string) {
   const { editor, setEditor } = useEditorContext();
 
   const createdEditor = useEditor({
@@ -98,13 +98,10 @@ export function useEditorConfig() {
       TextAlign.configure({
         types: ["heading", "paragraph"],
       }),
-      // Emoji.configure({
-      //   emojis: gitHubEmojis,
-      //   enableEmoticons: true,
-      // }),
     ],
-    content: "",
+    content,
     immediatelyRender: false,
+    editable,
   });
 
   return editor ?? createdEditor;

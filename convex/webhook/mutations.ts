@@ -16,6 +16,7 @@ export const addUser = zMutation({
     const userId = await db.insert("users", userData);
     const organizationId = await db.insert("organizations", {
       name: "Default",
+      ownerId: userId,
     });
     await db.insert("organizationMembers", {
       organizationId,
