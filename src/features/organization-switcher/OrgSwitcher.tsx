@@ -3,9 +3,9 @@
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Separator } from "@/components/ui/separator";
 import { IconBuildings } from "@tabler/icons-react";
 import { useConvexAuth } from "convex/react";
 import Image from "next/image";
@@ -24,6 +24,7 @@ export function OrgSwitcher() {
   useEffect(() => {
     const sessionToast = sessionStorage.getItem("org-toast");
     if (!sessionToast) return;
+    sessionStorage.removeItem("org-toast");
 
     const toastMsg: {
       type: "success" | "info" | "warning" | "error";
@@ -53,11 +54,10 @@ export function OrgSwitcher() {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="start">
         <OrganizationsDropdown />
-        <DropdownMenuSeparator />
         {currentOrganization.canInviteOthers && (
           <>
+            <Separator />
             <InviteMemberDialog />
-            <DropdownMenuSeparator />
           </>
         )}
         <OrganizationMembers />
@@ -66,7 +66,7 @@ export function OrgSwitcher() {
           currentOrganization.name === "Default"
         ) && (
           <>
-            <DropdownMenuSeparator />
+            <Separator />
             <LeaveOrganizationDialog />
           </>
         )}

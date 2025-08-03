@@ -1,3 +1,5 @@
+import { api } from "@convex/_generated/api";
+import { fetchMutation } from "convex/nextjs";
 import jwt, { JwtHeader, JwtPayload } from "jsonwebtoken";
 import jwksClient from "jwks-rsa";
 import { NextResponse } from "next/server";
@@ -62,25 +64,15 @@ async function handleUserCreatedJWT(userData: unknown) {
 
   const parsedUserData = userDataParseResult.data.user;
 
-  await fetch(`${process.env.NEXT_PUBLIC_CONVEX_URL}/api/mutation`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
+  await fetchMutation(api.webhook.mutations.addUser, {
+    secret: process.env.WEBHOOK_SECRET!,
+    userData: {
+      userId: parsedUserData.id,
+      firstName: parsedUserData.first_name,
+      lastName: parsedUserData.last_name,
+      userName: parsedUserData.username,
+      email: parsedUserData.email,
     },
-    body: JSON.stringify({
-      path: "webhook/mutations:addUser",
-      args: {
-        secret: process.env.WEBHOOK_SECRET,
-        userData: {
-          userId: parsedUserData.id,
-          firstName: parsedUserData.first_name,
-          lastName: parsedUserData.last_name,
-          userName: parsedUserData.username,
-          email: parsedUserData.email,
-        },
-      },
-      format: "json",
-    }),
   });
 }
 

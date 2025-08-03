@@ -12,6 +12,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
+import { Separator } from "@/components/ui/separator";
 import { cn, getUserName } from "@/lib/utils";
 import { api } from "@convex/_generated/api";
 import { IconTrash, IconUser } from "@tabler/icons-react";
@@ -39,6 +40,7 @@ export function OrganizationMembers() {
 
   return (
     <>
+      {organizationMembers.value.length !== 0 && <Separator />}
       {organizationMembers.value.map((om) => (
         <DropdownMenuItem
           onSelect={(e) => e.preventDefault()}

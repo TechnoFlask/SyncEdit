@@ -27,6 +27,7 @@ import type * as organizations_queries from "../organizations/queries.js";
 import type * as permissions_mutations from "../permissions/mutations.js";
 import type * as permissions_queries from "../permissions/queries.js";
 import type * as types from "../types.js";
+import type * as users_mutations from "../users/mutations.js";
 import type * as users_queries from "../users/queries.js";
 import type * as webhook_mutations from "../webhook/mutations.js";
 
@@ -53,6 +54,7 @@ declare const fullApi: ApiFromModules<{
   "permissions/mutations": typeof permissions_mutations;
   "permissions/queries": typeof permissions_queries;
   types: typeof types;
+  "users/mutations": typeof users_mutations;
   "users/queries": typeof users_queries;
   "webhook/mutations": typeof webhook_mutations;
 }>;

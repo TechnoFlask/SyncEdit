@@ -8,6 +8,7 @@ import {
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { IconUser } from "@tabler/icons-react";
 import Image from "next/image";
+import { KindeEditUser } from "./KindeEditUser";
 import { KindeSignIn } from "./KindeSignIn";
 import { KindeSignUp } from "./KindeSignUp";
 
@@ -46,7 +47,8 @@ export async function KindeUserButton() {
         />
       </DropdownMenuTrigger>
       <DropdownMenuContent align="start">
-        <DropdownMenuItem className="hover:!bg-destructive transition-all duration-200 hover:[&_*]:!text-white">
+        <KindeEditUser />
+        <DropdownMenuItem className="hover:!bg-destructive cursor-pointer transition-all duration-200 hover:[&_*]:!text-white">
           <KindeSignOut />
         </DropdownMenuItem>
       </DropdownMenuContent>
