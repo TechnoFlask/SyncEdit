@@ -14,7 +14,6 @@ import {
 import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
 import { reloadWithToast } from "@/lib/utils";
 import { IconDoorExit } from "@tabler/icons-react";
-import { useRouter } from "next/navigation";
 import { useTransition } from "react";
 import { toast } from "sonner";
 import { leaveOrganization } from "../actions/leaveOrganization";
@@ -23,7 +22,6 @@ import { useOrganizationContext } from "../context/OrganizationContext";
 export function LeaveOrganizationDialog() {
   const [isPending, startTransition] = useTransition();
   const { currentOrganization } = useOrganizationContext();
-  const router = useRouter();
 
   return (
     <AlertDialog>
