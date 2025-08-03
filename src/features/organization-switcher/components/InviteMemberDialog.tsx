@@ -42,8 +42,8 @@ export function InviteMemberDialog() {
     }
 
     setInviteLink(
-      (process.env.PROD_URL
-        ? `https://${process.env.PROD_URL}`
+      (process.env.NEXT_PUBLIC_PROD_URL
+        ? `https://${process.env.NEXT_PUBLIC_PROD_URL}`
         : "http://localhost:3000") +
         `/api/organization/invite/${linkGenerationResult.value}`,
     );
