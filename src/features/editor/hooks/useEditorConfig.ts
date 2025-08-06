@@ -1,11 +1,17 @@
 import { useEditorContext } from "@/features/editor/context/EditorContext";
 import { FontSize } from "@/features/editor/extensions/FontSize";
+import "katex/dist/katex.min.css";
+
 import { LineHeight } from "@/features/editor/extensions/LineHeight";
+import { enableKeyboardNavigation, Slash } from "@harshtalks/slash-tiptap";
+import { CodeBlockLowlight } from "@tiptap/extension-code-block-lowlight";
 import { Color } from "@tiptap/extension-color";
 import { FontFamily } from "@tiptap/extension-font-family";
 import { Highlight } from "@tiptap/extension-highlight";
 import { Image } from "@tiptap/extension-image";
 import { Link } from "@tiptap/extension-link";
+import { Mathematics } from "@tiptap/extension-mathematics";
+import { Placeholder } from "@tiptap/extension-placeholder";
 import { Subscript } from "@tiptap/extension-subscript";
 import { Superscript } from "@tiptap/extension-superscript";
 import { Table } from "@tiptap/extension-table";
@@ -18,6 +24,9 @@ import { Underline } from "@tiptap/extension-underline";
 import { useEditor } from "@tiptap/react";
 import { StarterKit } from "@tiptap/starter-kit";
 import { ImageResize } from "tiptap-extension-resize-image";
+import { lowlight } from "../code-highlight";
+import { Kbd } from "../extensions/Kbd";
+import { suggestions } from "../extensions/slash/suggestions";
 import {
   TableCellExtended,
   TableHeaderExtended,
@@ -50,12 +59,16 @@ export function useEditorConfig(editable: boolean, content?: string) {
     },
 
     editorProps: {
+      handleDOMEvents: {
+        keydown: (_, v) => enableKeyboardNavigation(v),
+      },
       attributes: {
         style: "padding-block: 2.5rem; padding-inline: 3rem;",
         class:
           "focus:outline-none bg-white border-2 border-gray-300 rounded-md print:rounded-none print:border-0 min-h-screen max-w-5xl cursor-text",
       },
     },
+    shouldRerenderOnTransaction: true,
     extensions: [
       StarterKit.configure({
         heading: {
@@ -98,6 +111,19 @@ export function useEditorConfig(editable: boolean, content?: string) {
       TextAlign.configure({
         types: ["heading", "paragraph"],
       }),
+      Slash.configure({
+        suggestion: {
+          items: () => suggestions,
+        },
+      }),
+      Placeholder.configure({
+        placeholder: "Press / to see commands",
+      }),
+      CodeBlockLowlight.configure({
+        lowlight,
+      }),
+      Mathematics,
+      Kbd,
     ],
     content,
     immediatelyRender: false,

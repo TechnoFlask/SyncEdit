@@ -4,10 +4,11 @@ import { api } from "@convex/_generated/api";
 import { Id } from "@convex/_generated/dataModel";
 import { useConvexAuth, useQuery } from "convex/react";
 import { usePathname } from "next/navigation";
+import { ReactNode } from "react";
 import { Editor } from "./Editor";
 import { LoadingScreen } from "./components/LoadingScreen";
 
-export function EditorAuthWrapper() {
+export function EditorAuthWrapper({ authButton }: { authButton: ReactNode }) {
   const { isAuthenticated, isLoading } = useConvexAuth();
   const pathname = usePathname();
   const documentId = pathname.split("/").at(-1) as Id<"documents">;
@@ -38,5 +39,5 @@ export function EditorAuthWrapper() {
     ? documentQueryResult.value
     : undefined;
 
-  return <Editor document={document} />;
+  return <Editor document={document} authButton={authButton} />;
 }
