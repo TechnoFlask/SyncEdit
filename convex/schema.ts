@@ -18,7 +18,7 @@ export const organizationSchema = z.object({
 });
 
 export const documentSchema = z.object({
-  title: z.string().min(1),
+  title: z.string().min(1).max(50),
   content: z.string().optional(),
   ownerId: zid("users"),
   organizationId: zid("organizations").optional(),
