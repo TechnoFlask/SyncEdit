@@ -70,6 +70,7 @@ export function DocumentRenameDialog({
           defaultValue={document.title}
           ref={titleInputRef}
           className="not-focus:text-lg placeholder:text-lg focus:text-lg"
+          maxLength={50}
           placeholder="Document title"
           onKeyDown={(e) => {
             if (e.key === "Enter") {
