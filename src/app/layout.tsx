@@ -5,6 +5,9 @@ import type { Metadata } from "next";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
 import { ReactNode } from "react";
 import { FontLoadedBody } from "./FontLoadedBody";
+
+import "@liveblocks/react-tiptap/styles.css";
+import "@liveblocks/react-ui/styles.css";
 import "./globals.css";
 
 export const metadata: Metadata = {

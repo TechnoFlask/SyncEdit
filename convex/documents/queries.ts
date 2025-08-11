@@ -176,22 +176,3 @@ export const getDocumentById = zAuthQuery({
     };
   },
 });
-
-// export const getDocumentTitle = zAuthQuery({
-//   args: { documentId: zid("documents") },
-//   async handler(
-//     { runQuery },
-//     { documentId },
-//   ): Promise<Result<Doc<"documents">["title"], string>> {
-//     const internalQueryResult = await runQuery(
-//       internal.documents.internal.queries.queryDocumentById,
-//       {
-//         documentId,
-//       },
-//     );
-
-//     if (!internalQueryResult.success) return internalQueryResult;
-
-//     return { success: true, value: internalQueryResult.value.title };
-//   },
-// });

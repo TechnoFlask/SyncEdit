@@ -3,15 +3,16 @@
 import { api } from "@convex/_generated/api";
 import { Id } from "@convex/_generated/dataModel";
 import { useConvexAuth, useQuery } from "convex/react";
-import { usePathname } from "next/navigation";
+import { useParams } from "next/navigation";
 import { ReactNode } from "react";
-import { Editor } from "./Editor";
+import { Room } from "../collaboration/Room";
+import { AuthEditor } from "./AuthEditor";
 import { LoadingScreen } from "./components/LoadingScreen";
+import { GuestEditor } from "./GuestEditor";
 
 export function EditorAuthWrapper({ authButton }: { authButton: ReactNode }) {
   const { isAuthenticated, isLoading } = useConvexAuth();
-  const pathname = usePathname();
-  const documentId = pathname.split("/").at(-1) as Id<"documents">;
+  const documentId = useParams().documentId as Id<"documents">;
 
   const documentQueryResult = useQuery(
     api.documents.queries.getDocumentById,
@@ -35,9 +36,15 @@ export function EditorAuthWrapper({ authButton }: { authButton: ReactNode }) {
     throw new Error("You are not authorized to access this document");
   }
 
-  const document = documentQueryResult?.success
-    ? documentQueryResult.value
-    : undefined;
+  if (!documentQueryResult?.success)
+    return <GuestEditor authButton={authButton} />;
 
-  return <Editor document={document} authButton={authButton} />;
+  return (
+    <Room>
+      <AuthEditor
+        document={documentQueryResult.value}
+        authButton={authButton}
+      />
+    </Room>
+  );
 }

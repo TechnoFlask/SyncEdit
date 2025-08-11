@@ -8,7 +8,7 @@ export const userSchema = z.object({
   lastName: z.string().nullable().optional(),
   userName: z.string().nullable().optional(),
   email: z.string().nullable().optional(),
-  image: z.string().nullable().optional(),
+  image: z.string().optional(),
 });
 
 export const organizationSchema = z.object({
