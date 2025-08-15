@@ -5,8 +5,8 @@ import { permissionSchema } from "@convex/schema";
 import { FloatingToolbar } from "@liveblocks/react-tiptap";
 import { EditorContent } from "@tiptap/react";
 import { ReactNode, useEffect } from "react";
-import { toast } from "sonner";
 import { z } from "zod";
+import { Threads } from "../collaboration/Threads";
 import { BaseEditor } from "./BaseEditor";
 import { LinkBubbleMenu } from "./components/LinkBubbleMenu";
 import { SlashProvider } from "./extensions/slash/SlashProvider";
@@ -25,7 +25,7 @@ export function AuthEditor({
   const authEditor = useAuthEditorConfig(document);
 
   useEffect(() => {
-    toast.info(`Your access has been modified to ${document.access}`);
+    // toast.info(`Your access has been modified to ${document.access}`);
     authEditor?.setEditable(document.access === "edit");
   }, [authEditor, document.access]);
 
@@ -40,6 +40,7 @@ export function AuthEditor({
               className="mx-auto min-h-screen w-5xl min-w-max overflow-x-auto px-8 print:w-full print:min-w-0 print:overflow-visible"
               editor={authEditor}
             />
+            <Threads editor={authEditor} />
             <FloatingToolbar editor={authEditor} />
           </SlashProvider>
         </>

@@ -17,7 +17,8 @@ type NoArgOptions =
   | "bulletedList"
   | "numberedList"
   | "checkList"
-  | "removeFormatting";
+  | "removeFormatting"
+  | "comment";
 
 type EditorOptionArgMap = {
   [K in NoArgOptions]: [];
@@ -94,6 +95,7 @@ export default function EditorContextProvider({
           .updateAttributes("tableCell", { backgroundColor })
           .updateAttributes("tableHeader", { backgroundColor })
           .run(),
+      comment: () => editor?.chain().focus().addPendingComment().run(),
     }),
     [editor],
   );
@@ -121,6 +123,7 @@ export default function EditorContextProvider({
           editor?.getAttributes("paragraph").lineHeight ??
           "1.15"),
       table: () => editor?.isActive("table") ?? false,
+      comment: () => editor?.isActive("liveblocksCommentMark") ?? false,
     }),
     [editor],
   );

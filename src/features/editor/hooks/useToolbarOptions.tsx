@@ -8,6 +8,7 @@ import {
   IconList,
   IconListCheck,
   IconListNumbers,
+  IconMessage,
   IconUnderline,
 } from "@tabler/icons-react";
 
@@ -56,6 +57,12 @@ export function useToolbarOptions() {
       },
     ],
     [
+      {
+        label: "Comment",
+        icon: <IconMessage />,
+        action: editorOptionsActions.comment,
+        isActive: editorOptionsActive.comment(),
+      },
       {
         label: "Bulleted List",
         icon: <IconList />,
