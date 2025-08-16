@@ -53,7 +53,7 @@ export const getUserOrganizations = zAuthQuery({
   },
 });
 
-export const getCurrentOrganizationMembers = zAuthQuery({
+export const getCurrentOrganizationMembersExceptSelf = zAuthQuery({
   args: { organizationId: zid("organizations") },
   async handler(
     { success, db, ...ctx },
@@ -86,6 +86,40 @@ export const getCurrentOrganizationMembers = zAuthQuery({
     return {
       success: true,
       value: currentOrganizationOtherMemberNames,
+    };
+  },
+});
+
+export const getCurrentOrganizationMembers = zAuthQuery({
+  args: { organizationId: zid("organizations") },
+  async handler(
+    { success, db, ...ctx },
+    { organizationId },
+  ): Promise<Result<Doc<"users">[], string>> {
+    if (!success) return { success, cause: ctx.cause! };
+    const user = ctx.value!;
+
+    const userInDb = await getOneFrom(db, "users", "by_userId", user.subject);
+    if (userInDb == null) return { success: false, cause: "Invalid user" };
+
+    const currentOrganizationMembers = await getManyFrom(
+      db,
+      "organizationMembers",
+      "by_organizationId_userId",
+      organizationId,
+      "organizationId",
+    );
+
+    const currentOrganizationMemberNames = (
+      await getAll(
+        db,
+        currentOrganizationMembers.map((o) => o.userId),
+      )
+    ).filter((o) => o != null);
+
+    return {
+      success: true,
+      value: currentOrganizationMemberNames,
     };
   },
 });

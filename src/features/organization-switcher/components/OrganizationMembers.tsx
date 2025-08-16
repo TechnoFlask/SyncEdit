@@ -26,7 +26,7 @@ import { useOrganizationContext } from "../context/OrganizationContext";
 export function OrganizationMembers() {
   const { currentOrganization } = useOrganizationContext();
   const organizationMembers = useQuery(
-    api.organizations.queries.getCurrentOrganizationMembers,
+    api.organizations.queries.getCurrentOrganizationMembersExceptSelf,
     currentOrganization.id
       ? {
           organizationId: currentOrganization.id,

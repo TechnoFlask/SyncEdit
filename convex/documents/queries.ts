@@ -1,4 +1,5 @@
-import { Doc } from "@convex/_generated/dataModel";
+import { safePromise } from "@/lib/helpers";
+import { Doc, Id } from "@convex/_generated/dataModel";
 import { zAuthQuery } from "@convex/customQueries";
 import { documentSchema, permissionSchema } from "@convex/schema";
 import { type Result } from "@convex/types";
@@ -174,5 +175,24 @@ export const getDocumentById = zAuthQuery({
       success: true,
       value: { ...targetDocument, access: documentAccessLevel },
     };
+  },
+});
+
+export const getDocumentOrganizationId = zAuthQuery({
+  args: { documentId: zid("documents") },
+  async handler(
+    { success, db, ...ctx },
+    { documentId },
+  ): Promise<Result<Id<"organizations"> | undefined, string>> {
+    if (!success) return { success, cause: ctx.cause! };
+
+    const [targetDocument, queryError] = await safePromise(
+      getOneFrom(db, "documents", "by_id", documentId, "_id"),
+    );
+
+    if (queryError) return { success: false, cause: queryError.message };
+
+    if (!targetDocument) return { success: false, cause: "Invalid document" };
+    return { success: true, value: targetDocument.organizationId };
   },
 });
